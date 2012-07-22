@@ -2,8 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Szymon Witamborski</title>
+    <title>S/W</title>
     <link rel="stylesheet" href="main.css" type="text/css" />
+    <link rel="stylesheet" href="content.css" type="text/css" />
   </head>
   <body class="dark">
     <script type="text/javascript">
@@ -24,13 +25,19 @@
 
       <div style="left: 96px; top: 0; width: 32px; height: 32px;"></div>
     </a>
-    Lorem ipsum
-    <a href="http://news.ycombinator.com">Hacker News</a> dolor met
-    <a href="/usr/zxv">Nienawiedzony</a> adsf zxvqwer.<br />
-    <div id="change-theme">Odwróć kolory</div>
+    <a id="change-theme" href="">
+      <div></div>
+    </a>
+
+    <article id="content">
+      <h1>ASDF zxcv qwer</h1>
+
+      <p>Lowerm  wafwe fwaefe fwefawe fwfe efawef awefawefwea</p>
+    </article>
 
     <script type="text/javascript">
-      document.getElementById('change-theme').onclick = function () {
+      document.getElementById('change-theme').onclick = function (event) {
+        event.preventDefault();
         var theme = document.body.className === 'dark' ? 'light' : 'dark';
         document.body.className = theme;
         localStorage && localStorage.setItem('theme', theme);
