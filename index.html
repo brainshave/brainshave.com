@@ -8,8 +8,11 @@
   <body class="dark">
     <script type="text/javascript">
       (function () {
-      var config = document.cookie && JSON.parse(document.cookie) || {};
-      document.body.className = config.theme || 'dark';
+        var theme = localStorage && localStorage.getItem('theme') || 'dark';
+        document.body.className = 'no-anim ' + theme;
+        setTimeout(function () {
+          document.body.className = theme;
+        }, 10);
       })();
     </script>
     <a id="logo" href="/">
@@ -23,15 +26,14 @@
     </a>
     Lorem ipsum
     <a href="http://news.ycombinator.com">Hacker News</a> dolor met
-    <a href="/usr">Nienawiedzony</a> adsf zxvqwer.<br />
+    <a href="/usr/zxv">Nienawiedzony</a> adsf zxvqwer.<br />
     <div id="change-theme">Odwróć kolory</div>
 
     <script type="text/javascript">
       document.getElementById('change-theme').onclick = function () {
-      var config = document.cookie && JSON.parse(document.cookie) || {};
-      config.theme = document.body.className === 'dark' ? 'light' : 'dark';
-      document.body.className = config.theme;
-      document.cookie = JSON.stringify(config);
+        var theme = document.body.className === 'dark' ? 'light' : 'dark';
+        document.body.className = theme;
+        localStorage && localStorage.setItem('theme', theme);
       };
     </script>
   </body>
