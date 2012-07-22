@@ -1,0 +1,100 @@
+@import 'nib'
+
+// geomtery
+
+body
+  transition color 0.5s, background-color 2s
+  max-width  960px
+  margin     8px auto
+
+
+// logo
+
+a#logo
+  display block
+  position relative
+  width 128px
+  height 32px
+
+
+a#logo > div
+  width 16px
+  height 16px
+  position absolute
+
+
+// transitions
+
+a
+  transition color 0.5s, text-shadow 2s
+
+
+a#logo > div
+  transition box-shadow 0.5s, background-color 1s, border-radius 0.3s
+
+// themes
+
+theme(front, back, link, visited, hover, shadow)
+  color front
+  background back
+
+  a
+    color link
+  a:visited
+    color visited
+  a:hover, a:active
+    color hover
+    text-shadow 0 0 1em shadow
+
+  a#logo > div
+    background front
+
+  a#logo > div:hover
+    box-shadow 0 0 2em shadow
+    background-color hover
+    border-radius 50%
+
+dark_back  = #333338
+dark_front = #fffff5
+dark_link  = #cdd
+dark_visited = #ddc
+dark_hover = #0ff
+dark_shadow = #fff
+
+
+
+body.dark
+  theme(#fffff5, #333338, #cdd, #ddc, #0ff, #fff)
+
+body.light
+  theme(#000, #fff, #588, #443, #0cc, #0ff)
+
+
+/* /\* dark theme *\/ */
+
+/* body.dark  */
+/*   background #333338 */
+/*   color      #fffff5 */
+/*  */
+
+/* body.dark a#logo > div  */
+/*   background #fffff5 */
+/*  */
+
+/* body.dark a          color #cdd  */
+/* body.dark avisited  color #ddc  */
+/* body.dark ahover, */
+/* body.dark aactive   color #0ff text-shadow 0 0 1em #fff  */
+
+/* body.dark a#logo > divhover  */
+/*   box-shadow 0 0 2em #fff */
+/*   background-color #ccb */
+/*   border-radius 50% */
+/*  */
+
+/* /\* ligth theme *\/ */
+
+/* body.light  */
+/*   color #000 */
+/*   background-color #fff */
+/*  */

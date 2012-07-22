@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Szymon Witamborski</title>
+    <link rel="stylesheet" href="main.css" type="text/css" />
+  </head>
+  <body class="dark">
+    <script type="text/javascript">
+      (function () {
+      var config = document.cookie && JSON.parse(document.cookie) || {};
+      document.body.className = config.theme || 'dark';
+      })();
+    </script>
+    <a id="logo" href="/">
+      <div></div>
+      <div style="left: 16px; top: 16px"></div>
+
+      <div style="left: 48px; top: 16px"></div>
+      <div style="left: 64px; top: 0"></div>
+
+      <div style="left: 96px; top: 0; width: 32px; height: 32px;"></div>
+    </a>
+    Lorem ipsum
+    <a href="http://news.ycombinator.com">Hacker News</a> dolor met
+    <a href="/usr">Nienawiedzony</a> adsf zxvqwer.<br />
+    <div id="change-theme">Odwróć kolory</div>
+
+    <script type="text/javascript">
+      document.getElementById('change-theme').onclick = function () {
+      var config = document.cookie && JSON.parse(document.cookie) || {};
+      config.theme = document.body.className === 'dark' ? 'light' : 'dark';
+      document.body.className = config.theme;
+      document.cookie = JSON.stringify(config);
+      };
+    </script>
+  </body>
+</html>
