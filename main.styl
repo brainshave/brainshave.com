@@ -1,91 +1,95 @@
 @import 'nib'
 
-// geometery
+// geometry
+
+html
+  overflow-y scroll
 
 body
-	transition color 0.5s, background-color 2s
-	max-width  960px
-	margin     8px auto
+  transition color 0.5s, background-color 2s
+  max-width  960px
+  margin     8px auto
+  padding    0 10px
 
 body.no-anim, body.no-anim > *
-	transition none
+  transition none
 
 a:focus
-	outline 0 // disable ugly firefox dotted outlines
+  outline 0 // disable ugly firefox dotted outlines
 
 // transitions
 
-std_transforms = border-radius 0.3s, width 0.3s, color 0.5s, background-color 0.5s, border-color 1s, box-shadow 1.5s
+std_transforms = border-radius 0.3s, width 0.3s, height 0.3s, color 0.5s, background-color 0.5s, border-color 1s, box-shadow 1.5s
 
 a,
 a#logo > div
-	transition std_transforms
+  transition std_transforms
 
 a#change-theme,
 a#change-theme > div
-	transition transform 0.5s, std_transforms
-	// workaround because nib doesn't change transform to -prefix-transform
-	-webkit-transition -webkit-transform 0.5s, std_transforms
-	-moz-transition -moz-transform 0.5s, std_transforms
-	-ms-transition -ms-transform 0.5s, std_transforms
-	-o-transition -o-transform 0.5s, std_transforms
+  transition transform 0.5s, std_transforms
+  // workaround because nib doesn't change transform to -prefix-transform
+  -webkit-transition -webkit-transform 0.5s, std_transforms
+  -moz-transition -moz-transform 0.5s, std_transforms
+  -ms-transition -ms-transform 0.5s, std_transforms
+  -o-transition -o-transform 0.5s, std_transforms
 
 // theme switcher
 
 a#change-theme
-	display block
-	overflow hidden
-	float right
-	width 30px
-	height 30px
-	> div
-		width 0
-		height 0
+  display block
+  overflow hidden
+  float right
+  width 30px
+  height 30px
+  > div
+    width 0
+    height 0
 
 // themes
 
 theme(front, back, link, visited, hover, shadow)
-	color front
-	background back
+  color front
+  background back
 
-	a
-		color link
-	a:visited
-		color visited
-	a:hover, a:active
-		color hover
-		text-shadow 0 0 1em shadow
+  a
+    color link
+  a:visited
+    color visited
+  a:hover, a:active
+    color hover
+    text-shadow 0 0 1em shadow
 
-	a#logo > div
-		background front
+  a#logo > div
+    background front
 
-	a#change-theme
-		border 1px solid front
-		if dark(back)
-			transform rotate(180deg)
+  a#logo:hover > div
+    if dark(back)
+      box-shadow 0 0 30px hover
+    background hover
 
-	a#change-theme > div
-		border-top 15px solid front
-		border-left 15px solid front
-		border-right 15px solid transparent
-		border-bottom 15px solid transparent
+  a#change-theme
+    border 1px solid front
+    if dark(back)
+      transform rotate(180deg)
 
-	a#logo:hover > div
-		box-shadow 0 0 2em shadow
-		background hover
-		//border-radius 50%
+  a#change-theme > div
+    border-top 15px solid front
+    border-left 15px solid front
+    border-right 15px solid transparent
+    border-bottom 15px solid transparent
 
-	a#change-theme:hover
-		box-shadow 0 0 2em shadow
-		border-radius 50%
-		border-color hover
-		> div
-			border-radius 15px
-			border-top-color hover
-			border-left-color hover
+  a#change-theme:hover
+    box-shadow 0 0 2em shadow
+    border-radius 50%
+    border-color hover
+    > div
+      border-radius 15px
+      border-top-color hover
+      border-left-color hover
 
 body.dark
-	theme(#fffff5, #333338, #cdd, #ddc, #0ff, #fff)
+  theme(#fffff5, #333338, #cdd, #ddc, #0ff, #fff)
 
 body.light
-	theme(#000, #fff, #588, #443, #0cc, #0ff)
+  theme(#000, #fff, #588, #443, #0cc, #0ff)

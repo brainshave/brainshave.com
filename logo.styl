@@ -1,6 +1,7 @@
 @import 'nib'
 
 a#logo
+	font-size 0
 	float left
 	display block
 	position relative
@@ -44,9 +45,6 @@ a#logo
 		left 16px * 7
 
 a#logo:hover
-	> div
-		box-shadow 0 0 1em #000
-
 	> div.block
 		height 20px
 	> div.tail
@@ -82,38 +80,3 @@ a#logo:hover
 		border-radius 0 0 8px 0
 	> div.w.mid.right
 		border-radius 0 0 0 8px
-
-//	> div.block
-//		width 16px
-//		height 16px
-//	> div.tail
-//		width 0px
-//		height 8px
-//	> div.up
-//		top 0
-//	> div.down
-//		bottom 0
-
-//	> div.s.block.right
-//		left 16px
-//	> div.s.tail.left
-//		left 16px
-//	> div.s.tail.right
-//		right @width - 16px
-
-//	> div.z.block.left
-//		left 48px
-//	> div.z.block.right
-//		left 64px
-
-// a#logo2:hover
-//	> div
-//		box-shadow 0 0 1em #000
-//	> div.block
-//		height 20px
-//	> div.tail
-//		width 16px
-//	> div.s.block.right
-//		border-radius 0 10px 10px 0
-//	> div.s.block.left
-//		border-radius 10px 0 0 10px
