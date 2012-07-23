@@ -15,11 +15,9 @@ a:focus
 
 // transitions
 
-a
-	transition color 0.5s, text-shadow 2s
+std_transforms = border-radius 0.3s, width 0.3s, color 0.5s, background-color 0.5s, border-color 1s, box-shadow 1.5s
 
-std_transforms = border-radius 0.3s, box-shadow 0.5s, background-color 1s, border-color 1s
-
+a,
 a#logo > div
 	transition std_transforms
 
@@ -31,21 +29,6 @@ a#change-theme > div
 	-moz-transition -moz-transform 0.5s, std_transforms
 	-ms-transition -ms-transform 0.5s, std_transforms
 	-o-transition -o-transform 0.5s, std_transforms
-
-// logo
-
-a#logo
-	font-size 0
-	display block
-	position relative
-	float left
-	width 128px
-	height 32px
-
-a#logo > div
-	width 16px
-	height 16px
-	position absolute
 
 // theme switcher
 
@@ -86,12 +69,11 @@ theme(front, back, link, visited, hover, shadow)
 		border-left 15px solid front
 		border-right 15px solid transparent
 		border-bottom 15px solid transparent
-		//transform scale(2,2) rotate(dark(back) && 45deg || -135deg) translate(50%)
 
-	a#logo > div:hover
+	a#logo:hover > div
 		box-shadow 0 0 2em shadow
 		background hover
-		border-radius 50%
+		//border-radius 50%
 
 	a#change-theme:hover
 		box-shadow 0 0 2em shadow
