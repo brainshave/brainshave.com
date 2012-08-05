@@ -1,5 +1,12 @@
 @import 'nib'
 
+mix(color_a, color_b, amount_a)
+  amount_b = 1 - amount_a
+  rgba(amount_a * red(color_a) + amount_b * red(color_b),
+       amount_a * green(color_a) + amount_b * green(color_b),
+       amount_a * blue(color_a) + amount_b * blue(color_b),
+       amount_a * alpha(color_a) + amount_b * alpha(color_b))
+
 // geometry
 
 html
@@ -7,9 +14,6 @@ html
 
 body
   transition color 0.5s, background-color 2s
-  max-width  960px
-  margin     8px auto
-  padding    0 10px
 
 body.no-anim, body.no-anim > *
   transition none
@@ -19,7 +23,7 @@ a:focus
 
 // transitions
 
-std_transforms = border-radius 0.3s, width 0.3s, height 0.3s, color 0.5s, background-color 0.5s, border-color 1s, box-shadow 1.5s
+std_transforms = border-radius 0.3s, width 0.3s, height 0.3s, color 0.5s, background-color 0.5s, border-color 1s, box-shadow 1.5s, text-shadow 1.5s
 
 a,
 a#logo > div
@@ -48,17 +52,24 @@ a#change-theme
 
 // themes
 
-theme(front, back, link, visited, hover, shadow)
+theme(front, back, anchor, hover, shadow)
+  transparent_back = rgba(red(back), green(back), blue(back), 0)
   color front
   background back
 
-  a
-    color link
-  a:visited
-    color visited
+  a, a:visited
+    color anchor
   a:hover, a:active
     color hover
     text-shadow 0 0 1em shadow
+
+  .small
+    color mix(front, back, 0.5)
+    a
+      color mix(anchor, back, 0.6)
+    a:hover, a:active
+      color mix(hover, back, 0.7)
+      text-shadow none
 
   a#logo > div
     background front
@@ -76,8 +87,8 @@ theme(front, back, link, visited, hover, shadow)
   a#change-theme > div
     border-top 15px solid front
     border-left 15px solid front
-    border-right 15px solid transparent
-    border-bottom 15px solid transparent
+    border-right 15px solid transparent_back
+    border-bottom 15px solid transparent_back
 
   a#change-theme:hover
     box-shadow 0 0 2em shadow
@@ -89,7 +100,7 @@ theme(front, back, link, visited, hover, shadow)
       border-left-color hover
 
 body.dark
-  theme(#fffff5, #333338, #cdd, #ddc, #0ff, #fff)
+  theme(#fffff5, #333338, #9ee, #0ff, #fff)
 
 body.light
-  theme(#000, #fff, #588, #443, #0cc, #0ff)
+  theme(#000, #fff, #088, #0cc, #0ff)
