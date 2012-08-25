@@ -73,8 +73,9 @@ body > section
 // content
 
 div#content
+  clear both
   margin 0 -8px
-  > section
+  > div.row > section
     padding 0 8px
     > ul, > ul > li
       list-style none
@@ -83,18 +84,13 @@ div#content
     > dl > dd
       margin 0 0 16px 0
       font-size 0.8em
-      // font-weight 400
 
-  @media (min-width: 700px) and (max-width: 959px)
-    > section
-      display block
-      width 45%
-      float left
-    > section:nth-child(odd)
-      clear left
+  @media (min-width: 700px)
+    > div.row > section
+      display table-cell
+      width 50%
 
   @media (min-width: 960px)
-    > section
+    > div.row
       display table-cell
-      width 25%
-
+      width 50%

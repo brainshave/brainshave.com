@@ -7,6 +7,9 @@ mix(color_a, color_b, amount_a)
        amount_a * blue(color_a) + amount_b * blue(color_b),
        amount_a * alpha(color_a) + amount_b * alpha(color_b))
 
+transp(color)
+  rgba(red(color), green(color), blue(color), 0)
+
 // geometry
 
 html
@@ -23,37 +26,19 @@ a:focus
 
 // transitions
 
-std_transforms = border-radius 0.3s, width 0.3s, height 0.3s, color 0.5s, background-color 0.5s, border-color 1s, box-shadow 1.5s, text-shadow 1.5s
+std_transforms = border-radius 0.3s, width 0.3s, height 0.3s,
+                 color 0.5s, background-position 0.5s,
+                 background-color 1s, border-color 1s,
+                 box-shadow 1.5s, text-shadow 1.5s
 
 a,
-a#logo > div
-  transition std_transforms
-
-a#change-theme,
-a#change-theme > div
-  transition transform 0.5s, std_transforms
-  // workaround because nib doesn't change transform to -prefix-transform
-  -webkit-transition -webkit-transform 0.5s, std_transforms
-  -moz-transition -moz-transform 0.5s, std_transforms
-  -ms-transition -ms-transform 0.5s, std_transforms
-  -o-transition -o-transform 0.5s, std_transforms
-
-// theme switcher
-
+a#logo > div,
 a#change-theme
-  display block
-  overflow hidden
-  float right
-  width 30px
-  height 30px
-  > div
-    width 0
-    height 0
+  transition std_transforms
 
 // themes
 
 theme(front, back, anchor, hover, shadow)
-  transparent_back = rgba(red(back), green(back), blue(back), 0)
   color front
   background back
 
@@ -74,33 +59,42 @@ theme(front, back, anchor, hover, shadow)
   a#logo > div
     background front
 
-  a#logo:hover > div
-    if dark(back)
-      box-shadow 0 0 30px hover
+  a#logo:hover > div,
+  a#logo:active > div
     background hover
 
   a#change-theme
     border 1px solid front
+    background-color front
     if dark(back)
-      transform rotate(180deg)
+      background-position -30px -30px
 
-  a#change-theme > div
-    border-top 15px solid front
-    border-left 15px solid front
-    border-right 15px solid transparent_back
-    border-bottom 15px solid transparent_back
-
-  a#change-theme:hover
-    box-shadow 0 0 2em shadow
-    border-radius 50%
+  a#change-theme:hover,
+  a#change-theme:active
+    border-radius 10px
     border-color hover
-    > div
-      border-radius 15px
-      border-top-color hover
-      border-left-color hover
+    background-color hover
+
+dark_back = #333338
+light_back = #fff
 
 body.dark
-  theme(#fffff5, #333338, #9ee, #0ff, #fff)
+  theme(#fffff5, dark_back, #9ee, #0ff, #fff)
 
 body.light
-  theme(#000, #fff, #088, #0cc, #0ff)
+  theme(#000, light_back, #088, #0cc, #0ff)
+
+// theme switcher
+
+a#change-theme
+  display block
+  overflow hidden
+  float right
+  width 30px
+  height 30px
+
+  background linear-gradient(top left,
+                             light_back 0%, light_back 24%,
+                             transp(light_back) 26%, transp(dark_back) 74%,
+                             dark_back 76%, dark_back 100%)
+  background-size 60px 60px
