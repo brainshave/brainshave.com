@@ -1,5 +1,7 @@
 # I'm a Hipster And That's OK
 
+Written on 2012-08-26
+
 It's funny that when somebody is spotted with an old film camera, he's called a hipster. I come from a different angle actually than your average hipster.
 
 I am old enough to be first acquainted with film cameras. I am fortunate enough to have a father that has a shelf full of some very old, some quite contemporary hardware. I am unlucky enough of not having a PC capable of editing high-res images until 2007.
@@ -10,13 +12,13 @@ I actually did some digital photography commercially, around 2007-2008. I was a 
 
 When I finally decided to start again, I bought the camera I always wanted and it was obviously one that you put film in: the Pentax MX. Doing digital actually never occurred to me as an option.
 
-It's solid, small, cute camera, with well-thought user interface and some other thingies that earned it a semi-professional badge in 1970's. But one main feature of it is lack of any features non-essential to photography. It manages to hold a lens, advance the film, start the shutter and measure ambient light. And only for the latter thing some electrical power is required. I think it's a functionality that can be considered orthogonal to recording image since you can get that info from other source.
+It's a solid, small, cute camera with well-thought user interface and some other thingies that earned it a semi-professional badge in 1970's. But one main feature of it is lack of any features non-essential to photography. It manages to hold a lens, advance the film, start the shutter and measure ambient light. And only for the latter thing some electrical power is required. I think it's a functionality that can be considered orthogonal to recording image since you can get that info from other source.
 
 One thing that's keeping me skeptical about digital cameras is that they're still early in their evolution. Once you buy a digital camera, it's already old because somewhere in Nikon's or Canon's labs there _is_ a prototype that will make it obsolete on a precisely picked schedule. Almost everything is continuously changing: from sensor technology and sizes to memory card formats. Things are getting obviously better but to leverage those advantages you need to buy a new camera. It's not clear when to start investing in one or another system because they're not stable (like ongoing transformation from miniature to "full-frame" sensors).
 
-Film cameras had a really long run starting back in XIX century and advancing  well through out the XX century. What's really remarkable is that some technology actually changed very little, for example lenses: some of the designs made in 1930's (like Zeiss Planar T* from 1935, which itself is a version of 1896 construction) are still sold in new packages. Also now ubiquitous 135 film cassette format comes from 1934. The 120 film packaging, still in use in medium-format cameras, is from 1901. What it means is you can get a 100 years old camera and start shooting!
+Film cameras had a really long run starting back in XIX century and advancing well through out the XX century. What's really remarkable is that some technology actually changed very little, for example lenses: some of the designs made in 1930's (like Zeiss Planar T* from 1935, which itself is a version of 1896 construction) are still sold in new packages. Also now ubiquitous 135 film cassette format comes from 1934. The 120 film packaging, still in use in medium-format cameras, is from 1901. What it means is you can get a 100 years old camera and start shooting!
 
-In my very personal opinion---for the essential stuff---hardware got perfect around 1970's (when most of the significant designs came out like Olympus OM and Canon A1). After that it was all about interface, programs (WTF) and auto-focus.
+In my very personal opinion--for the essential stuff---hardware got perfect around 1970's (when most of the significant designs came out like Olympus OM and Canon A1). After that it was all about interface, programs (WTF) and auto-focus.
 
 What was still in development even in 1990's is the chemical technology behind film and processing and reproducing it for print. But that's no biggy, you could buy camera in 70's and still leverage from this advances, you'd just buy a new roll of film. Try doing that with digital camera! (Actually, in very expensive, medium-format cameras it's possible to change sensors, but it's the kind of new-car-expensive and they're quite bulky and fragile at the same time).
 

@@ -1,0 +1,53 @@
+extends basic
+
+append title
+  | S/W
+
+append content
+  div.row
+    section
+      h1 Hi!
+
+      :markdown
+        I'm **Szymon Witamborski**. My dream job is creating fake operating systems for movies but for the time being I do some web stuff.
+
+        You can reach me under <szywon@live.com> or here otherwise:
+
+      ul
+        li: a.icon.github(href='https://github.com/szywon') github
+        li: a.icon.twitter-bird(href='https://twitter.com/szywon') twitter
+
+      p.small &copy; 2012 Szymon Witamborski,
+        a(href='copywrong.html')  with a little help
+        |.
+
+    section
+      h1 Stuff
+
+      dl
+        dt: a(href='https://github.com/szywon/pharemine') pharemine
+        dd phantom.js test runner for jasmine
+
+        dt: a(href='https://github.com/szywon/makeblog') makeblog
+        dd fast static site generator based on node.js and makefile
+
+        dt: a(href='https://github.com/szywon/sroo') sroo
+        dd dead-simple html/js presentations
+
+        dt: a(href='https://github.com/szywon/superbigle') superbigle
+        dd examples from OpenGL SuperBible translated to WebGL
+
+  div.row
+    section
+      h1 Blog
+
+      dl
+        dt: a(href='blog/asdfas.html') Short title
+        dd September 25th, 2012
+
+        dt: a(href='blog/asfwaefwa') Long, long, very long title, have
+          | I mentioned that this is a long title?
+        dd A long time ago
+
+    section
+      h1 Buzz
