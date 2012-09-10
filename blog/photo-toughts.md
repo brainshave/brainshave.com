@@ -1,6 +1,6 @@
 # I'm a Hipster And That's OK
 
-Written on 2012-08-26
+Written on 2012-08-26.
 
 It's funny that when somebody is spotted with an old film camera, he's called a hipster. I come from a different angle actually than your average hipster.
 
