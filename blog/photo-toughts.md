@@ -1,8 +1,6 @@
-# I'm a Hipster And That's OK
+# Photo Toughts
 
 Written on 2012-08-26.
-
-It's funny that when somebody is spotted with an old film camera, he's called a hipster. I come from a different angle actually than your average hipster.
 
 I am old enough to be first acquainted with film cameras. I am fortunate enough to have a father that has a shelf full of some very old, some quite contemporary hardware. I am unlucky enough of not having a PC capable of editing high-res images until 2007.
 
@@ -18,7 +16,7 @@ One thing that's keeping me skeptical about digital cameras is that they're stil
 
 Film cameras had a really long run starting back in XIX century and advancing well through out the XX century. What's really remarkable is that some technology actually changed very little, for example lenses: some of the designs made in 1930's (like Zeiss Planar T* from 1935, which itself is a version of 1896 construction) are still sold in new packages. Also now ubiquitous 135 film cassette format comes from 1934. The 120 film packaging, still in use in medium-format cameras, is from 1901. What it means is you can get a 100 years old camera and start shooting!
 
-In my very personal opinion--for the essential stuff---hardware got perfect around 1970's (when most of the significant designs came out like Olympus OM and Canon A1). After that it was all about interface, programs (WTF) and auto-focus.
+In my very personal opinion---for the essential stuff---hardware got perfect around 1970's (when most of the significant designs came out like Olympus OM and Canon A1). After that it was all about interface, programs (WTF) and auto-focus.
 
 What was still in development even in 1990's is the chemical technology behind film and processing and reproducing it for print. But that's no biggy, you could buy camera in 70's and still leverage from this advances, you'd just buy a new roll of film. Try doing that with digital camera! (Actually, in very expensive, medium-format cameras it's possible to change sensors, but it's the kind of new-car-expensive and they're quite bulky and fragile at the same time).
 
