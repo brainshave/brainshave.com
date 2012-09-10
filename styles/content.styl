@@ -1,5 +1,7 @@
 @import 'nib'
 
+reading_width = 700px
+
 body
   max-width  1500px
   margin     8px auto
@@ -7,6 +9,10 @@ body
   font-family 'Open Sans', 'Segoe UI', Ubuntu, Arial, sans-serif
   font-size 18px
   font-weight 300
+
+
+body.reading
+  max-width reading_width
 
 footer, .small
   font-size 0.6em
@@ -48,6 +54,10 @@ body > section
 div#content
   clear both
 
+  article
+    overflow auto
+    max-width reading_width
+
   > div.row > section
     > ul, > ul > li
       list-style none
@@ -67,6 +77,3 @@ div#content
     > div.row
       display table-cell
       width 50%
-
-article
-  margin 0 8px
