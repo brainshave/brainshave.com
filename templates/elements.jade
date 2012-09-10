@@ -1,0 +1,48 @@
+mixin change_theme_at_start
+  script(type='text/javascript')
+    (function () {
+      var theme = localStorage && localStorage.getItem('theme') || 'dark';
+      document.body.className = document.body.className.replace(/(dark|light)/, '') + ' no-anim ' + theme;
+      setTimeout(function () {
+        document.body.className = document.body.className.replace(/no\-anim (dark|light)/, theme);
+      }, 10);
+    })();
+
+mixin logo
+  a(id="logo", href="/") S/W
+    div.s.block.up.left
+    div.s.block.down.right
+    div.s.tail.up.right
+    div.s.tail.down.left
+
+    div.z.block.down.left
+    div.z.block.up.right
+    div.z.tail.down.right
+    div.z.tail.up.left
+
+    div.w.col.left
+    div.w.mid.left
+    div.w.mid.right
+    div.w.col.right
+
+mixin theme_changer
+  a#change-theme(href="")
+
+mixin theme_changer_action
+  script(type='text/javascript')
+    document.getElementById('change-theme').onclick = function (event) {
+      event = window.event || event;
+      if (event.button !== 0) {
+        return;
+      }
+      event.preventDefault();
+      var theme = document.body.className.indexOf('dark') >= 0 ? 'light' : 'dark';
+      document.body.className = document.body.className.replace(/(dark|light)/, theme);
+      localStorage && localStorage.setItem('theme', theme);
+    };
+
+mixin elements_before_content
+  mixin logo
+
+mixin elements_after_content
+  script(type='text/javascript', src='/scripts/history.js')

@@ -1,46 +1,14 @@
 doctype
 
+include elements
+
 html
-  head
-    meta(charset='utf-8')
-    title: block title
-    link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300italic,400italic,600italic,700italic,800italic,300|Anonymous+Pro:400,700,400italic,700italic&subset=latin,latin-ext,cyrillic')
-    link(rel='stylesheet', type='text/css', href='/styles/all.css')
+  include head
+
   body.dark
-    script(type='text/javascript')
-      (function () {
-        var theme = localStorage && localStorage.getItem('theme') || 'dark';
-        document.body.className = 'no-anim ' + theme;
-        setTimeout(function () {
-          document.body.className = theme;
-        }, 10);
-      })();
+    mixin elements_before_content
 
-    a(id="logo", href="/") S/W
-      div.s.block.up.left
-      div.s.block.down.right
-      div.s.tail.up.right
-      div.s.tail.down.left
-
-      div.z.block.down.left
-      div.z.block.up.right
-      div.z.tail.down.right
-      div.z.tail.up.left
-
-      div.w.col.left
-      div.w.mid.left
-      div.w.mid.right
-      div.w.col.right
-
-    a#change-theme(href="")
-
-    div#content
+    include content
       block content
 
-    script(type='text/javascript')
-      document.getElementById('change-theme').onclick = function (event) {
-        event.preventDefault();
-        var theme = document.body.className === 'dark' ? 'light' : 'dark';
-        document.body.className = theme;
-        localStorage && localStorage.setItem('theme', theme);
-      };
+    mixin elements_after_content

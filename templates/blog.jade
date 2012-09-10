@@ -1,6 +1,17 @@
-extends basic
+doctype
 
-append content
-  article
-    block article
-  include footer
+include elements
+
+html
+  include head
+
+  body.light.reading
+    mixin elements_before_content
+
+    include content
+      article
+        block article
+
+      include footer
+
+    mixin elements_after_content
