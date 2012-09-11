@@ -2,7 +2,13 @@
 
 reading_width = 700px
 
+// geometry
+
+html
+  overflow-y scroll
+
 body
+  transition color 0.5s, max-width 0.5s, background-color 0.5s
   max-width  1500px
   margin     8px auto
   padding    0 16px
@@ -38,24 +44,27 @@ b, strong
 a
   text-decoration none
 
+std_transforms = border-radius 0.3s, width 0.3s, height 0.3s,
+                 color 0.5s, background-position 0.5s,
+                 background-color 1s, border-color 1s,
+                 box-shadow 1.5s, text-shadow 1.5s
+
+a,
+a#logo > div
+  transition std_transforms
+
+a:focus
+  outline 0 // disable ugly firefox dotted outlines
+
+
 pre, code
   font-family 'Anonymous Pro', monospace
   font-weight 400
 
-body > section
-  display block
-  float left
-
-.clear
-  clear both
-
 // content
 
 div#content
-  clear both
-
   article
-    overflow auto
     max-width reading_width
 
   > div.row > section

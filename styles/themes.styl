@@ -1,0 +1,48 @@
+@import 'nib'
+
+mix(color_a, color_b, amount_a)
+  amount_b = 1 - amount_a
+  rgba(amount_a * red(color_a) + amount_b * red(color_b),
+       amount_a * green(color_a) + amount_b * green(color_b),
+       amount_a * blue(color_a) + amount_b * blue(color_b),
+       amount_a * alpha(color_a) + amount_b * alpha(color_b))
+
+transp(color)
+  rgba(red(color), green(color), blue(color), 0)
+
+// themes
+
+theme(front, back, anchor, hover, shadow)
+  color front
+  background back
+
+  a, a:visited
+    color anchor
+  a:hover, a:active
+    color hover
+    text-shadow 0 0 1em shadow
+
+  footer, .small
+    color mix(front, back, 0.5)
+    a
+      color mix(anchor, back, 0.6)
+    a:hover, a:active
+      color mix(hover, back, 0.7)
+      text-shadow none
+
+  a#logo > div
+    background front
+
+  a#logo:hover > div,
+  a#logo:active > div
+    background hover
+
+dark_back = #333338
+light_back = #fff
+
+body.dark
+  theme(#fffff5, dark_back, #9ee, #0ff, #fff)
+
+body.light
+  theme(#000, light_back, #088, #0cc, #0ff)
+
