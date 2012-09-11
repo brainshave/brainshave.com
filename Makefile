@@ -1,4 +1,4 @@
-STYLS = $(wildcard styles/*.styl)
+STYLS = $(sort $(wildcard styles/*.styl))
 TMPDIR = /tmp/szywon.pl
 
 POSTS = $(wildcard blog/*.md)
