@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   if (!(history.pushState && history.replaceState && window.XMLHttpRequest)) {
     return;
   }
@@ -26,7 +28,7 @@
     }
   };
 
-  var load_page = function(page_text, href) {
+  function load_page (page_text, href) {
     var title = page_text.substring(page_text.indexOf('<title>') + ('<title>').length,
       page_text.indexOf('</title>'));
     var classes = page_text.match(/\<body class\=\"([^\"]+)\"/)[1];
@@ -44,9 +46,9 @@
     }, title, href);
 
     set_goto_actions();
-  };
+  }
 
-  var set_goto_actions = function() {
+  function set_goto_actions () {
     var i, a, as = document.querySelectorAll('a');
     for (i = 0; i < as.length; ++i) {
       a = as[i];
@@ -76,7 +78,7 @@
         })(a);
       }
     }
-  };
+  }
 
   set_goto_actions();
 })();
