@@ -16,7 +16,11 @@ GET_DEPS = $(shell DEPS=""; NEW_DEPS=$(1);\
 	done;\
 	echo $$DEPS)
 
+# Remove --pretty to disable pretty printing
 JADE = jade --pretty --path templates/basic.jade
+
+# Add to --compress disable pretty printing
+STYLUS = stylus --use ../node_modules/nib
 
 TEMPLATE = "extends $(1)"\
 	"\nprepend title"\
@@ -27,7 +31,7 @@ TEMPLATE = "extends $(1)"\
 all: $(TARGETS)
 
 styles/all.css: $(STYLS) Makefile
-	cat $(STYLS) | stylus --compress --use ../node_modules/nib > $@
+	cat $(STYLS) | $(STYLUS) > $@
 
 $(TMPDIR) :
 	mkdir -p $(TMPDIR)
