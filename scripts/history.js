@@ -5,8 +5,8 @@
     return;
   }
 
-  var before_content_mark = "<!-- BEFORE CONTENT-->";
-  var after_content_mark = "<!-- AFTER CONTENT-->";
+  var before_content_mark = "<!--BEFORE CONTENT-->";
+  var after_content_mark = "<!--AFTER CONTENT-->";
   var content_node = document.getElementById('content');
 
   var initial_state = {

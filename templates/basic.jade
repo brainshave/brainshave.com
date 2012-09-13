@@ -1,14 +1,36 @@
 doctype
 
-include elements
+classes = 'dark'
 
 html
-  include head
+  head
+    block head
+      meta(charset='utf-8')
+      title: block title
+      link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300italic,400italic,600italic,700italic,800italic,300|Anonymous+Pro:400,700,400italic,700italic&subset=latin,latin-ext,cyrillic')
+      link(rel='stylesheet', type='text/css', href='/styles/all.css')
 
-  body.dark
-    mixin elements_before_content
+  body(class = classes)
+    a#logo(href="/") S/W
+      div.s.block.up.left
+      div.s.block.down.right
+      div.s.tail.up.right
+      div.s.tail.down.left
 
-    include content
+      div.z.block.down.left
+      div.z.block.up.right
+      div.z.tail.down.right
+      div.z.tail.up.left
+
+      div.w.col.left
+      div.w.mid.left
+      div.w.mid.right
+      div.w.col.right
+
+    div#content
+      //BEFORE CONTENT
       block content
+      //AFTER CONTENT
 
-    mixin elements_after_content
+    block scripts
+      script(type='text/javascript', src='/scripts/history.js')

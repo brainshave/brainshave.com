@@ -1,17 +1,15 @@
-doctype
+extends basic
 
-include elements
+block title
+  | -- S/W
 
-html
-  include head
+append head
+  //- This a rather ugly hack, it's appended to head to execute before
+      variable classes is read in body(class = classes) in basic.jade
+  classes = 'reading light'
 
-  body.light.reading
-    mixin elements_before_content
+block content
+  article
+    block article
 
-    include content
-      article
-        block article
-
-      include footer
-
-    mixin elements_after_content
+  include footer
