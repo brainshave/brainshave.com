@@ -25,7 +25,7 @@ STYLUS = stylus --use ../node_modules/nib
 TEMPLATE = "extends $(1)"\
 	"\nprepend title"\
 	"\n  |$(2)"\
-	"\nappend article"\
+	"\nblock article"\
 	"\n  include ../../../../../../../../$(3)"
 
 all: $(TARGETS)
