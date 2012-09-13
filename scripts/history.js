@@ -68,7 +68,7 @@
                 if (request.status === 200) {
                   load_page(request.responseText, a.href);
                 } else {
-                  location.href = a.href; // navigate
+                  location.href = a.href; // TODO: don't do that! just show page returned.
                 }
               }
             };
