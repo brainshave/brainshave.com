@@ -12,7 +12,7 @@ GET_DATE  = $(shell grep -oP '\d{4}-\d{2}-\d{2}' $(1) | head -1)
 GET_DEPS = $(shell DEPS=""; NEW_DEPS=$(1);\
 	while [ -n "$$NEW_DEPS" ]; do\
 		DEPS="$$DEPS $$NEW_DEPS";\
-		NEW_DEPS=`sed -nr 's/\s*(extends|include)\s+([a-zA-Z_-]+)/templates\/\2.jade/pg' $$NEW_DEPS`;\
+		NEW_DEPS=`sed -nr 's/^\s*(extends|include)\s+([a-zA-Z_-]+)/templates\/\2.jade/pg' $$NEW_DEPS`;\
 	done;\
 	echo $$DEPS)
 
