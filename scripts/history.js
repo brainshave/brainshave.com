@@ -29,23 +29,27 @@
   };
 
   function load_page (page_text, href) {
-    var title = page_text.substring(page_text.indexOf('<title>') + ('<title>').length,
-      page_text.indexOf('</title>'));
-    var classes = page_text.match(/\<body class\=\"([^\"]+)\"/)[1];
-    var content = page_text.substring(page_text.indexOf(before_content_mark),
-      page_text.indexOf(after_content_mark) + (after_content_mark).length);
+    try {
+      var title = page_text.substring(page_text.indexOf('<title>') + ('<title>').length,
+        page_text.indexOf('</title>'));
+      var classes = page_text.match(/\<body class\=\"([^\"]+)\"/)[1];
+      var content = page_text.substring(page_text.indexOf(before_content_mark),
+        page_text.indexOf(after_content_mark) + (after_content_mark).length);
 
-    document.body.className = classes;
-    document.title = title;
-    content_node.innerHTML = content;
+      document.body.className = classes;
+      document.title = title;
+      content_node.innerHTML = content;
 
-    history.pushState({
-      content: content,
-      classes: classes,
-      title: title
-    }, title, href);
+      history.pushState({
+        content: content,
+        classes: classes,
+        title: title
+      }, title, href);
 
-    set_goto_actions();
+      set_goto_actions();
+    } catch (err) {
+      location.href = href;
+    }
   }
 
   function set_goto_actions () {
