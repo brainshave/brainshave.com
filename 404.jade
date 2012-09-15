@@ -3,6 +3,13 @@ extends basic
 block title
   | 404 Not Found
 
+append head
+  classes = "reading red"
+
 block content
   :markdown
-      TODO: make a better 404 page.
+      # The page you are looking for doesn't exist, but...
+
+      ...you might like to visit the [Home Page](/).
+
+  include footer
