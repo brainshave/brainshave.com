@@ -12,7 +12,7 @@ transp(color)
 
 // themes
 
-theme(front, back, anchor, hover, shadow)
+theme(back, front, anchor, hover, shadow)
   color front
   background back
 
@@ -37,12 +37,9 @@ theme(front, back, anchor, hover, shadow)
   a#logo:active > div
     background hover
 
-dark_back = #333338
-light_back = #fff
-
 body.dark
-  theme(#fffff5, dark_back, #9ee, #0ff, #fff)
+  theme(#333338, #fffff5, #9ee, #0ff, #fff)
 
 body.light
-  theme(#000, light_back, #088, #0cc, #0ff)
+  theme(#fff, #000, #088, #0cc, #0ff)
 
