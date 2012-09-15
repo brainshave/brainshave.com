@@ -67,7 +67,8 @@ div#content
   > article
     max-width reading_width
 
-  > div.row > section
+  > section
+    width 100%
     > ul, > ul > li
       list-style none
       margin 0
@@ -77,12 +78,16 @@ div#content
       font-size 0.8em
 
   @media (min-width: 700px)
-    > div.row > section
-      padding-right 16px
-      display table-cell
+    > section
+      float left
       width 50%
+      > *
+        margin-right 16px
+    > section:nth-child(2n + 1)
+      clear left
 
   @media (min-width: 960px)
-    > div.row
-      display table-cell
-      width 50%
+    > section
+      width 25%
+    > section:nth-child(2n + 1)
+      clear none

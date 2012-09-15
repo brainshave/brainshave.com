@@ -4,48 +4,40 @@ block title
   | S/W
 
 block content
-  div.row
-    section
-      h1 Hi!
+  section
+    h1 Hi!
 
-      :markdown
-        I'm **Szymon Witamborski**. My dream job is creating fake operating systems for movies but for the time being I do some web stuff.
+    :markdown
+      I'm **Szymon Witamborski**. My dream job is creating fake operating systems for movies but for the time being I do some web stuff.
 
-        You can reach me under <szywon@g.pl> or here otherwise:
+      You can reach me under <szywon@g.pl> or here otherwise:
 
-      ul
-        li: a.icon.github(href='https://github.com/szywon') github
-        li: a.icon.twitter-bird(href='https://twitter.com/szywon') twitter
+    ul
+      li: a.icon.github(href='https://github.com/szywon') github
+      li: a.icon.twitter-bird(href='https://twitter.com/szywon') twitter
 
-      include footer
+    include footer
 
-    section
-      h1 Stuff
+  section
+    h1 Stuff
 
-      dl
-        dt: a(href='https://github.com/szywon/pharemine') pharemine
-        dd phantom.js test runner for jasmine
+    dl
+      dt: a(href='https://github.com/szywon/pharemine') pharemine
+      dd phantom.js test runner for jasmine
 
-        dt: a(href='https://github.com/szywon/makeblog') makeblog
-        dd fast static site generator based on node.js and makefile
+      dt: a(href='https://github.com/szywon/superbigle') superbigle
+      dd examples from OpenGL SuperBible translated to WebGL
 
-        dt: a(href='https://github.com/szywon/sroo') sroo
-        dd dead-simple html/js presentations
+  section
+    h1 Blog
 
-        dt: a(href='https://github.com/szywon/superbigle') superbigle
-        dd examples from OpenGL SuperBible translated to WebGL
+    dl
+      each file in index
+        dt: a(href=file.href)= file.title
+        dd= new Date(file.date).toDateString()
 
-  div.row
-    section
-      h1 Blog
+      dt: a(href='404.html') Test 404 Page
+      dd Now and then
 
-      dl
-        dt: a(href='/blog/photo-toughts.html') Photo Toughs
-        dd September 25th, 2012
-
-        dt: a(href='/blog/asfwaefwa') Long, long, very long title, have
-          | I mentioned that this is a long title?
-        dd A long time ago
-
-    section
-      h1 Buzz
+  section
+    h1 Buzz
