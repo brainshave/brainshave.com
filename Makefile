@@ -1,8 +1,10 @@
 TMPDIR = /tmp/szywon.pl
 
-INPUTS = $(shell find . -regextype posix-extended -iregex '.*\.jade$$|.*\.md$$' \
-	| grep -vP '^\.\/templates\/' | cut -c 3-) # get rid of templates dir and './' in the begining of paths
+INPUTS = $(sort $(wildcard *.jade) $(wildcard */*.md))
+
 STYLS = $(sort $(wildcard styles/*.styl))
+COFFEES = app/app.coffee
+OUTPUT_COFFEES = $(COFFEES:.coffee=.js)
 
 OUTPUTS_MARKDOWN = $(filter %.html,$(INPUTS:%.md=%.html))
 OUTPUTS_JADE = $(filter %.html,$(INPUTS:%.jade=%.html))
@@ -17,6 +19,9 @@ GET_JADE_DEPS = $(shell DEPS=""; NEW_DEPS=$(1);\
 	echo $(1) >> /tmp/zxcv;\
 	while [ -n "$$NEW_DEPS" ]; do\
 		DEPS="$$DEPS $$NEW_DEPS";\
+		if grep -q index $$NEW_DEPS ; then\
+			DEPS="$$DEPS $(INDEX)";\
+		fi;\
 		NEW_DEPS=`sed -nr 's/^\s*(extends|include)\s+([a-zA-Z_-]+)/templates\/\2.jade/pg' $$NEW_DEPS`;\
 	done;\
 	echo $$DEPS)
@@ -40,7 +45,7 @@ TEMPLATE = "extends $(1)"\
 	"\nblock article"\
 	"\n  include ../../../../../../../../$(3)"
 
-TARGETS = $(INDEX) $(OUTPUTS_JADE) $(OUTPUTS_MARKDOWN) styles/all.css
+TARGETS = $(INDEX) $(OUTPUTS_JADE) $(OUTPUTS_MARKDOWN) $(OUTPUT_COFFEES) styles/all.css
 
 all: $(TARGETS)
 
@@ -49,6 +54,9 @@ clean:
 
 styles/all.css: $(STYLS) Makefile
 	cat $(STYLS) | $(STYLUS) > $@
+
+$(OUTPUT_COFFEES) : %.js : %.coffee Makefile
+	coffee -bc $<
 
 $(TMPDIR)/%.html : %.md
 	$(call ENSURE_DIR,$@)

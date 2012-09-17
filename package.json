@@ -1,0 +1,9 @@
+{
+  "jam": {
+    "packageDir": "deps",
+    "dependencies": {
+      "domReady": null,
+      "cs": null
+    }
+  }
+}
