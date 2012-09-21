@@ -1,18 +1,18 @@
-define ['cs!app/util', 'domReady'], (util) ->
+define () ->
   return if not (history.pushState and
                  history.replaceState and
                  window.XMLHttpRequest)
 
-  before_content_mark = '<!--BEFORE CONTENT-->';
-  after_content_mark = '<!--AFTER CONTENT-->';
-  content_node = document.getElementById 'content';
+  before_content_mark = '<!--BEFORE CONTENT-->'
+  after_content_mark = '<!--AFTER CONTENT-->'
+  content_node = document.getElementById 'content'
 
   initial_state =
     title: document.title
     content: content_node.innerHTML
     classes: document.body.className
 
-  history.replaceState initial_state, initial_state.title, location.href
+  history.replaceState(initial_state, initial_state.title, location.href)
 
   window.onpopstate = (event) ->
     if event.state
@@ -46,20 +46,19 @@ define ['cs!app/util', 'domReady'], (util) ->
     return if event.button isnt 0
     event.preventDefault()
 
-    request = new XMLHttpRequest();
+    request = new XMLHttpRequest
     request.onreadystatechange = (event) ->
       if request.readyState is 4
         # if (request.status  200) {
-        load_page(request.responseText, a.href);
+        load_page(request.responseText, a.href)
 
-    request.open("GET", a.href, true);
-    request.send(null);
+    request.open("GET", a.href, true)
+    request.send(null)
 
   set_goto_actions = () ->
     for a in document.querySelectorAll('a')
       href = a.getAttribute('href')
       if href?.indexOf(':') < 0
-        a.onclick = util.partial(link_click, a)
+        a.onclick = link_click.bind null, a
 
   set_goto_actions: set_goto_actions
-
