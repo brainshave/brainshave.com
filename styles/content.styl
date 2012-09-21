@@ -43,15 +43,10 @@ b, strong
 
 a
   text-decoration none
+  transition color 0.3s, text-shadow 1s
 
-std_transforms = border-radius 0.3s, width 0.3s, height 0.3s,
-                 color 0.5s, background-position 0.5s,
-                 background-color 1s, border-color 1s,
-                 box-shadow 1.5s, text-shadow 1.5s
-
-a,
 a#logo > div
-  transition std_transforms
+  transition width 0.3s, height 0.3s, border-radius 0.3s, background-color 1s
 
 a:focus
   outline 0 // disable ugly firefox dotted outlines
