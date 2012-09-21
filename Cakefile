@@ -1,5 +1,4 @@
 fs = require 'fs'
-step = require 'step'
 jade = require 'jade'
 stylus = require 'stylus'
 nib = require 'nib'
