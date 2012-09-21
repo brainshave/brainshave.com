@@ -1,7 +1,7 @@
 extends basic
 
 block title
-  | -- S/W
+  |#{title} -- S/W
 
 append head
   //- This a rather ugly hack, it's appended to head to execute before
@@ -9,7 +9,6 @@ append head
   classes = 'reading light'
 
 block content
-  article
-    block article
+  article !{article}
 
   include footer
