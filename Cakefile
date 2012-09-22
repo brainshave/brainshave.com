@@ -5,6 +5,7 @@ nib = require 'nib'
 marked = require 'marked'
 connect = require 'connect'
 coffee = require 'coffee-script'
+_ = require 'underscore'
 
 translate_input_pattern = (pattern) ->
   new RegExp "^#{pattern.replace /\*./g, (match) -> "([^#{match[1]}./]+)\\#{match[1]}"}$"
@@ -42,6 +43,18 @@ build = (targets) ->
       console.log "Building #{output_path} from #{input_paths.join(', ')} with #{deps.join(', ')}"
       target.compile output_path, input_paths..., deps...
 
+purify = (targets) ->
+  all_paths = scan_dir '.'
+  matching_paths = []
+  for target in targets when typeof target.compile is 'function'
+    output_pattern = translate_input_pattern target.save_as
+    matching_paths = _.union matching_paths, all_paths.filter (path) -> output_pattern.test(path)
+
+  for path in matching_paths
+    console.log "Deleting #{path}"
+    fs.unlink path, (err) -> if err then console.error err.stack or err
+
+
 # Flow stuff
 
 flow_next = (steps, final_step, output_path) -> (err, data...) ->
@@ -50,8 +63,8 @@ flow_next = (steps, final_step, output_path) -> (err, data...) ->
     return
   if steps.length
     steps[0] (flow_next steps[1..], final_step, output_path), data...
-  else
-    final_step output_path, data...
+  else if final_step
+    final_step (flow_next [], null), output_path, data...
 
 flow = (steps..., final_step) -> (output_path, data...) ->
   (flow_next steps, final_step, output_path) null, data...
@@ -77,8 +90,8 @@ read_one = (encoding) -> (callback, input_path) ->
 
 read = (encoding) -> do_all read_one encoding
 
-save = (encoding) -> (output_path, data) ->
-  fs.writeFileSync output_path, data, encoding
+save = (encoding) -> (callback, output_path, data) ->
+  fs.writeFile output_path, data, encoding, callback
 
 compile = (compiler, args...) -> (callback, sources...) ->
   results = []
@@ -195,3 +208,6 @@ targets = [
 
 task 'build', 'Build whole site', (options) ->
   build targets
+
+task 'purify', 'Delete all files matching output paths', (options) ->
+  purify targets
