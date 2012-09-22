@@ -3,6 +3,7 @@
 *.css
 *.html
 *.js
+*.exe
 index.json
 fonts
 deps
