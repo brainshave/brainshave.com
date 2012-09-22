@@ -26,6 +26,12 @@ get_deps = (target, input_paths) ->
   else
     input_paths
 
+gen_final_callback = (output_path) -> (err) ->
+  if err
+    console.error "Error while building #{output_path}", err.stack or err
+  else
+    console.log "Built #{output_path}"
+
 build = (targets) ->
   all_paths = scan_dir '.'
   for target in targets when typeof target.compile is 'function'
@@ -42,7 +48,7 @@ build = (targets) ->
     for own output_path, input_paths of outputs
       deps = get_deps target, input_paths
       console.log "Building #{output_path} from #{deps.join(', ')}"
-      target.compile output_path, deps...
+      target.compile (gen_final_callback output_path), output_path, deps...
 
 purify = (targets) ->
   all_paths = scan_dir '.'
@@ -58,21 +64,23 @@ purify = (targets) ->
 
 # Flow stuff
 
-flow_next = (steps, final_step, output_path) -> (err, data...) ->
+flow_next = (steps, final_step, final_callback, output_path) -> (err, data...) ->
   if err
-    console.error "Error while building #{output_path}", err.stack or err
-    return
-  if steps.length
-    callback = flow_next steps[1..], final_step, output_path
+    # console.error "Error while building #{output_path}", err.stack or err
+    final_callback err, data...
+  else if steps.length
+    callback = flow_next steps[1..], final_step, final_callback, output_path
     try
       steps[0] callback, data...
     catch err
       callback err
   else if final_step
-    final_step (flow_next [], null), output_path, data...
+    final_step (flow_next [], null, final_callback), output_path, data...
+  else
+    final_callback null, data...
 
-flow = (steps..., final_step) -> (output_path, data...) ->
-  (flow_next steps, final_step, output_path) null, data...
+flow = (steps..., final_step) -> (final_callback, output_path, data...) ->
+  (flow_next steps, final_step, final_callback, output_path) null, data...
 
 do_all = (iterator) -> (callback, data...) ->
   results = []
@@ -130,18 +138,20 @@ get_markdown_deps = (templates_path, path) ->
   deps.concat get_jade_deps templates_path, deps[0]
 
 title_matcher = /^\#\s*([^\#].*)/
-get_title = (source) -> (source.match title_matcher)[1]
+get_title = (source) -> (source.match title_matcher)?[1]
 date_matcher = /\d{4}-\d{2}-\d{2}/
-get_date = (source) -> new Date (source.match date_matcher)[0]
+get_date = (source) -> new Date (source.match date_matcher)?[0]
 
-index = (output_path, input_paths...) ->
-  index = []
+index = (callback, output_path, input_paths...) ->
   go = flow (read 'utf8')
   , (do_all (callback, source) ->
-      callback null, title: (get_title source), date: (get_date source))
+      title = get_title source
+      date = get_date source
+      callback null, (title and date and {title: title, date: date}))
   , (callback, index...) ->
-    for element, i in index
+    index = (for element, i in index when element?
       element.href = input_paths[i].replace /\.md$/, '.html'
+      element)
     index.sort (a, b) -> a.date < b.date and 1 or a.date == b.date and 0 or -1
     callback null, JSON.stringify index: index
   , (save 'utf8')
@@ -151,7 +161,7 @@ targets = [
   {
     pattern: '*/*.md'
     save_as: '*/*.html'
-    compile: (output_path, md_path, jade_path) ->
+    compile: (callback, output_path, md_path, jade_path) ->
       go = flow (take 2)
       , (read 'utf8')
       , (callback, md_source, jade_source) ->
@@ -165,7 +175,7 @@ targets = [
   {
     pattern: '*.jade'
     save_as: '*.html'
-    compile: (output_path, jade_path, rest...) ->
+    compile: (callback, output_path, jade_path, rest...) ->
       go = flow (callback, jade_path, rest...) ->
         callback null, jade_path, (rest.filter (path) -> (/\.json$/).test path)...
       , (read 'utf8')
@@ -194,12 +204,12 @@ targets = [
     compile: flow read('utf8'), compile(coffee.compile), join(), save('utf8')
   }
   {
-    pattern: '*/*.md'
+    pattern: '*/*.(md|jade)'
     save_as: 'index.json'
     compile: index
   }
   {
-    pattern: '*/*.md'
+    pattern: '*/*.(md|jade)'
     save_as: '*/index.json'
     compile: index
   }
