@@ -1,4 +1,5 @@
 fs = require 'fs'
+path = require 'path'
 jade = require 'jade'
 stylus = require 'stylus'
 nib = require 'nib'
@@ -20,10 +21,10 @@ scan_dir = (path) ->
   paths.concat(scan_dir path for path in paths when fs.statSync(path).isDirectory() ...)
 
 get_deps = (target, input_paths) ->
-  if typeof target.get_deps is 'function'
-    [].concat (target.get_deps input_path for input_path in input_paths)...
+  _.uniq if typeof target.get_deps is 'function'
+    input_paths.concat (target.get_deps input_path for input_path in input_paths)...
   else
-    []
+    input_paths
 
 build = (targets) ->
   all_paths = scan_dir '.'
@@ -40,13 +41,13 @@ build = (targets) ->
 
     for own output_path, input_paths of outputs
       deps = get_deps target, input_paths
-      console.log "Building #{output_path} from #{input_paths.join(', ')} with #{deps.join(', ')}"
-      target.compile output_path, input_paths..., deps...
+      console.log "Building #{output_path} from #{deps.join(', ')}"
+      target.compile output_path, deps...
 
 purify = (targets) ->
   all_paths = scan_dir '.'
   matching_paths = []
-  for target in targets when typeof target.compile is 'function'
+  for target in targets
     output_pattern = translate_input_pattern target.save_as
     matching_paths = _.union matching_paths, all_paths.filter (path) -> output_pattern.test(path)
 
@@ -59,10 +60,14 @@ purify = (targets) ->
 
 flow_next = (steps, final_step, output_path) -> (err, data...) ->
   if err
-    console.error err.stack or err
+    console.error "Error while building #{output_path}", err.stack or err
     return
   if steps.length
-    steps[0] (flow_next steps[1..], final_step, output_path), data...
+    callback = flow_next steps[1..], final_step, output_path
+    try
+      steps[0] callback, data...
+    catch err
+      callback err
   else if final_step
     final_step (flow_next [], null), output_path, data...
 
@@ -112,18 +117,17 @@ take = (amount) -> (callback, data...) ->
 
 get_jade_deps = (templates_path, file_path) ->
   content = fs.readFileSync file_path, 'utf8'
-  deps = for match in content.match(/(extends|include)\s+([a-zA-Z]+)/g) or []
-    "#{templates_path}/#{match.replace(/(extends|include)\s+/, '')}.jade"
+  dir = "#{path.dirname file_path}/".replace './', ''
+  deps = for match in content.match(/(extends|include)\s+([a-zA-Z\/]+)/g) or []
+    "#{dir}#{match.replace(/(extends|include)\s+/, '')}.jade"
   extra_deps = for dep in deps
     get_jade_deps(templates_path, dep)
+  deps.push 'index.json' if (/\bindex\b/).test content
   deps.concat(extra_deps...)
 
 get_markdown_deps = (templates_path, path) ->
   deps = ["#{templates_path}/#{path.substring(0, path.indexOf('/'))}.jade"]
   deps.concat get_jade_deps templates_path, deps[0]
-
-compile_jade = (content) ->
-  jade.compile content, filename: 'templates/basic.jade', pretty: true
 
 title_matcher = /^\#\s*([^\#].*)/
 get_title = (source) -> (source.match title_matcher)[1]
@@ -139,7 +143,7 @@ index = (output_path, input_paths...) ->
     for element, i in index
       element.href = input_paths[i].replace /\.md$/, '.html'
     index.sort (a, b) -> a.date < b.date and 1 or a.date == b.date and 0 or -1
-    callback null, JSON.stringify index
+    callback null, JSON.stringify index: index
   , (save 'utf8')
   go arguments...
 
@@ -151,13 +155,9 @@ targets = [
       go = flow (take 2)
       , (read 'utf8')
       , (callback, md_source, jade_source) ->
-        try
-          template = jade.compile jade_source, filename: jade_path, pretty: true
-          result = template title: (get_title md_source), article: (marked.parse md_source)
-        catch err
-          error = err
-        finally
-          callback error, result
+        template = jade.compile jade_source, filename: jade_path, pretty: true
+        result = template title: (get_title md_source), article: (marked.parse md_source)
+        callback null, result
       , (save 'utf8')
       go arguments...
     get_deps: get_markdown_deps.bind null, 'templates'
@@ -165,10 +165,17 @@ targets = [
   {
     pattern: '*.jade'
     save_as: '*.html'
-    compile: flow (read 'utf8')
-      , (compile jade.compile, filename: 'templates/.jade', pretty: true)
-      , ((callback, template) -> callback null, template index: [])
+    compile: (output_path, jade_path, rest...) ->
+      go = flow (callback, jade_path, rest...) ->
+        callback null, jade_path, (rest.filter (path) -> (/\.json$/).test path)...
+      , (read 'utf8')
+      , (callback, jade_source, json_sources...) ->
+        objects = _.extend (JSON.parse json for json in json_sources)...
+        template = jade.compile jade_source, filename: jade_path, pretty: true
+        result = template objects
+        callback null, result
       , (save 'utf8')
+      go arguments...
     get_deps: get_jade_deps.bind null, 'templates'
   }
   {
