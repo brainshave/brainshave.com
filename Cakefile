@@ -26,29 +26,53 @@ get_deps = (target, input_paths) ->
   else
     input_paths
 
-gen_final_callback = (output_path) -> (err) ->
+gen_final_callback = (output_path, outputs) -> (err) ->
+  output = outputs[output_path]
   if err
     console.error "Error while building #{output_path}", err.stack or err
   else
     console.log "Built #{output_path}"
+    for next_path in output.nexts
+      next = outputs[next_path]
+      next.awaiting = _.without next.awating, output_path
+      build_one next_path, outputs
+
+build_one = (output_path, outputs) ->
+  output = outputs[output_path]
+  if output.awaiting.length is 0
+    console.log "Building #{output_path} from #{output.deps.join(', ')}"
+    callback = gen_final_callback output_path, outputs
+    output.target.compile callback, output_path, output.deps... # TODO: try catch
+  else
+    console.log "Target #{output_path} is waiting for #{output.awaiting.join ', '}"
 
 build = (targets) ->
   all_paths = scan_dir '.'
+  outputs = {}
+
   for target in targets when typeof target.compile is 'function'
     input_pattern = translate_input_pattern target.pattern
     output_pattern = translate_output_pattern target.save_as
     matching_paths = all_paths.filter (path) -> input_pattern.test(path)
 
-    outputs = {}
+    # Group all inputs by their outputs.
     for input_path in matching_paths
       output_path = input_path.replace input_pattern, output_pattern
-      outputs[output_path] = [] if not outputs[output_path]?.push?
-      outputs[output_path].push input_path
+      outputs[output_path] = { target: target, deps: [], nexts: [], awaiting: [] } if not outputs[output_path]
+      outputs[output_path].deps.push input_path
 
-    for own output_path, input_paths of outputs
-      deps = get_deps target, input_paths
-      console.log "Building #{output_path} from #{deps.join(', ')}"
-      target.compile (gen_final_callback output_path), output_path, deps...
+  # Invoke get_deps here!
+
+  for own output_path, output of outputs
+    deps = output.deps = get_deps output.target, output.deps # TODO: try catch
+    # Interdepencies are discovered here:
+    for dep in deps
+      if outputs[dep]
+        outputs[dep].nexts.push output_path
+        output.awaiting.push dep
+
+  for own output_path of outputs
+    build_one output_path, outputs
 
 purify = (targets) ->
   all_paths = scan_dir '.'
