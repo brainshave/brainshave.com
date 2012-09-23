@@ -79,14 +79,13 @@ rm = (path) ->
   fs.unlink path, (err) -> if err then console.error err.stack or err
 
 clean = (outputs) ->
-  rm output_path for own output_path of outputs
+  rm output_path for own output_path of outputs when fs.existsSync output_path
 
-purify = (targets) ->
-  all_paths = scan_dir '.'
+purify = (targets, paths) ->
   matching_paths = []
   for target in targets
     output_pattern = translate_input_pattern target.save_as
-    matching_paths = _.union matching_paths, all_paths.filter (path) -> output_pattern.test(path)
+    matching_paths = _.union matching_paths, paths.filter (path) -> output_pattern.test(path)
 
   rm path for path in matching_paths
 
@@ -258,7 +257,7 @@ task 'clean', 'Delete all targets', (options) ->
   clean group_outputs_inputs targets, scan_dir '.'
 
 task 'purify', 'Delete all files matching output paths', (options) ->
-  purify targets
+  purify targets, scan_dir '.'
 
 task 'dump', 'Dump dependency tree', (options) ->
   console.log get_outputs_deps group_outputs_inputs targets, scan_dir '.'
