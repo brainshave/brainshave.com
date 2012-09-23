@@ -20,12 +20,6 @@ scan_dir = (path) ->
   paths = ((path + '/' + name).replace('./', '') for name in files)
   paths.concat(scan_dir path for path in paths when fs.statSync(path).isDirectory() ...)
 
-get_deps = (target, input_paths) ->
-  _.uniq if typeof target.get_deps is 'function'
-    input_paths.concat (target.get_deps input_path for input_path in input_paths)...
-  else
-    input_paths
-
 gen_final_callback = (output_path, outputs) -> (err) ->
   output = outputs[output_path]
   if err
@@ -46,33 +40,46 @@ build_one = (output_path, outputs) ->
   else
     console.log "Target #{output_path} is waiting for #{output.awaiting.join ', '}"
 
-build = (targets) ->
-  all_paths = scan_dir '.'
+group_outputs_inputs = (targets, paths) ->
   outputs = {}
-
   for target in targets when typeof target.compile is 'function'
     input_pattern = translate_input_pattern target.pattern
     output_pattern = translate_output_pattern target.save_as
-    matching_paths = all_paths.filter (path) -> input_pattern.test(path)
+    matching_paths = paths.filter (path) -> input_pattern.test(path)
 
     # Group all inputs by their outputs.
     for input_path in matching_paths
       output_path = input_path.replace input_pattern, output_pattern
       outputs[output_path] = { target: target, deps: [], nexts: [], awaiting: [] } if not outputs[output_path]
       outputs[output_path].deps.push input_path
+  outputs
 
-  # Invoke get_deps here!
+get_target_deps = (target, input_paths) ->
+  _.uniq if typeof target.get_deps is 'function'
+    input_paths.concat (target.get_deps input_path for input_path in input_paths)...
+  else
+    input_paths
 
+get_outputs_deps = (outputs) ->
   for own output_path, output of outputs
-    deps = output.deps = get_deps output.target, output.deps # TODO: try catch
+    deps = output.deps = get_target_deps output.target, output.deps # TODO: try catch
     # Interdepencies are discovered here:
     for dep in deps
       if outputs[dep]
         outputs[dep].nexts.push output_path
         output.awaiting.push dep
+  outputs
 
+build = (outputs) ->
   for own output_path of outputs
     build_one output_path, outputs
+
+rm = (path) ->
+  console.log "Deleting #{path}"
+  fs.unlink path, (err) -> if err then console.error err.stack or err
+
+clean = (outputs) ->
+  rm output_path for own output_path of outputs
 
 purify = (targets) ->
   all_paths = scan_dir '.'
@@ -81,10 +88,7 @@ purify = (targets) ->
     output_pattern = translate_input_pattern target.save_as
     matching_paths = _.union matching_paths, all_paths.filter (path) -> output_pattern.test(path)
 
-  for path in matching_paths
-    console.log "Deleting #{path}"
-    fs.unlink path, (err) -> if err then console.error err.stack or err
-
+  rm path for path in matching_paths
 
 # Flow stuff
 
@@ -248,7 +252,13 @@ targets = [
 ]
 
 task 'build', 'Build whole site', (options) ->
-  build targets
+  build get_outputs_deps group_outputs_inputs targets, scan_dir '.'
+
+task 'clean', 'Delete all targets', (options) ->
+  clean group_outputs_inputs targets, scan_dir '.'
 
 task 'purify', 'Delete all files matching output paths', (options) ->
   purify targets
+
+task 'dump', 'Dump dependency tree', (options) ->
+  console.log get_outputs_deps group_outputs_inputs targets, scan_dir '.'
