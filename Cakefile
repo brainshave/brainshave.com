@@ -36,33 +36,33 @@ build_one = (output_path, outputs) ->
   if output.awaiting.length is 0
     console.log "Building #{output_path} from #{output.deps.join(', ')}"
     callback = gen_final_callback output_path, outputs
-    output.target.compile callback, output_path, output.deps... # TODO: try catch
+    output.recipe.compile callback, output_path, output.deps... # TODO: try catch
   else
-    console.log "Target #{output_path} is waiting for #{output.awaiting.join ', '}"
+    console.log "recipe #{output_path} is waiting for #{output.awaiting.join ', '}"
 
-group_outputs_inputs = (targets, paths) ->
+group_outputs_inputs = (recipes, paths) ->
   outputs = {}
-  for target in targets when typeof target.compile is 'function'
-    input_pattern = translate_input_pattern target.pattern
-    output_pattern = translate_output_pattern target.save_as
+  for recipe in recipes when typeof recipe.compile is 'function'
+    input_pattern = translate_input_pattern recipe.pattern
+    output_pattern = translate_output_pattern recipe.save_as
     matching_paths = paths.filter (path) -> input_pattern.test(path)
 
     # Group all inputs by their outputs.
     for input_path in matching_paths
       output_path = input_path.replace input_pattern, output_pattern
-      outputs[output_path] = { target: target, deps: [], nexts: [], awaiting: [] } if not outputs[output_path]
+      outputs[output_path] = { recipe: recipe, deps: [], nexts: [], awaiting: [] } if not outputs[output_path]
       outputs[output_path].deps.push input_path
   outputs
 
-get_target_deps = (target, input_paths) ->
-  _.uniq if typeof target.get_deps is 'function'
-    input_paths.concat (target.get_deps input_path for input_path in input_paths)...
+get_recipe_deps = (recipe, input_paths) ->
+  _.uniq if typeof recipe.get_deps is 'function'
+    input_paths.concat (recipe.get_deps input_path for input_path in input_paths)...
   else
     input_paths
 
 get_outputs_deps = (outputs) ->
   for own output_path, output of outputs
-    deps = output.deps = get_target_deps output.target, output.deps # TODO: try catch
+    deps = output.deps = get_recipe_deps output.recipe, output.deps # TODO: try catch
     # Interdepencies are discovered here:
     for dep in deps
       if outputs[dep]
@@ -81,10 +81,10 @@ rm = (path) ->
 clean = (outputs) ->
   rm output_path for own output_path of outputs when fs.existsSync output_path
 
-purify = (targets, paths) ->
+purify = (recipes, paths) ->
   matching_paths = []
-  for target in targets
-    output_pattern = translate_input_pattern target.save_as
+  for recipe in recipes
+    output_pattern = translate_input_pattern recipe.save_as
     matching_paths = _.union matching_paths, paths.filter (path) -> output_pattern.test(path)
 
   rm path for path in matching_paths
@@ -184,7 +184,7 @@ index = (callback, output_path, input_paths...) ->
   , (save 'utf8')
   go arguments...
 
-targets = [
+recipes = [
   {
     pattern: '*/*.md'
     save_as: '*/*.html'
@@ -250,14 +250,14 @@ targets = [
   }
 ]
 
-task 'build', 'Build whole site', (options) ->
-  build get_outputs_deps group_outputs_inputs targets, scan_dir '.'
+task 'build', 'Build all targets', (options) ->
+  build get_outputs_deps group_outputs_inputs recipes, scan_dir '.'
 
 task 'clean', 'Delete all targets', (options) ->
-  clean group_outputs_inputs targets, scan_dir '.'
+  clean group_outputs_inputs recipes, scan_dir '.'
 
 task 'purify', 'Delete all files matching output paths', (options) ->
-  purify targets, scan_dir '.'
+  purify recipes, scan_dir '.'
 
 task 'dump', 'Dump dependency tree', (options) ->
-  console.log get_outputs_deps group_outputs_inputs targets, scan_dir '.'
+  console.log get_outputs_deps group_outputs_inputs recipes, scan_dir '.'
