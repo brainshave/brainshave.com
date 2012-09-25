@@ -221,6 +221,18 @@ recipes = [
     compile: flow read('utf8'), compile(coffee.compile), save('utf8')
   }
   {
+    pattern: 'app/*.jade'
+    save_as: 'app/*.js'
+    compile: (callback, output_path, jade_path) ->
+      go = flow (take 1), (read 'utf8')
+      , (callback, jade_source) ->
+        template = jade.compile jade_source, filename: jade_path, pretty: true, client: true
+        callback null, "define(['jade-runtime'], function (jade) { return #{template}; });"
+      , (save 'utf8')
+      go arguments...
+    get_deps: get_jade_deps.bind null, 'app'
+  }
+  {
     pattern: 'app/*.coffee'
     save_as: 'app/all1.js'
     compile: flow read('utf8'), join(), compile(coffee.compile), save('utf8')
