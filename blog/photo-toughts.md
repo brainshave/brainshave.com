@@ -4,7 +4,7 @@ Written on 2012-08-26.
 
 I am old enough to be first acquainted with film cameras. I am fortunate enough to have a father that has a shelf full of some very old, some quite contemporary hardware. I am unlucky enough of not having a PC capable of editing high-res images until 2007.
 
-Back in around 2003-2004 when I started to have fun with photography with my brother, my father rented a cubicle across the street to run a dark room there. We used all kinds of cameras, from Praktica SLRs through 6x9cm range-finder Москва 5 to self-made 13x18cm ultra-wide-angle pin-hole cameras.
+Back in around 2003-2004 when I started doing photography with my brother, my father rented a cubicle across the street to run a dark room there. We used all kinds of cameras, from Praktica SLRs through 6x9cm range-finder Москва 5 to self-made 13x18cm ultra-wide-angle pin-hole cameras.
 
 I actually did some digital photography commercially, around 2007-2008. I was a photographer at weddings. We had a Nikon F5 (film), a Pentacon Six (for black & white extras) and some (sometimes our own, sometimes borrowed) digital camera. Film was our main medium, digital was used as an extra. I hated doing weddings. It was boring to the guts: a repetitive, physical work, both on spot and when editing. It was the main factor that drew me off from photography for several years. (That, a degree to pursue and the fact that my own camera broke.)
 
