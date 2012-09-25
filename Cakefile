@@ -28,7 +28,7 @@ gen_final_callback = (output_path, outputs) -> (err) ->
     console.log "Built #{output_path}"
     for next_path in output.nexts
       next = outputs[next_path]
-      next.awaiting = _.without next.awating, output_path
+      next.awaiting = _.without next.awaiting, output_path
       build_one next_path, outputs
 
 build_one = (output_path, outputs) ->
@@ -38,10 +38,10 @@ build_one = (output_path, outputs) ->
     callback = gen_final_callback output_path, outputs
     output.recipe.compile callback, output_path, output.deps... # TODO: try catch
   else
-    console.log "recipe #{output_path} is waiting for #{output.awaiting.join ', '}"
+    console.log "Target #{output_path} is waiting for #{output.awaiting.join ', '}"
 
-group_outputs_inputs = (recipes, paths) ->
-  outputs = {}
+group_outputs_inputs = (recipes, paths, outputs = {}) ->
+  new_paths = []
   for recipe in recipes when typeof recipe.compile is 'function'
     input_pattern = translate_input_pattern recipe.pattern
     output_pattern = translate_output_pattern recipe.save_as
@@ -50,9 +50,14 @@ group_outputs_inputs = (recipes, paths) ->
     # Group all inputs by their outputs.
     for input_path in matching_paths
       output_path = input_path.replace input_pattern, output_pattern
+      new_paths.push output_path
       outputs[output_path] = { recipe: recipe, deps: [], nexts: [], awaiting: [] } if not outputs[output_path]
       outputs[output_path].deps.push input_path
-  outputs
+
+  if new_paths.length > 0
+    group_outputs_inputs recipes, new_paths, outputs
+  else
+    outputs
 
 get_recipe_deps = (recipe, input_paths) ->
   _.uniq if typeof recipe.get_deps is 'function'
@@ -233,14 +238,9 @@ recipes = [
     get_deps: get_jade_deps.bind null, 'app'
   }
   {
-    pattern: 'app/*.coffee'
-    save_as: 'app/all1.js'
-    compile: flow read('utf8'), join(), compile(coffee.compile), save('utf8')
-  }
-  {
-    pattern: 'app/*.coffee'
-    save_as: 'app/all2.js'
-    compile: flow read('utf8'), compile(coffee.compile), join(), save('utf8')
+    pattern: 'app/*.js'
+    save_as: 'app.js'
+    compile: flow (read 'utf8'), join(), (save 'utf8')
   }
   {
     pattern: '*/*.(md|jade)'
