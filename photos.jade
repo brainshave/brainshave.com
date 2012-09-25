@@ -1,0 +1,17 @@
+extends templates/basic
+
+block title
+  | Photo
+
+append head
+  classes = 'black'
+
+block content
+  div#photos
+
+  include templates/footer
+    :markdown
+      This product uses the Flickr API but is not endorsed or certified by Flickr.
+
+append scripts
+  script(type="text/javascript", src="/app/photos.js")
