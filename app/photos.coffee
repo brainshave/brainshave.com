@@ -34,7 +34,9 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
     scroller()
 
   thumb_click = (photos, thumbs, viewer, a) -> (event) ->
+    return if event.button isnt 0
     event.preventDefault()
+
     photos.className = 'active'
     img_height = window.innerHeight - 87 + 'px'
     viewer.style.height = img_height
