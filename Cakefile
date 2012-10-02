@@ -8,6 +8,8 @@ connect = require 'connect'
 coffee  = require 'coffee-script'
 _       = require 'underscore'
 
+app = connect().use(connect.static __dirname).listen 8080
+
 get_jade_deps = (callback, file_path) ->
   content = fs.readFileSync file_path, 'utf8'
   dir = "#{path.dirname file_path}/".replace './', ''
