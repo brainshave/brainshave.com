@@ -49,7 +49,6 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
     a.className = 'active'
 
   window.show_thumbnails = (json) ->
-    console.log json
     thumbs = document.getElementById 'thumbs'
     photos = document.getElementById 'photos'
     viewer = document.getElementById 'viewer'
