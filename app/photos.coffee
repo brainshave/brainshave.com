@@ -36,11 +36,10 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
   thumb_click = (photos, thumbs, viewer, a) -> (event) ->
     event.preventDefault()
     photos.className = 'active'
-    photos.style.height = window.innerHeight + 'px'
     img_height = window.innerHeight - 87 + 'px'
-    # viewer.style.height = img_height
+    viewer.style.height = img_height
 
-    scroll_to photos.offsetTop
+    scroll_to thumbs.offsetTop
 
     viewer.innerHTML = preview src: a.href, height: img_height
     for thumb in thumbs.childNodes
