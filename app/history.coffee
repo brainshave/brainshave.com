@@ -7,12 +7,7 @@ define () ->
   after_content_mark = '<!--AFTER CONTENT-->'
   content_node = document.getElementById 'content'
 
-  initial_state =
-    title: document.title
-    content: content_node.innerHTML
-    classes: document.body.className
 
-  history.replaceState(initial_state, initial_state.title, location.href)
 
   window.onpopstate = (event) ->
     if event.state
@@ -25,6 +20,14 @@ define () ->
     content_node.innerHTML = state.content
     null
 
+  save_current_state = () ->
+    state =
+      title:   document.title
+      content: content_node.innerHTML
+      classes: document.body.className
+
+    history.replaceState(state, state.title, location.href)
+
   load_page = (page_text, href) ->
     try
       state =
@@ -36,6 +39,7 @@ define () ->
           page_text.indexOf(before_content_mark),
           page_text.indexOf(after_content_mark) + after_content_mark.length)
 
+      save_current_state()
       apply_state(state)
       history.pushState(state, state.title, href)
       set_goto_actions()
