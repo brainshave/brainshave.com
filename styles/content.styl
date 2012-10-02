@@ -11,18 +11,24 @@ html
 body
   transition  color 0.5s, background-color 0.5s
   margin      0
-  padding     8px 16px
+  padding     8px 0 0 0
   font-family 'Open Sans', 'Segoe UI', Ubuntu, Arial, sans-serif
   font-size   18px
   font-weight 300
 
+div#top, div#sections, article
+  padding 0 16px
+
 body > div#top
     transition max-width 0.5s
     margin     0 auto
-    max-width  wide_width
 
 body.reading > div#top
     max-width reading_width
+
+body.wide
+  > div#top
+    max-width  wide_width
 
 footer, .small
   font-size 0.6em
@@ -62,33 +68,36 @@ pre, code
 
 // content
 
-body > div#content
+div#content
   > article
     max-width reading_width
     margin 0 auto
     line-height 1.5em
 
-  > section
-    width 100%
-    > ul, > ul > li
-      list-style none
-      margin 0
-      padding 0
-    > dl > dd
-      margin 0 0 16px 0
-      font-size 0.8em
-
-  @media (min-width: 700px)
+  div#sections
+    margin 0 auto
+    max-width wide_width
     > section
-      float left
-      width 50%
-      > *
-        margin-right 16px
-    > section:nth-child(2n + 1)
-      clear left
+      width 100%
+      > ul, > ul > li
+        list-style none
+        margin 0
+        padding 0
+      > dl > dd
+        margin 0 0 16px 0
+        font-size 0.8em
 
-  @media (min-width: 960px)
-    > section
-      width 25%
-    > section:nth-child(2n + 1)
-      clear none
+    @media (min-width: 700px)
+      > section
+        float left
+        width 50%
+        > *
+          margin-right 16px
+      > section:nth-child(2n + 1)
+        clear left
+
+    @media (min-width: 960px)
+      > section
+        width 25%
+      > section:nth-child(2n + 1)
+        clear none

@@ -3,49 +3,56 @@ extends templates/basic
 block title
   | S/W
 
+append head
+  classes = 'dark wide'
+
 block content
-  section
-    h1 Hi!
+  div#sections
+    section
+      h1 Hi!
 
-    :markdown
-      I'm **Szymon Witamborski**. My dream job is creating fake operating systems for movies but for the time being I do some web stuff.
+      :markdown
+        I'm **Szymon Witamborski**. My dream job is creating fake operating systems for movies but for the time being I do some web stuff.
 
-      You can reach me under <szywon@g.pl> or here otherwise:
+        You can reach me under <szywon@g.pl> or here otherwise:
 
-    ul
-      li: a.icon.github(href='https://github.com/szywon') github
-      li: a.icon.twitter-bird(href='https://twitter.com/szywon') twitter
+      ul
+        li: a.icon.github(href='https://github.com/szywon') github
+        li: a.icon.twitter-bird(href='https://twitter.com/szywon') twitter
 
-    include templates/footer
+      include templates/footer
 
-  section
-    h1 Stuff
+    section
+      h1 Stuff
 
-    dl
-      dt: a(href='https://github.com/szywon/cherry') cherry
-      dd General-purpose build system
+      dl
+        dt: a(href='https://github.com/szywon/cherry') cherry
+        dd General-purpose build system
 
-      dt: a(href='https://github.com/szywon/pharemine') pharemine
-      dd phantom.js test runner for jasmine
+        dt: a(href='https://github.com/szywon/pharemine') pharemine
+        dd phantom.js test runner for jasmine
 
-      dt: a(href='https://github.com/szywon/superbigle') superbigle
-      dd examples from OpenGL SuperBible translated to WebGL
+        dt: a(href='https://github.com/szywon/superbigle') superbigle
+        dd examples from OpenGL SuperBible translated to WebGL
 
-      dt: a(href='/photos.html') My photos on Flickr
-      dd asdf
+    section
+      h1 Blog
 
-  section
-    h1 Blog
+      dl
+        each file in index
+          dt: a(href=file.href)= file.title
+          dd= new Date(file.date).toDateString()
 
-    dl
-      each file in index
-        dt: a(href=file.href)= file.title
-        dd= new Date(file.date).toDateString()
+        dt: a(href='404.html') Test 404 Page
+        dd Now and then
 
-      dt: a(href='404.html') Test 404 Page
-      dd Now and then
+    section
+      h1 Buzz
 
-  section
-    h1 Buzz
+  div#photos
+    h1 Recent photos on Flickr
+    div#thumbs
+    div#viewer
 
-  section#photos
+append scripts
+  script(type="text/javascript", src="/app/photos.js")
