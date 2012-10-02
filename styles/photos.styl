@@ -39,6 +39,8 @@ div#photos
 
   > div#viewer
     padding-bottom 4px
+    transition opacity 0.4s
+    opacity 0.1
     > div.preview
       animation-duration 1s
       animation-name opacitate
@@ -52,3 +54,5 @@ div#photos
 div#photos.active
   > *
     max-width 100%
+  > div#viewer
+    opacity 1

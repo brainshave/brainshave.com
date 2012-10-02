@@ -7,6 +7,12 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
 
   requestAnimationFrame = window.webkitRequestAnimationFrame or window.mozRequestAnimationFrame or window.msRequestAnimationFrame
 
+  darken_gallery = (photos, offset) -> (event) ->
+    if offset < ((document.documentElement.scrollTop or document.body.scrollTop) + 100)
+      photos.className = 'active'
+    else
+      photos.className = ''
+
   scroll_to = (target_y) ->
     lapse = 500
     start_y = document.documentElement.scrollTop or document.body.scrollTop
@@ -37,9 +43,10 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
     return if event.button isnt 0
     event.preventDefault()
 
-    photos.className = 'active'
     img_height = window.innerHeight - 87 + 'px'
     viewer.style.height = img_height
+
+    window.onscroll = darken_gallery photos, thumbs.offsetTop
 
     scroll_to thumbs.offsetTop
 
