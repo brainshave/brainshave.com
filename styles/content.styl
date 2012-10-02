@@ -1,5 +1,6 @@
 @import 'nib'
 
+wide_width = 1500px
 reading_width = 600px
 
 // geometry
@@ -8,17 +9,20 @@ html
   overflow-y scroll
 
 body
-  transition color 0.5s, max-width 0.5s, background-color 0.5s
-  max-width  1500px
-  margin     8px auto
-  padding    0 16px
+  transition  color 0.5s, background-color 0.5s
+  margin      0
+  padding     8px 16px
   font-family 'Open Sans', 'Segoe UI', Ubuntu, Arial, sans-serif
-  font-size 18px
+  font-size   18px
   font-weight 300
 
+body > div#top
+    transition max-width 0.5s
+    margin     0 auto
+    max-width  wide_width
 
-body.reading
-  max-width reading_width
+body.reading > div#top
+    max-width reading_width
 
 footer, .small
   font-size 0.6em
@@ -58,9 +62,10 @@ pre, code
 
 // content
 
-div#content
+body > div#content
   > article
     max-width reading_width
+    margin 0 auto
     line-height 1.5em
 
   > section
