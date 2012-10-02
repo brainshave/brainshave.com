@@ -7,7 +7,7 @@
     opacity 1
 
 div#photos
-  transition color 0.5s, background-color 0.5s, height 0.5s
+  transition color 0.5s, background-color 0.5s
   clear both
   padding 0 16px
 
@@ -17,19 +17,41 @@ div#photos
     margin auto
 
   > div#thumbs
-    > a > img
-      margin 4px
+    overflow hidden
+    height 83px
+    > a
+      display block
+      float left
+      > img
+        transition opacity 0.3s
+        opacity 0.7
+        display block
+        border none
+        margin  4px 4px 4px 0
+    > a:hover, > a.active
+      > img
+        opacity 1
+  > div#thumbs:hover
+    > a.active > img
+      opacity 0.7
+    > a.active:hover > img
+      opacity 1
+
   > div#viewer
+    overflow hidden
     > div.preview
+      position relative
       animation-duration 1s
       animation-name opacitate
       background inherit
       > img
-        display   block
-        margin    auto
-        max-height 400px
+        display    block
+        margin     auto
+        max-width  100%
+        max-height 100%
 
 div#photos.active
-  height 600px
+  > h1
+    display none
   > *
     max-width 100%
