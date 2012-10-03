@@ -7,17 +7,17 @@
     opacity 1
 
 div#photos
-  transition color 0.5s, background-color 0.5s
   clear both
-  padding 0 16px
+  transition color 0.5s, background-color 0.5s
 
-  > *
-    transition max-width 0.5s
+  > div#thumbs, > h1
     max-width 1500px
     margin auto
+    padding 0 16px
 
   > div#thumbs
     overflow hidden
+    transition max-width 0.5s
     height 83px
     > a
       display block
@@ -39,8 +39,9 @@ div#photos
 
   > div#viewer
     padding-bottom 4px
-    transition opacity 0.4s
     opacity 0.1
+    transition opacity 0.5s
+    max-width 100%
     > div.preview
       animation-duration 1s
       animation-name opacitate
@@ -52,7 +53,7 @@ div#photos
         max-height 100%
 
 div#photos.active
-  > *
+  > div#thumbs
     max-width 100%
   > div#viewer
     opacity 1

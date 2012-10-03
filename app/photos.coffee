@@ -8,7 +8,7 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
   requestAnimationFrame = window.webkitRequestAnimationFrame or window.mozRequestAnimationFrame or window.msRequestAnimationFrame
 
   toggle_gallery = (photos, offset) -> (event) ->
-    if offset < ((document.documentElement.scrollTop or document.body.scrollTop) + 100)
+    if offset < ((document.documentElement.scrollTop or document.body.scrollTop) + 20)
       photos.className = 'active' if photos.className isnt 'active'
     else
       photos.className = '' if photos.className isnt ''
@@ -39,7 +39,7 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
 
     scroller()
 
-  thumb_click = (photos, thumbs, viewer, a) -> (event) ->
+  thumb_click = (photos, thumbs, viewer, a) -> (event, noscroll) ->
     return if event.button isnt 0
     event.preventDefault()
 
@@ -48,7 +48,7 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
 
     window.onscroll = toggle_gallery photos, thumbs.offsetTop
 
-    scroll_to thumbs.offsetTop
+    scroll_to thumbs.offsetTop if noscroll isnt true
 
     viewer.innerHTML = preview src: a.href, height: img_height
     for thumb in thumbs.childNodes
@@ -62,5 +62,6 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
     thumbs.innerHTML = thumbnails photos: json.photos.photo
     for a in thumbs.childNodes
       a.onclick = thumb_click photos, thumbs, viewer, a
+    thumbs.childNodes[0].onclick {button: 0, preventDefault: ->}, true
 
   document.body.appendChild api_call
