@@ -1,6 +1,6 @@
 # Photo Toughts
 
-Written on 2012-08-26.
+Lublin, 2012-08-26.
 
 I am old enough to be first acquainted with film cameras. I am fortunate enough to have a father that has a shelf full of some very old, some quite contemporary hardware. I am unlucky enough of not having a PC capable of editing high-res images until 2007.
 
