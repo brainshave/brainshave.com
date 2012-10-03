@@ -7,11 +7,11 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
 
   requestAnimationFrame = window.webkitRequestAnimationFrame or window.mozRequestAnimationFrame or window.msRequestAnimationFrame
 
-  darken_gallery = (photos, offset) -> (event) ->
+  toggle_gallery = (photos, offset) -> (event) ->
     if offset < ((document.documentElement.scrollTop or document.body.scrollTop) + 100)
-      photos.className = 'active'
+      photos.className = 'active' if photos.className isnt 'active'
     else
-      photos.className = ''
+      photos.className = '' if photos.className isnt ''
 
   scroll_to = (target_y) ->
     lapse = 500
@@ -46,7 +46,7 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
     img_height = window.innerHeight - 87 + 'px'
     viewer.style.height = img_height
 
-    window.onscroll = darken_gallery photos, thumbs.offsetTop
+    window.onscroll = toggle_gallery photos, thumbs.offsetTop
 
     scroll_to thumbs.offsetTop
 
