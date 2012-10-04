@@ -3,11 +3,21 @@ define () ->
                  history.replaceState and
                  window.XMLHttpRequest)
 
-  before_content_mark = '<!--BEFORE CONTENT-->'
-  after_content_mark = '<!--AFTER CONTENT-->'
-  content_node = document.getElementById 'content'
+  before_content = '<!--BEFORE CONTENT-->'
+  after_content  = '<!--AFTER CONTENT-->'
 
+  before_scripts = '<!--BEFORE SCRIPTS-->'
+  after_scripts  = '<!--AFTER SCRIPTS-->'
 
+  content_node  = document.getElementById 'content'
+  extra_scripts = document.getElementById 'extra-scripts'
+
+  get_srcs = (text) ->
+    srcs = text.match /src="[^"]+/gi
+    if srcs
+      (src.match /[^"]+/g)[1] for src in srcs
+    else
+      []
 
   window.onpopstate = (event) ->
     if event.state
@@ -15,18 +25,33 @@ define () ->
       set_goto_actions()
 
   apply_state = (state) ->
+    document.title          = state.title
     document.body.className = state.classes
-    document.title = state.title
-    content_node.innerHTML = state.content
-    null
+    content_node.innerHTML  = state.content
+
+    # Remove all extra scripts
+    while extra_scripts.firstElementChild
+      extra_scripts.removeChild extra_scripts.firstElementChild
+
+    # Add new scripts
+    for src in state.scripts
+      script = document.createElement 'script'
+      script.setAttribute 'type', 'text/javascript'
+      script.setAttribute 'src', src
+      extra_scripts.appendChild script
 
   save_current_state = () ->
     state =
       title:   document.title
-      content: content_node.innerHTML
       classes: document.body.className
+      content: content_node.innerHTML
+      scripts: get_srcs extra_scripts.innerHTML
 
-    history.replaceState(state, state.title, location.href)
+    history.replaceState state, state.title, location.href
+
+  text_between_marks = (text, mark_start, mark_end) ->
+    (text.substring text.indexOf(mark_start),
+                    (text.indexOf mark_end) + mark_end.length)
 
   load_page = (page_text, href) ->
     try
@@ -35,13 +60,12 @@ define () ->
           page_text.indexOf('<title>') + ('<title>').length,
           page_text.indexOf('</title>'))
         classes: page_text.match(/\<body class\=\"([^\"]+)\"/)[1]
-        content: page_text.substring(
-          page_text.indexOf(before_content_mark),
-          page_text.indexOf(after_content_mark) + after_content_mark.length)
+        content: (text_between_marks page_text, before_content, after_content)
+        scripts: get_srcs (text_between_marks page_text, before_scripts, after_scripts)
 
       save_current_state()
-      apply_state(state)
-      history.pushState(state, state.title, href)
+      apply_state state
+      history.pushState state, state.title, href
       set_goto_actions()
     catch error
       location.href = href
@@ -53,7 +77,6 @@ define () ->
     request = new XMLHttpRequest
     request.onreadystatechange = (event) ->
       if request.readyState is 4
-        # if (request.status  200) {
         load_page(request.responseText, a.href)
 
     request.open("GET", a.href, true)
