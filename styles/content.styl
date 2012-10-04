@@ -16,15 +16,20 @@ body
   font-size   18px
   font-weight 300
 
+@media (max-width: 400px)
+  body
+    font-size 14px
+    font-weight 400
+
 div#top, div#sections, article
   padding 0 16px
 
 body > div#top
-    transition max-width 0.5s
-    margin     0 auto
+  transition max-width 0.5s
+  margin     0 auto
 
 body.reading > div#top
-    max-width reading_width
+  max-width reading_width
 
 body.wide
   > div#top
