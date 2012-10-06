@@ -1,8 +1,4 @@
 define () ->
-  return if not (history.pushState and
-                 history.replaceState and
-                 window.XMLHttpRequest)
-
   before_content = '<!--BEFORE CONTENT-->'
   after_content  = '<!--AFTER CONTENT-->'
 
@@ -83,9 +79,12 @@ define () ->
     request.send(null)
 
   set_goto_actions = () ->
-    for a in document.querySelectorAll('a')
+    for a in document.getElementsByTagName('a')
       href = a.getAttribute('href')
       if href?.indexOf(':') < 0
         a.onclick = link_click.bind null, a
 
-  set_goto_actions: set_goto_actions
+  if history.pushState and history.replaceState and window.XMLHttpRequest
+    set_goto_actions: set_goto_actions
+  else
+    set_goto_actions: ->
