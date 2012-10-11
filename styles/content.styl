@@ -79,6 +79,13 @@ div#content
     margin 0 auto
     line-height 1.5em
 
+  dd, .meta
+    margin 0 0 16px 0
+    font-size 0.8em
+
+  div.meta > a
+    margin-right 1em
+
   div#sections
     margin 0 auto
     max-width wide_width
@@ -86,11 +93,12 @@ div#content
       width 100%
       > ul, > ul > li
         list-style none
-        margin 0
-        padding 0
-      > dl > dd
-        margin 0 0 16px 0
-        font-size 0.8em
+        margin     0
+        padding    0
+        > a:before
+          display    inline-block
+          width      2em
+          text-align center
 
     @media (min-width: 700px)
       > section

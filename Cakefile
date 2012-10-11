@@ -8,16 +8,19 @@ connect = require 'connect'
 coffee  = require 'coffee-script'
 _       = require 'underscore'
 
-app = connect().use(connect.static __dirname).listen 8080
+# app = connect().use(connect.static __dirname).listen 8080
 
 get_jade_deps = (callback, file_path) ->
+  if not (/\.jade$/).test file_path
+    callback null, []
+    return []
+
   content = fs.readFileSync file_path, 'utf8'
   dir = "#{path.dirname file_path}/".replace './', ''
   deps = for match in content.match(/(extends|include)\s+([a-zA-Z\/]+)/g) or []
     "#{dir}#{match.replace(/(extends|include)\s+/, '')}.jade"
   extra_deps = for dep in deps
     get_jade_deps(null, dep)
-  deps.push 'index.json' if (/\bindex\b/).test content
   deps = deps.concat extra_deps...
   if callback
     callback null, deps
@@ -33,7 +36,7 @@ get_title = (source) -> (source.match title_matcher)?[1]
 date_matcher = /\d{4}-\d{2}-\d{2}/
 get_date = (source) -> new Date (source.match date_matcher)?[0]
 
-index = (callback, output_path, input_paths...) ->
+index = (field_name) -> (callback, output_path, input_paths...) ->
   go = flow (read 'utf8')
   , (do_all (callback, source) ->
       title = get_title source
@@ -44,9 +47,24 @@ index = (callback, output_path, input_paths...) ->
       element.href = input_paths[i].replace /\.md$/, '.html'
       element)
     index.sort (a, b) -> a.date < b.date and 1 or a.date == b.date and 0 or -1
-    callback null, JSON.stringify index: index
+    content = {}
+    content[field_name] = index
+    callback null, JSON.stringify content
   , (save 'utf8')
   go arguments...
+
+compile_jade = (callback, output_path, paths...) ->
+  jade_path = _.find paths, (x) -> /\.jade$/.test x
+  json_paths = paths.filter (path) -> (/\.json$/).test path
+  go = flow (read 'utf8')
+  , (callback, jade_source, json_sources...) ->
+    title    = jade_path.substring 0, jade_path.indexOf '/'
+    objects  = _.extend title: title, (JSON.parse json for json in json_sources)...
+    template = jade.compile jade_source, filename: jade_path, pretty: true
+    result   = template objects
+    callback null, result
+  , (save 'utf8')
+  go callback, output_path, jade_path, json_paths...
 
 recipe
   in:  '*/*.md'
@@ -63,19 +81,15 @@ recipe
   dep: get_markdown_deps
 
 recipe
+  in:  'index.jade|*/index.json'
+  out: 'index.html'
+  run: compile_jade
+  dep: get_jade_deps
+
+recipe
   in:  '*.jade'
   out: '*.html'
-  run: (callback, output_path, jade_path, rest...) ->
-    go = flow (callback, jade_path, rest...) ->
-      callback null, jade_path, (rest.filter (path) -> (/\.json$/).test path)...
-    , (read 'utf8')
-    , (callback, jade_source, json_sources...) ->
-      objects = _.extend (JSON.parse json for json in json_sources)...
-      template = jade.compile jade_source, filename: jade_path, pretty: true
-      result = template objects
-      callback null, result
-    , (save 'utf8')
-    go arguments...
+  run: compile_jade
   dep: get_jade_deps
 
 recipe
@@ -96,14 +110,17 @@ recipe
   dep: get_jade_deps
 
 recipe
-  in:  'app/*.js'
-  out: 'app.js'
-  run: (flow (read 'utf8'), join(), (save 'utf8'))
+  in:  '*/*.md'
+  out: '*/index.json'
+  run: (callback, output_path) ->
+    name = output_path.match(/^[^/]+/)[0]
+    (index name) arguments...
 
 recipe
-  in:  '*/*.md'
-  out: 'index.json'
-  run: index
+  in:  '*/index.(jade|json)'
+  out: '*/index.html'
+  run: compile_jade
+  dep: get_jade_deps
 
 recipe
   in:  'styles/*.styl'
