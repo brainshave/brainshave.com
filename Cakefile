@@ -16,9 +16,9 @@ get_jade_deps = (callback, file_path) ->
     return []
 
   content = fs.readFileSync file_path, 'utf8'
-  dir = "#{path.dirname file_path}/".replace './', ''
-  deps = for match in content.match(/(extends|include)\s+([a-zA-Z\/]+)/g) or []
-    "#{dir}#{match.replace(/(extends|include)\s+/, '')}.jade"
+  dir = "#{path.dirname file_path}"
+  deps = for match in content.match(/(extends|include)\s+([\.a-zA-Z\/]+)/g) or []
+    (path.normalize "#{dir}/#{match.replace(/(extends|include)\s+/, '')}.jade").replace('\\', '/')
   extra_deps = for dep in deps
     get_jade_deps(null, dep)
   deps = deps.concat extra_deps...
