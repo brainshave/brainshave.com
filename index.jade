@@ -6,6 +6,16 @@ block title
 append head
   classes = 'dark wide'
 
+mixin links_list(list, name)
+  dl
+    each file in list.slice(0,5)
+      dt: a(href=file.href)= file.title
+      dd= new Date(file.date).toDateString()
+
+  .meta
+    a.icon.th-list(href='#{name}/index.html') full list
+    a.icon.rss(href='#{name}/index.xml') feed
+
 block content
   div#sections
     section
@@ -19,11 +29,12 @@ block content
       ul
         li: a.icon.github(href='https://github.com/szywon') github
         li: a.icon.twitter-bird(href='https://twitter.com/szywon') twitter
+        li: a.icon.dot-2(href='http://flickr.com/photos/szywon') flickr
 
       include templates/footer
 
     section
-      h1 Stuff
+      h1 Projects
 
       dl
         dt: a(href='https://github.com/szywon/cherry') cherry
@@ -35,19 +46,18 @@ block content
         dt: a(href='https://github.com/szywon/superbigle') superbigle
         dd examples from OpenGL SuperBible translated to WebGL
 
-    section
-      h1 Blog
-
-      dl
-        each file in index
-          dt: a(href=file.href)= file.title
-          dd= new Date(file.date).toDateString()
-
-        dt: a(href='404.html') Test 404 Page
-        dd Now and then
+      .meta
+        a.icon.github(href='https://github.com/szywon') all projects
 
     section
-      h1 Buzz
+      h1 Articles
+
+      mixin links_list(articles, 'articles')
+
+    section
+      h1 Updates
+
+      mixin links_list(updates, 'updates')
 
   div#photos
     h1 Photos
