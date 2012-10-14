@@ -1,10 +1,16 @@
 extends basic
 
+block title
+  |#{title} -- S/W
+
+append head
+  classes = 'dark reading'
+
 block content
   article
     dl
-    each file in list
-      dt: a(href='/' + file.href)= file.title
-      dd= new Date(file.date).toDateString()
+      each file in list
+        dt: a(href='/' + file.href)= file.title
+        dd= new Date(file.date).toDateString()
 
     include footer

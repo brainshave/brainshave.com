@@ -1,0 +1,23 @@
+doctype xml
+
+id = 'http://szywon.pl/' + name + '/index.xml'
+date = list[0].date
+
+feed(xmlns='http://www.w3.org/2005/Atom')
+  title S/W
+  link(href=id, rel='self')
+  link(href='http://szywon.pl')
+  updated= date
+  id http://szywon.pl/
+  author
+    name Szymon Witamborski
+    email szywon@g.pl
+
+  each file in list.slice(0, 10)
+    entry
+      id = 'http://szywon.pl/' + file.href
+      title= file.title
+      link(href=id)
+      updated= file.date
+      id= id
+      content(type='html') #{file.content}

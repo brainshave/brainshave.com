@@ -4,7 +4,7 @@
 *.html
 *.js
 *.exe
-index.json
+*.xml
 fonts
 deps
 node_modules
