@@ -87,9 +87,11 @@ compile_list = (compile_md) ->
       name = path.dirname this.deps[0]
       _.extend this, list: items, name: name,
         title: (name.replace /\b\w/g, (x) -> x.toUpperCase())
+
       if compile_md
         for item in items
           _.extend item, content: (marked.parse item.md)
+
       callback null, this.deps),
     compile_jade
 
@@ -126,7 +128,7 @@ recipe
   also: ['templates/atom.jade']
   out:  '*/index.xml'
   dep:  get_jade_deps
-  run:  compile_list false
+  run:  compile_list true
 
 recipe
   in:  '*.jade'
