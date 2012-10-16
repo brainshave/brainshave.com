@@ -9,6 +9,14 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
     window.msRequestAnimationFrame or (f) ->
       window.setTimeout f, 1000/60
 
+  calc_size = (w, h, W, H) ->
+    r = w / h
+    R = W / H
+    if r < R
+      [H * r, H]
+    else
+      [W, W / r]
+
   window.onscroll = () ->
     position = document.documentElement.scrollTop or document.body.scrollTop
     if photos.offsetTop < position + 100
@@ -31,14 +39,6 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
         div.appendChild img
 
   window.onscroll() # Apply for current position
-
-  calc_size = (w, h, W, H) ->
-    r = w / h
-    R = W / H
-    if r < R
-      [H * r, H]
-    else
-      [W, W / r]
 
   apply_size = () ->
     viewer_height = window.innerHeight - 200
@@ -119,6 +119,6 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
     document.body.appendChild api_call
 
   if viewer.firstElementChild # We are coming back from somewhere
-    set_actions()
+    # set_actions()
   else
     call_flickr()
