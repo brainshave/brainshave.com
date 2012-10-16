@@ -60,8 +60,8 @@ define () ->
         scripts: get_srcs (text_between_marks page_text, before_scripts, after_scripts)
 
       save_current_state()
-      apply_state state
       history.pushState state, state.title, href
+      apply_state state
       set_goto_actions()
     catch error
       location.href = href

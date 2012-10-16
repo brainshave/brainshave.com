@@ -11,50 +11,29 @@ div#photos
   padding-top 2em
   transition color 0.5s, background-color 0.5s
 
-  > div#thumbs, > h1
+  > div#thumbs, > div#header
     max-width 1500px
     margin auto
-    padding 0 16px
+    padding 8px 16px
 
-  > div#thumbs
-    overflow hidden
-    transition max-width 0.5s
-    height 83px
-    > a
-      display block
-      float left
-      > img
-        transition opacity 0.3s
-        opacity 0.7
-        display block
-        border none
-        margin  4px 4px 4px 0
-    > a:hover, > a.active
-      > img
-        opacity 1
-  > div#thumbs:hover
-    > a.active > img
-      opacity 0.7
-    > a.active:hover > img
-      opacity 1
+  > div#header
+    padding-top 8px
+    > *
+      display inline-block
 
-  > div#viewer
-    padding-bottom 4px
-    opacity 0.1
-    transition opacity 0.5s
-    max-width 100%
-    > div.preview
-      animation-duration 1s
-      animation-name opacitate
-      background inherit
-      > img
-        display    block
-        margin     auto
-        max-width  100%
-        max-height 100%
+div#viewer
+  opacity 0.1
+  transition opacity 0.5s
+  width 100%
+  > div.preview
+    animation-duration 1s
+    animation-name opacitate
+    background-repeat no-repeat
+    background-position center top
+    margin 16px 0
+    > img
+      display    block
+      margin     auto
 
-div#photos.black
-  > div#thumbs
-    max-width 100%
-  > div#viewer
-    opacity 1
+.black div#viewer
+  opacity 1

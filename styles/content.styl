@@ -12,8 +12,8 @@ body
   transition  color 0.5s, background-color 0.5s
   margin      0
   padding     8px 0 0 0
-  font-family 'Open Sans', 'Segoe UI', Ubuntu, Arial, sans-serif
-  font-size   18px
+  font-family 'Source Sans Pro', 'Segoe UI', Ubuntu, Arial, sans-serif
+  font-size   20px
   font-weight 300
 
 @media (max-width: 400px)
@@ -40,7 +40,7 @@ footer, .small
   font-weight 400
 
 h1, h2
-  font-weight 300
+  font-weight inherit
 
 h1
   font-size 1.5em
@@ -52,6 +52,9 @@ h2
 h3, h4
   font-weight 400
   font-size 1em
+
+h2, h3, h4
+  margin-top 1.7em
 
 b, strong
   font-weight 700
@@ -68,10 +71,16 @@ a:focus
 
 
 pre, code
-  font-family 'Anonymous Pro', monospace
-  font-weight 400
+  font-family 'Source Code Pro', monospace
 
 // content
+
+.light
+  font-weight 400
+  // h1, h2
+  // font-weight 300
+  h3, h4
+    font-weight 600
 
 div#content
   > article

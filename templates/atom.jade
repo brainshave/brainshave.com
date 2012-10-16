@@ -1,10 +1,7 @@
 doctype xml
 
-id = 'http://szywon.pl/' + name + '/index.xml'
-date = list[0].date
-
 feed(xmlns='http://www.w3.org/2005/Atom')
-  title S/W
+  title S/W #{title}
   link(href=id, rel='self')
   link(href='http://szywon.pl')
   updated= date

@@ -60,9 +60,12 @@ block content
       mixin links_list(updates, 'updates')
 
   div#photos
-    h1 Photos
+    div#header
+      h1 Photos
 
-    div#thumbs
+      .meta
+        a.icon.dot-2(href='http://flickr.com/photos/szywon') all photos
+
     div#viewer
 
 block extra-scripts

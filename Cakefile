@@ -81,12 +81,16 @@ compile_md =
     compile_jade
 
 compile_list = (compile_md) ->
-  flow (take 1),
+  flow (filter '*/*.json'),
     (read 'utf8'),
-    (([items], callback) ->
-      name = path.dirname this.deps[0]
+    ((lists, callback) ->
+      items = (_.sortBy (_.flatten lists, true), 'date').reverse()
+      # Give a name only if compiling a single list
+      name = if lists.length is 1 then path.dirname this.deps[0] else ''
       _.extend this, list: items, name: name,
         title: (name.replace /\b\w/g, (x) -> x.toUpperCase())
+        id:    "http://szywon.pl/#{if name then name + '/' else ''}index.xml"
+        date:  items[0].date
 
       if compile_md
         for item in items
@@ -116,6 +120,13 @@ recipe
   dep:  get_jade_deps
   run:  compile_jade
 
+# recipe
+#   in:   'updates/index.json'
+#   also: ['templates/list.jade']
+#   out:  'updates/index.html'
+#   dep:  get_jade_deps
+#   run:  compile_list true
+
 recipe
   in:   '*/index.json'
   also: ['templates/list.jade']
@@ -127,6 +138,13 @@ recipe
   in:   '*/index.json'
   also: ['templates/atom.jade']
   out:  '*/index.xml'
+  dep:  get_jade_deps
+  run:  compile_list true
+
+recipe
+  in:   '*/index.json'
+  also: ['templates/atom.jade']
+  out:  'index.xml'
   dep:  get_jade_deps
   run:  compile_list true
 
