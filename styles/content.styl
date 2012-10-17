@@ -24,6 +24,34 @@ body
 div#top, div#sections, article
   padding 0 16px
 
+div#top
+  > div.meta
+    line-height 32px
+    margin-top 12px
+    > a
+      display inline-block
+      width 16px
+      margin-left 12px
+      text-align center
+    > a:first-child
+      margin-left 0
+  @media (min-width: 350px)
+    > a#logo
+      float left
+    > div.meta
+      margin-top 0
+      float right
+      font-size 16px
+      > a
+        width 32px
+        margin-left 0
+  @media (min-width: 500px)
+    > div.meta
+      font-size 20px
+      > a
+        width 32px
+        margin-left 16px
+
 body > div#top
   transition max-width 0.5s
   margin     0 auto
@@ -66,6 +94,9 @@ a
 a#logo > div
   transition width 0.3s, height 0.3s, border-radius 0.3s, background-color 1s
 
+div#top a
+  transition color 0.6s
+
 a:focus
   outline 0 // disable ugly firefox dotted outlines
 
@@ -77,12 +108,20 @@ pre, code
 
 .light
   font-weight 400
-  // h1, h2
-  // font-weight 300
   h3, h4
     font-weight 600
 
+blockquote
+  font-style italic
+
+blockquote
+  i, em
+    font-style normal
+
 div#content
+  clear both
+  overflow auto
+
   > article
     max-width reading_width
     margin 0 auto

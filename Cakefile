@@ -120,13 +120,6 @@ recipe
   dep:  get_jade_deps
   run:  compile_jade
 
-# recipe
-#   in:   'updates/index.json'
-#   also: ['templates/list.jade']
-#   out:  'updates/index.html'
-#   dep:  get_jade_deps
-#   run:  compile_list true
-
 recipe
   in:   '*/index.json'
   also: ['templates/list.jade']
@@ -138,13 +131,6 @@ recipe
   in:   '*/index.json'
   also: ['templates/atom.jade']
   out:  '*/index.xml'
-  dep:  get_jade_deps
-  run:  compile_list true
-
-recipe
-  in:   '*/index.json'
-  also: ['templates/atom.jade']
-  out:  'index.xml'
   dep:  get_jade_deps
   run:  compile_list true
 

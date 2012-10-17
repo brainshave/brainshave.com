@@ -4,7 +4,7 @@ feed(xmlns='http://www.w3.org/2005/Atom')
   title S/W #{title}
   link(href=id, rel='self')
   link(href='http://szywon.pl')
-  updated= date
+  updated= date.toISOString()
   id http://szywon.pl/
   author
     name Szymon Witamborski
@@ -15,6 +15,6 @@ feed(xmlns='http://www.w3.org/2005/Atom')
       id = 'http://szywon.pl/' + file.href
       title= file.title
       link(href=id)
-      updated= file.date
+      updated= file.date.toISOString()
       id= id
       content(type='html') #{file.content}

@@ -6,32 +6,21 @@ block title
 append head
   classes = 'dark wide'
 
-mixin links_list(list, name)
-  dl
-    each file in list.slice(0,5)
-      dt: a(href=file.href)= file.title
-      dd= new Date(file.date).toDateString()
-
-  .meta
-    a.icon.th-list(href='#{name}/index.html') full list
-    a.icon.rss(href='#{name}/index.xml') feed
-
 block content
   div#sections
+
     section
       h1 Hi!
 
       :markdown
-        I'm **Szymon Witamborski**. My dream job is creating fake operating systems for movies but for the time being I do some web stuff.
+        I'm **Szymon Witamborski**. My dream job is to create fake operating systems for movies but for the time being I do some web stuff.
 
         You can reach me under <szywon@g.pl> or here otherwise:
 
       ul
-        li: a.icon.github(href='https://github.com/szywon') github
         li: a.icon.twitter-bird(href='https://twitter.com/szywon') twitter
+        li: a.icon.github(href='https://github.com/szywon') github
         li: a.icon.dot-2(href='http://flickr.com/photos/szywon') flickr
-
-      include templates/footer
 
     section
       h1 Projects
@@ -50,23 +39,33 @@ block content
         a.icon.github(href='https://github.com/szywon') all projects
 
     section
-      h1 Articles
+      h1 Blog
 
-      mixin links_list(articles, 'articles')
+      dl
+        each file in blog.slice(0,5)
+          dt: a(href=file.href)= file.title
+          dd= new Date(file.date).toDateString()
+
+      .meta
+        a.icon.th-list(href='/blog/index.html') full list
+        a.icon.rss-1(href='/blog/index.xml') feed
 
     section
-      h1 Updates
+      h1 Photography
 
-      mixin links_list(updates, 'updates')
-
-  div#photos
-    div#header
-      h1 Photos
+      p I often got a camera with me wherever I go. Just scroll down to see some of my more recent uploads to Flickr.
 
       .meta
         a.icon.dot-2(href='http://flickr.com/photos/szywon') all photos
 
+
+  div#photos
     div#viewer
+
+    .meta
+      a.icon.dot-2(href='http://flickr.com/photos/szywon') all photos
+
+    include templates/footer
 
 block extra-scripts
   script(type="text/javascript", src="/app/photos.js")

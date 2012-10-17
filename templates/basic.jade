@@ -7,13 +7,13 @@ html
     block head
       meta(charset='utf-8')
       title: block title
-      link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic|Source+Code+Pro:200,300,400,600,700,900&subset=latin,latin-ext,cyrillic')
-      //- Open+Sans:400,600,700,800,300italic,400italic,600italic,700italic,800italic,300|Anonymous+Pro:400,700,400italic,700italic
 
+      link(rel='stylesheet', type='text/css', href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic|Source+Code+Pro:200,300,400,600,700,900&subset=latin,latin-ext,cyrillic')
       link(rel='stylesheet', type='text/css', href='/styles/all.css')
 
   body(class = classes)
     div#top
+
       a#logo(href="/") S/W
         div.s.block.up.left
         div.s.block.down.right
@@ -29,6 +29,13 @@ html
         div.w.mid.left
         div.w.mid.right
         div.w.col.right
+
+      .meta
+        a.icon.th-list(href='/blog/index.html')
+        a.icon.rss-1(href='/blog/index.xml')
+        a.icon.dot-2(href='http://flickr.com/photos/szywon')
+        a.icon.twitter-bird(href='https://twitter.com/szywon')
+        a.icon.github(href='https://github.com/szywon')
 
     div#content
       //BEFORE CONTENT

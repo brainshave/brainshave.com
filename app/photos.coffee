@@ -1,5 +1,4 @@
-require ['thumbnails', 'preview'], (thumbnails, preview) ->
-  # thumbs = document.getElementById 'thumbs'
+require ['preview'], (preview) ->
   photos = document.getElementById 'photos'
   viewer = document.getElementById 'viewer'
 
@@ -36,7 +35,7 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
         img.src = photo.url_l
         img.style.width = "#{x}px"
         img.style.height = "#{y}px"
-        div.appendChild img
+        img.onload = ((div, img) -> (e) -> if div.children.length is 0 then div.appendChild img) div, img
 
   window.onscroll() # Apply for current position
 
@@ -52,7 +51,7 @@ require ['thumbnails', 'preview'], (thumbnails, preview) ->
       div.firstElementChild?.style.width = "#{x}px"
       div.firstElementChild?.style.height = "#{y}px"
 
-    viewer.style.minHeight = viewer_height + 'px'
+    # viewer.style.minHeight = viewer_height + 'px'
     # if photos.className is 'black'
     #   set_vertical_position thumbs.offsetTop
 
