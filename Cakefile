@@ -164,8 +164,10 @@ recipe
              join(),
              (save 'utf8'))
 
+jam = if process.platform is 'win32' then 'jam.cmd' else 'jam'
+
 recipe
   in: 'package.json'
   out: 'deps/require.js'
   run: (deps, callback) ->
-    spawn 'jam.cmd', ['upgrade'], spawn.default callback
+    spawn jam, ['upgrade'], spawn.default callback
