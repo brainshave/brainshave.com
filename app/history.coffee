@@ -1,4 +1,7 @@
-define () ->
+define ['reset_callbacks'], (reset_callbacks) ->
+  if not (history.pushState and history.replaceState and window.XMLHttpRequest)
+    return
+
   before_content = '<!--BEFORE CONTENT-->'
   after_content  = '<!--AFTER CONTENT-->'
 
@@ -7,6 +10,8 @@ define () ->
 
   content_node  = document.getElementById 'content'
   extra_scripts = document.getElementById 'extra-scripts'
+
+  reset_callbacks = reset_callbacks ['onpopstate']
 
   get_srcs = (text) ->
     srcs = text.match /src="[^"]+/gi
@@ -42,6 +47,8 @@ define () ->
       classes: document.body.className
       content: content_node.innerHTML
       scripts: get_srcs extra_scripts.innerHTML
+
+    reset_callbacks()
 
     history.replaceState state, state.title, location.href
 
@@ -84,7 +91,4 @@ define () ->
       if href?.indexOf(':') < 0
         a.onclick = link_click.bind null, a
 
-  if history.pushState and history.replaceState and window.XMLHttpRequest
-    set_goto_actions: set_goto_actions
-  else
-    set_goto_actions: ->
+  set_goto_actions()
