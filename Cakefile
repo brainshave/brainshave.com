@@ -163,3 +163,9 @@ recipe
              (do_all (src, callback) -> stylus(src).use(nib()).render callback),
              join(),
              (save 'utf8'))
+
+recipe
+  in: 'package.json'
+  out: 'deps/require.js'
+  run: (deps, callback) ->
+    spawn 'jam.cmd', ['upgrade'], spawn.default callback
