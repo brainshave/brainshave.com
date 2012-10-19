@@ -1,7 +1,6 @@
 # szywon.pl
 
-Build instructions: (needs `jam` and `coffee-script` installed globally)
+Build instructions: (needs `jam` and `cherry` installed globally)
 
     npm install   # installs node deps
-    jam upgrade   # installs client-side deps
     cherry build  # builds site
