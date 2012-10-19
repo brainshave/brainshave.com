@@ -4,13 +4,14 @@ block title
   |#{title} -- S/W
 
 append head
-  classes = 'reading light'
+  classes = 'reading dark'
 
 block content
   article
+    h1= title
     dl
       each file in list
         dt: a(href='/' + file.href)= file.title
-        dd= new Date(file.date).toDateString()
+        dd= file.date.toDateString()
 
     include footer
