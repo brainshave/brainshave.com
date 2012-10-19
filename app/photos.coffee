@@ -69,6 +69,6 @@ require [], () ->
     document.body.appendChild api_call
 
   if viewer.firstElementChild # We are coming back from somewhere
-    resize()
+    reposition()
   else
     call_flickr()
