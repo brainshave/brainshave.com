@@ -5,6 +5,5 @@
 *.js
 *.exe
 *.xml
-fonts
 deps
 node_modules
