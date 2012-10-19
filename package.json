@@ -5,8 +5,7 @@
     "packageDir": "deps",
     "baseUrl": "app",
     "dependencies": {
-      "underscore": null,
-      "jade-runtime": null
+      "underscore": null
     }
   },
   "dependencies": {

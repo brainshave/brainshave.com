@@ -1,4 +1,4 @@
-require ['preview'], (preview) ->
+require [], () ->
   photos = document.getElementById 'photos'
   viewer = document.getElementById 'viewer'
 
@@ -50,14 +50,18 @@ require ['preview'], (preview) ->
   window.onscroll = reposition
 
   window.load_lowres = (json) ->
-    html = ""
     for photo in json.photos.photo
-      html += preview photo: photo, src: photo.url_l
-    viewer.innerHTML = html
+      div = document.createElement 'div'
+      div.className = 'preview'
+      div.style.backgroundImage = "url(#{photo.url_t})"
+      div.setAttribute 'data-photo', JSON.stringify photo
+
+      viewer.appendChild div
+
     reposition()
 
   call_flickr = () ->
-    url = "http://api.flickr.com/services/rest/?api_key=f066b4000caeabf94c09b3dfa0da3a51&format=json&jsoncallback=load_lowres&method=flickr.people.getPublicPhotos&user_id=87386920@N02&extras=url_sq,url_l,url_c,url_z,url_n,url_m,url_s,url_t"
+    url = "http://api.flickr.com/services/rest/?api_key=f066b4000caeabf94c09b3dfa0da3a51&format=json&jsoncallback=load_lowres&method=flickr.people.getPublicPhotos&user_id=87386920@N02&extras=url_sq,url_l,url_c,url_z,url_n,url_m,url_s,url_t&per_page=12"
 
     api_call = document.createElement 'script'
     api_call.setAttribute 'type', 'text/javascript'
