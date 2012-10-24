@@ -94,7 +94,7 @@ compile_list = (compile_md) ->
 
       if compile_md
         for item in items
-          _.extend item, content: (marked.parse item.md)
+          _.extend item, content: (marked.parse item.md.replace title_matcher, '')
 
       callback null, this.deps),
     compile_jade
