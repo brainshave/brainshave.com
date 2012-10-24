@@ -6,6 +6,8 @@ I am old enough to be first acquainted with film cameras. I am fortunate enough 
 
 Back in around 2003-2004 when I started doing photography with my brother, my father rented a cubicle across the street to run a dark room there. We used all kinds of cameras, from Praktica SLRs through 6x9cm range-finder Москва 5 to self-made 13x18cm ultra-wide-angle pin-hole cameras.
 
+<a href="http://www.flickr.com/photos/szywon/8119730372/" title="00230028 by szywon, on Flickr"><img src="http://farm9.staticflickr.com/8189/8119730372_6949dbfda2.jpg" alt="00230028"></a>
+
 I actually did some digital photography commercially, around 2007-2008. I was a photographer at weddings. We had a Nikon F5 (film), a Pentacon Six (for black & white extras) and some (sometimes our own, sometimes borrowed) digital camera. Film was our main medium, the digital was used as an extra. I hated doing weddings. It was boring to the guts: a repetitive, physical work, both on spot and when editing. It was the main factor that drew me off from photography for several years. (That, a degree to pursue and the fact that my own camera broke.)
 
 When I finally decided to start again, I bought the camera I always wanted and it was obviously one that you feed with film: the Pentax MX. Doing digital actually didn't occur to me as an option at that point.
