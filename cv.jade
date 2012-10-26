@@ -1,0 +1,153 @@
+extends templates/basic
+
+block title
+  | C/V — S/W
+
+append head
+  classes = 'cv dark'
+
+mixin history(first_row, second_row, third_row, fourth_row)
+  div= first_row
+  div.thin= second_row
+  div.thin= third_row
+  if fourth_row
+    div.thin= fourth_row
+
+mixin github_links(links)
+  ul
+    each link in links
+      li: a(href='https://github.com/szywon/' + link.toLowerCase())= link
+
+block content
+  #cv
+    div.thin.right Curriculum Vitae
+    h1 Szymon Witamborski
+
+    table.center
+      tr
+        td email
+        td: a(href='mailto:szywon@szywon.pl') szywon@szywon.pl
+        td(rowspan=5)
+          a(href='http://gravatar.com/szywon')
+            img(src='http://gravatar.com/avatar/c9195a3eaf4ec69b6908e6119e3524a9.png?size=128', title='Gravatar')
+      tr
+        td www
+        td: a(href='http://szywon.pl') szywon.pl
+      tr
+        td szywon@
+        td.meta
+          //- a.icon.skype(href='skype:szywon')
+          a.icon.twitter-bird(href='https://twitter.com/szywon')
+          a.icon.github(href='https://github.com/szywon')
+          a.icon.dot-2(href='http://flickr.com/photos/szywon')
+      tr
+        td living in
+        td: a(href='http://www.bing.com/maps/?v=2&cp=51.108222~22.012742&lvl=5&dir=0&sty=b&where1=Lublin&form=LMLTCC') Lublin, Poland
+      tr
+        td born
+        td 1987
+
+    h2 History
+
+    table.sparse.aligned
+      thead
+        tr
+          td timing
+          td the thing
+          td projects
+          td(colspan=2) technologies
+      tbody
+        tr
+          td: em right now
+          td small and big Open Source software circulating around JavaScript and node.js
+          td.smaller: mixin github_links(['cherry', 'dirvhost', 'pharemine', 'superbigle'])
+          td.smaller: ul
+            li node.js
+            li JavaScript
+            li TypeScript
+            li CoffeeScript
+          td.smaller: ul
+            li WebGL
+            li Jade
+            li Stylus
+            li CSS3
+        tr
+          td: mixin history("Master's", 'UMCS Lublin', 'October 2010', 'September 2012')
+          td built an OpenCL and node.js-powered cluster software with C++ node.js module for interaction between OpenCL and JavaScript
+          td: mixin github_links(['V8CL'])
+          td.smaller: ul
+            li C++
+            li JavaScript
+            li node.js&nbsp;internals
+          td.smaller: ul
+            li Jade
+            li LaTeX
+        tr
+          td: mixin history('DDKF', 'December 2011', 'February 2012')
+          td various client sites, most notable a Drupal project spanning 10+ sites within one Drupal instance with many integration points
+            span.parenthesis  (shared structure, a shared theme with custom colors etc.)
+          td.smaller: ul
+            li: a(href='http://arbointeractive.pl') arbointeractive.pl
+            li: a(href='http://v2media.pl') v2media.pl
+            li: a(href='http://behavia.pl') behavia.pl
+            li: a(href='http://soundbay.pl') soundbay.pl
+          td.smaller: ul
+            li PHP
+            li MySQL
+            li Apache
+            li PHPTAL
+          td.smaller: ul
+            li Drupal
+            li jQuery
+            li GIMP
+            li CSS
+        tr
+          td: mixin history('eLeader', 'September 2011', 'November 2011')
+          td developing both sides of a mobile product with web server done in JSF and an Android client
+          td.smaller.parenthesis undisclosed
+          td.smaller: ul
+            li Java
+            li JEE
+            li JSF
+            li Glassfish
+          td.smaller: ul
+            li PostreSQL
+            li Android
+            li Maven
+        tr
+          td: mixin history("Bachelor's", 'UMCS Lublin', 'October 2007', 'June 2010')
+          td prototyped a declarative DSL in Clojure for GUI creation designed after HTML/CSS/JS division, very abstract, supported both Swing and SWT
+          td: ul: li: a(href='https://github.com/santamon/GUIFTW') GUI FTW
+          td.smaller: ul
+            li Clojure
+            li Leiningen
+            li Java
+            li Reflection&nbsp;API
+          td.smaller: ul
+            li Swing
+            li SWT
+            li LaTeX
+        tr
+          td: em earlier
+          td learnt to program on simple scripts for C64 around age of 12, then gone through the middleage of PHP
+          td
+          td.smaller: ul
+            li C64 BASIC
+            li Pascal
+            li PHP
+          td.smaller: ul
+            li C
+            li C++
+
+    h2 Human Languages
+
+    table.aligned
+      tr
+        td Polish
+        td mother language
+      tr
+        td English
+        td all right
+
+    include templates/footer
+      p Hint: this page is printer friendly :)
