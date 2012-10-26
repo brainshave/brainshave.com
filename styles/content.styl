@@ -51,6 +51,8 @@ div#top
       > a
         width 32px
         margin-left 16px
+  @media print
+    display none
 
 body > div#top
   transition max-width 0.5s
@@ -63,9 +65,26 @@ body.wide
   > div#top
     max-width  wide_width
 
-footer, .small
+div.wide, div.reading
+  margin 0 auto
+  padding 0 16px
+
+div.wide
+  max-width wide_width
+
+div.reading
+  max-width reading_width
+
+footer, .small, .thin
   font-size 0.6em
   font-weight 400
+
+.thin
+  text-transform uppercase
+  line-height 1em
+
+.smaller
+  font-size 0.75em
 
 h1, h2
   font-weight inherit
@@ -106,6 +125,25 @@ div#top a
 a:focus
   outline 0 // disable ugly firefox dotted outlines
 
+table
+  border-spacing 0
+
+table.sparse td
+  padding-top 1em
+
+table.sparse :first-child tr:first-child td
+    padding-top 0
+
+thead
+  font-weight 600
+
+td
+  vertical-align top
+  padding-left 16px
+  padding-right 0
+
+td:first-child
+  padding-left 0
 
 pre, code
   font-family 'Source Code Pro', monospace
@@ -131,7 +169,13 @@ div#content
   > article
     max-width reading_width
     margin 0 auto
-    line-height 1.5em
+    line-height 1.6em
+
+  sup
+    font-size 0.83em
+    vertical-align top
+    position relative
+    top -0.25em
 
   dd, .meta
     margin 0 0 16px 0
