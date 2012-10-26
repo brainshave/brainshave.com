@@ -44,8 +44,8 @@ block content
         td living in
         td: a(href='http://www.bing.com/maps/?v=2&cp=51.108222~22.012742&lvl=5&dir=0&sty=b&where1=Lublin&form=LMLTCC') Lublin, Poland
       tr
-        td born
-        td 1987
+        td age
+        td= new Date(new Date().valueOf() + new Date('0000').valueOf() - new Date('1987-11-02').valueOf()).getFullYear()
 
     h2 History
 
