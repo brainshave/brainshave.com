@@ -22,7 +22,7 @@ theme(back, front, anchor, hover, shadow)
     color hover
     text-shadow 0 0 1em shadow
 
-  footer, .small
+  footer, .small, .parenthesis
     color mix(front, back, 0.5)
     a, a:visited
       color mix(anchor, back, 0.6)
@@ -55,3 +55,10 @@ theme(back, front, anchor, hover, shadow)
 
 .red
   theme(#422, #fda, #ffa, #fff, #ff0)
+
+@media print
+  #content
+    color black
+    background white
+    a, a:visited
+      color inherit
