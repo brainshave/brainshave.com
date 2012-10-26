@@ -24,6 +24,8 @@ div#photos
       margin-left 1em
   > .meta, > footer
     text-align center
+  > .meta
+    display none
 
 div#viewer
   opacity 0.1
@@ -41,5 +43,8 @@ div#viewer
       display    block
       margin     auto
 
-.black div#viewer
-  opacity 1
+.black
+  div#viewer
+    opacity 1
+  div#photos > .meta
+    display block
