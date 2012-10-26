@@ -22,6 +22,7 @@ define ['reset_callbacks'], (reset_callbacks) ->
 
   window.onpopstate = (event) ->
     if event.state
+      reset_callbacks()
       apply_state(event.state)
       set_goto_actions()
 
