@@ -31,6 +31,18 @@ get_jade_deps_one = (file_path, callback) ->
 
 get_jade_deps = do_all get_jade_deps_one
 
+beautify_md = (md) ->
+  md.replace(/([^=])"(\w)/g, '$1“$2')
+    .replace(/(\w)'/g, '$1’')
+    .replace(/'(\w)/g, '‘$1')
+    .replace(/(\w)"(?! ?(([/>])|([:a-z]+=)))/g, '$1”')
+    .replace(/\.{3}/g, '…')
+    .replace(/-{3}/g, '—')
+    .replace(/\^(\w+)/g, '<sup>$1</sup>')
+
+beautify_html = (html) ->
+  html.replace(/([^\]])\(([^\n)]+)\)/g, '$1<span class="parenthesis">($2)</span>')
+
 title_matcher = /^\#\s*([^\#].*)/
 get_title = (source) -> (source.match title_matcher)?[1]
 date_matcher = /\d{4}-\d{2}-\d{2}/
@@ -38,7 +50,7 @@ get_date = (source) -> new Date (source.match date_matcher)?[0]
 get_href = (path) -> path.replace /\.md$/, '.html'
 
 get_meta = (path, md) ->
-  title:   get_title md
+  title:   beautify_md get_title md
   date:    get_date md
   href:    get_href path
   md_path: path
@@ -76,7 +88,7 @@ compile_md =
   flow (take 1),
     (read 'utf8'),
     (([md], callback) ->
-      _.extend this, (get_meta this.deps[0], md), article: marked.parse md
+      _.extend this, (get_meta this.deps[0], md), article: (beautify_html marked.parse beautify_md md)
       callback null, this.deps),
     compile_jade
 
@@ -94,7 +106,7 @@ compile_list = (compile_md) ->
 
       if compile_md
         for item in items
-          _.extend item, content: (marked.parse item.md.replace title_matcher, '')
+          _.extend item, content: (marked.parse beautify_md item.md.replace title_matcher, '')
 
       callback null, this.deps),
     compile_jade
