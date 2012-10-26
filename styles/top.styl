@@ -1,0 +1,35 @@
+@import 'nib'
+
+div#top
+  > div.meta
+    line-height 32px
+    margin-top 12px
+    > a
+      display inline-block
+      width 16px
+      margin-left 12px
+      text-align center
+    > a:first-child
+      margin-left 0
+  @media (min-width: 350px)
+    > a#logo
+      float left
+    > div.meta
+      margin-top 0
+      float right
+      font-size 16px
+      > a
+        width 32px
+        margin-left 0
+  @media (min-width: 500px)
+    > div.meta
+      font-size 20px
+      > a
+        width 32px
+        margin-left 16px
+  @media print
+    display none
+
+body > div#top
+  transition max-width 0.5s
+  margin     0 auto

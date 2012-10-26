@@ -1,0 +1,33 @@
+wide_width = 1500px
+reading_width = 600px
+
+div#top, div#sections, article
+  padding 0 16px
+
+body.reading > div#top
+  max-width reading_width
+
+body.wide
+  > div#top
+    max-width  wide_width
+
+div.wide, div.reading
+  margin 0 auto
+  padding 0 16px
+
+div.wide
+  max-width wide_width
+
+div.reading
+  max-width reading_width
+
+footer, .small, .thin
+  font-size 0.6em
+  font-weight 400
+
+.thin
+  text-transform uppercase
+  line-height 1em
+
+.smaller
+  font-size 0.75em

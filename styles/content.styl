@@ -3,89 +3,6 @@
 wide_width = 1500px
 reading_width = 600px
 
-// geometry
-
-html
-  overflow-y scroll
-
-body
-  transition  color 0.5s, background-color 0.5s
-  margin      0
-  padding     8px 0 0 0
-  font-family 'Source Sans Pro', 'Segoe UI', Ubuntu, Arial, sans-serif
-  font-size   20px
-  font-weight 300
-
-@media (max-width: 400px)
-  body
-    font-size 14px
-    font-weight 400
-
-div#top, div#sections, article
-  padding 0 16px
-
-div#top
-  > div.meta
-    line-height 32px
-    margin-top 12px
-    > a
-      display inline-block
-      width 16px
-      margin-left 12px
-      text-align center
-    > a:first-child
-      margin-left 0
-  @media (min-width: 350px)
-    > a#logo
-      float left
-    > div.meta
-      margin-top 0
-      float right
-      font-size 16px
-      > a
-        width 32px
-        margin-left 0
-  @media (min-width: 500px)
-    > div.meta
-      font-size 20px
-      > a
-        width 32px
-        margin-left 16px
-  @media print
-    display none
-
-body > div#top
-  transition max-width 0.5s
-  margin     0 auto
-
-body.reading > div#top
-  max-width reading_width
-
-body.wide
-  > div#top
-    max-width  wide_width
-
-div.wide, div.reading
-  margin 0 auto
-  padding 0 16px
-
-div.wide
-  max-width wide_width
-
-div.reading
-  max-width reading_width
-
-footer, .small, .thin
-  font-size 0.6em
-  font-weight 400
-
-.thin
-  text-transform uppercase
-  line-height 1em
-
-.smaller
-  font-size 0.75em
-
 h1, h2
   font-weight inherit
 
@@ -125,33 +42,8 @@ div#top a
 a:focus
   outline 0 // disable ugly firefox dotted outlines
 
-table
-  border-spacing 0
-
-table.sparse td
-  padding-top 1em
-
-table.sparse :first-child tr:first-child td
-    padding-top 0
-
-thead
-  font-weight 600
-
-td
-  vertical-align top
-  padding-left 16px
-  padding-right 0
-
-td:first-child
-  padding-left 0
-
 pre, code
   font-family 'Source Code Pro', monospace
-
-body:not(.js) .script
-  display none
-
-// content
 
 .light
   font-weight 400
