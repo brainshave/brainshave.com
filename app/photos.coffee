@@ -93,7 +93,6 @@ require ['jsonp'], (jsonp) ->
     for photo in json.photos.photo
       div = document.createElement 'div'
       div.className = 'preview'
-      div.style.backgroundImage = "url(#{photo.url_t})"
       div.setAttribute 'data-photo', JSON.stringify photo
 
       viewer.appendChild div
