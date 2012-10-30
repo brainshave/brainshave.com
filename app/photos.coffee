@@ -77,7 +77,9 @@ require ['jsonp'], (jsonp) ->
         img = div.firstElementChild
         img.style.width  = "#{w}px"
         img.style.height = "#{h}px"
-        replace = (current?.url or img.getAttribute 'src') isnt url
+        current_url = current?.url or img.getAttribute 'src'
+        replace = current_url isnt url
+        div.style.backgroundImage = "url(#{current_url})" if replace
 
       if (replace or not div.firstElementChild) and (div.offsetTop < position + (window.innerHeight * 1.5))
         current.cancel() if current
