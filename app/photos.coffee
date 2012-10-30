@@ -33,16 +33,21 @@ require ['jsonp'], (jsonp) ->
   current_position = () ->
     document.documentElement.scrollTop or document.body.scrollTop
 
-  img_onload = (div, img) ->
+  loading_imgs = {}
+
+  img_onload = (div, img, url, width, height) ->
     cancel = false
     fn = (e) ->
       return if cancel
       div.removeChild div.firstElementChild if div.firstElementChild
-      img.style.width  = "#{div.size_w}px"
-      img.style.height = "#{div.size_h}px"
+      img.style.width  = "#{fn.width}px"
+      img.style.height = "#{fn.height}px"
       div.appendChild img
     fn.cancel = () ->
       cancel = true
+    fn.url    = url
+    fn.width  = width
+    fn.height = height
     fn
 
   reposition = () ->
@@ -56,12 +61,13 @@ require ['jsonp'], (jsonp) ->
       document.body.className = document.body.className.replace 'black', 'dark'
 
     for div in viewer.children
-      photo = JSON.parse div.getAttribute 'data-photo'
+      photo   = JSON.parse div.getAttribute 'data-photo'
+      current = loading_imgs[photo.id]
 
       [w, h] = calc_size +photo.width_l, +photo.height_l, viewer_width, viewer_height
       div.style.backgroundSize = "#{w}px #{h}px"
-      div.size_w = w
-      div.size_h = h
+      current?.width  = w
+      current?.height = h
       div.style.height = "#{h}px"
       url = photo["url_#{choose_size w, photo}"]
 
@@ -70,13 +76,12 @@ require ['jsonp'], (jsonp) ->
         img = div.firstElementChild
         img.style.width  = "#{w}px"
         img.style.height = "#{h}px"
-        replace = (img.getAttribute 'src') isnt url
+        replace = (current?.url or img.getAttribute 'src') isnt url
 
-      if (replace or not div.firstElementChild) and (div.offsetTop < position + (window.innerHeight * 1.1))
-        div.img_cancel_load() if div.cancel_img_load
+      if (replace or not div.firstElementChild) and (div.offsetTop < position + (window.innerHeight * 1.5))
+        current.cancel() if current
         img = document.createElement 'img'
-        img.onload = img_onload div, img
-        div.img_cancel_load = img.onload.cancel
+        loading_imgs[photo.id] = img.onload = img_onload div, img, url, w, h
         img.src = url
     return
 
