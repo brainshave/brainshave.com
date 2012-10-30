@@ -51,11 +51,12 @@ require ['jsonp'], (jsonp) ->
     fn
 
   reposition = () ->
-    viewer_height = window.innerHeight - 200
-    viewer_width  = window.innerWidth - 32
+    viewer_height = window.innerHeight * 0.8
+    viewer_width  = document.documentElement.clientWidth - 32
     position = current_position()
 
-    if position + window.innerHeight * 0.2 > photos.offsetTop
+    first_photo_h = viewer.firstElementChild?.clientHeight
+    if first_photo_h and position + window.innerHeight > photos.offsetTop + first_photo_h
       document.body.className = document.body.className.replace 'dark', 'black'
     else
       document.body.className = document.body.className.replace 'black', 'dark'
