@@ -164,6 +164,12 @@ recipe
   run: compile_jade_for_client
 
 recipe
+  in:  'app/*.js'
+  out: 'app.js'
+  run: (deps, callback) ->
+    spawn jam, [ 'compile', '-a', '-i', 'app', '-i', 'github', '-i', 'photos', '-o', 'app.js', '--no-license' ], spawn.default callback
+
+recipe
   in:  '*/*.md'
   out: '*/index.json'
   run: index
