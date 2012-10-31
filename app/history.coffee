@@ -70,6 +70,8 @@ define ['reset_callbacks'], (reset_callbacks) ->
       save_current_state()
       history.pushState state, state.title, href
       apply_state state
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop            = 0
       set_goto_actions()
     catch error
       location.href = href
