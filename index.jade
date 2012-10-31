@@ -7,7 +7,7 @@ append head
   classes = 'dark wide'
 
 block content
-  div#sections
+  div#sections(data-extra-scripts='github photos')
 
     section
       h1 Hi!
@@ -68,6 +68,3 @@ block content
 
     include templates/footer
 
-block extra-scripts
-  script(type="text/javascript", src="/app/photos.js")
-  script(type="text/javascript", src="/app/github.js")

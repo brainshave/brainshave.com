@@ -1,4 +1,4 @@
-require ['jsonp'], (jsonp) ->
+define ['jsonp'], (jsonp) -> () ->
   photos = document.getElementById 'photos'
   viewer = document.getElementById 'viewer'
 

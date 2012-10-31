@@ -1,4 +1,4 @@
-require ['underscore', 'jsonp', 'github_list'], (_, jsonp, github_list) ->
+define ['jsonp', 'github_list'], (jsonp, github_list) -> () ->
   list = document.getElementById 'github'
 
   window.load_github = (json) ->
@@ -6,7 +6,7 @@ require ['underscore', 'jsonp', 'github_list'], (_, jsonp, github_list) ->
 
     list.setAttribute 'data-github-loaded', true
 
-    json.data = _(json.data)
+    json.data = json.data
       .filter((project) -> project.name isnt 'szywon.github.com')
       .map((project) ->
         project.description = project.description

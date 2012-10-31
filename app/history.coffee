@@ -1,12 +1,9 @@
-define ['reset_callbacks'], (reset_callbacks) ->
+define ['reset_callbacks', 'load_extra_scripts'], (reset_callbacks, load_extra_scripts) ->
   if not (history.pushState and history.replaceState and window.XMLHttpRequest)
     return
 
   before_content = '<!--BEFORE CONTENT-->'
   after_content  = '<!--AFTER CONTENT-->'
-
-  before_scripts = '<!--BEFORE SCRIPTS-->'
-  after_scripts  = '<!--AFTER SCRIPTS-->'
 
   content_node  = document.getElementById 'content'
   extra_scripts = document.getElementById 'extra-scripts'
@@ -36,18 +33,13 @@ define ['reset_callbacks'], (reset_callbacks) ->
       extra_scripts.removeChild extra_scripts.firstElementChild
 
     # Add new scripts
-    for src in state.scripts
-      script = document.createElement 'script'
-      script.setAttribute 'type', 'text/javascript'
-      script.setAttribute 'src', src
-      extra_scripts.appendChild script
+    load_extra_scripts content_node
 
   save_current_state = () ->
     state =
       title:   document.title
       classes: document.body.className
       content: content_node.innerHTML
-      scripts: get_srcs extra_scripts.innerHTML
 
     reset_callbacks()
 
@@ -65,7 +57,6 @@ define ['reset_callbacks'], (reset_callbacks) ->
           page_text.indexOf('</title>'))
         classes: page_text.match(/\<body class\=\"([^\"]+)\"/)[1]
         content: (text_between_marks page_text, before_content, after_content)
-        scripts: get_srcs (text_between_marks page_text, before_scripts, after_scripts)
 
       save_current_state()
       history.pushState state, state.title, href
