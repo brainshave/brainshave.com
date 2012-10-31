@@ -19,10 +19,12 @@ require ['jsonp'], (jsonp) ->
   width_prefix    = 'width_'
   url_prefix      = 'url_'
   size_name_index = width_prefix.length
+  pixel_ratio     = window.devicePixelRatio or 1
 
   choose_size = (w, photo) ->
     d = Infinity
     size = 's'
+    w *= pixel_ratio
     for own prop, width of photo when (prop.indexOf width_prefix) is 0
       new_d = Math.abs +width - w
       if new_d < d
