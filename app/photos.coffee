@@ -23,7 +23,7 @@ require ['jsonp'], (jsonp) ->
   choose_size = (w, photo) ->
     d = Infinity
     size = 's'
-    for own prop, width of photo when (prop.indexOf 'width_') is 0
+    for own prop, width of photo when (prop.indexOf width_prefix) is 0
       new_d = Math.abs +width - w
       if new_d < d
         d    = new_d
@@ -70,7 +70,7 @@ require ['jsonp'], (jsonp) ->
       current?.width  = w
       current?.height = h
       div.style.height = "#{h}px"
-      url = photo["url_#{choose_size w, photo}"]
+      url = photo["#{url_prefix}#{choose_size w, photo}"]
 
       replace = false
       if div.firstElementChild
