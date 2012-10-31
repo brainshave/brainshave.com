@@ -106,4 +106,4 @@ define ['jsonp'], (jsonp) -> () ->
   if viewer.firstElementChild # We are coming back from somewhere
     reposition()
   else
-    jsonp("http://api.flickr.com/services/rest/?api_key=f066b4000caeabf94c09b3dfa0da3a51&format=json&jsoncallback=load_lowres&method=flickr.people.getPublicPhotos&user_id=87386920@N02&extras=url_l,url_c,url_z,url_n,url_m,url_s,url_t&per_page=12")
+    jsonp "http://api.flickr.com/services/rest/?api_key=f066b4000caeabf94c09b3dfa0da3a51&format=json&jsoncallback=load_lowres&method=flickr.people.getPublicPhotos&user_id=87386920@N02&extras=url_l,url_c,url_z,url_n,url_m,url_s,url_t&per_page=12"
