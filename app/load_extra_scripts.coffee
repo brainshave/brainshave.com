@@ -5,5 +5,5 @@ define () -> (content) ->
     script = document.createElement 'script'
     script.setAttribute 'type', 'text/javascript'
     scripts = script_names.split /\s+/
-    script.innerText = "require(#{JSON.stringify scripts},function(#{scripts.join ','}){#{(scripts.map (name) -> name + '();').join('')}});"
+    script.innerHTML = "require(#{JSON.stringify scripts},function(#{scripts.join ','}){#{(scripts.map (name) -> name + '();').join('')}});"
     extra_scripts.appendChild script
