@@ -61,7 +61,8 @@ block content
       tbody
         tr
           td: em right now
-          td small and big Open Source software circulating around JavaScript and node.js
+          td Open Source projects circulating around JavaScript and node.js, hosted at&nbsp;
+            a(href='https://github.com/szywon') github.com/szywon
           td.smaller: mixin github_links(['cherry', 'dirvhost', 'pharemine', 'superbigle'])
           td.smaller: ul
             li JavaScript
@@ -79,17 +80,17 @@ block content
           td: mixin github_links(['V8CL'])
           td.smaller: ul
             li node.js
-            li C++
-            li libuv
-            li OpenCL
-          td.smaller: ul
             li JavaScript
+            li OpenCL
+            li libuv
+          td.smaller: ul
+            li C++
             li Jade
             li LaTeX
         tr
           td: mixin history({ name: 'DDKF', href: 'http://ddkf.pl/en' }, 'December 2011', 'February 2012')
           td various client sites, most notable a Drupal project spanning 10+ sites within one Drupal instance with many integration points
-            span.parenthesis  (shared structure, a shared theme with custom colors etc.)
+            span.parenthesis  (a shared structure, a shared theme with custom colors etc.)
           td.smaller: ul
             li: a(href='http://arbointeractive.pl') arbointeractive.pl
             li: a(href='http://v2media.pl') v2media.pl
@@ -107,20 +108,21 @@ block content
             li CSS
         tr
           td: mixin history({ name: 'eLeader', href: 'http://eleader.eu' }, 'September 2011', 'November 2011')
-          td developing both sides of a mobile product with web server done in JSF and an Android client
+          td developed both sides of a mobile product with a web server done in JSF and an Android client
           td.smaller.parenthesis undisclosed
           td.smaller: ul
             li Java
-            li JEE
-            li JSF
-            li PostgreSQL
-          td.smaller: ul
             li Android
             li Glassfish
+            li PostgreSQL
+          td.smaller: ul
+            li JEE
+            li JPA
+            li JSF
             li Maven
         tr
           td: mixin history("Bachelor's", 'UMCS Lublin', 'October 2007', 'June 2010')
-          td prototyped a declarative DSL in Clojure for GUI creation designed after HTML/CSS/JS division, very abstract, supported both Swing and SWT
+          td prototyped a declarative DSL in Clojure for GUI creation designed after HTML/CSS/JS division, very abstract, supports both Swing and SWT
           td: ul: li: a(href='https://github.com/santamon/GUIFTW') GUI FTW
           td.smaller: ul
             li Clojure
@@ -143,6 +145,33 @@ block content
             li C
             li C++
 
+    h2 Meta
+
+    table.aligned
+      tr
+        td: em OSs
+        td Windows
+          span.parenthesis  (3.1-8)
+          | , Linux
+          span.parenthesis  (2.2-3.x)
+          | , MacOS
+          span.parenthesis  (7.1-9.1, 10.6)
+          | , OpenSolaris
+          span.parenthesis  (2009.06)
+          | , BeOS
+          span.parenthesis  (5.0)
+      tr
+        td: em IDEs
+        td Sublime, Emacs
+          span.parenthesis  (not religious about that)
+          | , Visual Studio, IntelliJ, Eclipse, NetBeans
+      tr
+        td: em automation
+        td Cherry, Python, Bash, Lua, Make, PowerShell
+      tr
+        td: em interests
+        td photography, typography, playing guitar
+
     h2 Human Languages
 
     table.aligned
@@ -154,4 +183,6 @@ block content
         td all right
 
     include templates/footer
-      p Hint: this page is printer friendly :)
+      p Hint: this page is printer friendly :)&nbsp;
+        a(href='https://github.com/downloads/szywon/szywon.github.com/swcv.pdf')
+          | PDF version
