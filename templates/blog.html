@@ -1,0 +1,20 @@
+{{
+  var basic  = require('./basic');
+  var footer = require('./footer');
+
+  it.classes = 'reading light';
+  it.content = '{{# def.article }}';
+}}
+
+{{= basic(it) }}
+
+
+{{## def.article:
+
+<article>
+  {{= it.html }}
+
+  {{= footer() }}
+</article>
+
+#}}

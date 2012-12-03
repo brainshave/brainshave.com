@@ -5,5 +5,10 @@
 *.js
 *.exe
 *.xml
+*.json
 deps
 node_modules
+!templates/*.html
+!package.json
+!Recipes.js
+!lib/*.js

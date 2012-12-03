@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <title>{{! it.title }}</title>
+  <script type="text/javascript">
+    (function(){
+      var mobile = /mobile|maemo|netfront|symbian|nokia|opera (mini|mobi)/i;
+      if (!mobile.test(navigator.userAgent)) {
+        document.write('<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic|Source+Code+Pro:200,300,400,600,700,900&subset=latin">');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" type="text/css" href="/styles/all.css">
+</head>
+<body class="{{= it.classes }}">
+  <div id="top">
+    <a id="logo" href="/">
+      <div class="s block up left"></div>
+      <div class="s block down right"></div>
+      <div class="s tail up right"></div>
+      <div class="s tail down left"></div>
+
+      <div class="z block down left"></div>
+      <div class="z block up right"></div>
+      <div class="z tail down right"></div>
+      <div class="z tail up left"></div>
+
+      <div class="w col left"></div>
+      <div class="w mid left"></div>
+      <div class="w mid right"></div>
+      <div class="w col right"></div>
+    </a>
+    <div class="meta">
+      <a class="icon th-list" href="/blog/index.html"></a>
+      <a class="icon rss-1" href="/blog/index.xml"></a>
+      <a class="icon dot-2" href="http://flickr.com/photos/szywon"></a>
+      <a class="icon twitter-bird" href="https://twitter.com/szywon"></a>
+      <a class="icon github" href="https://github.com/szywon"></a>
+    </div>
+  </div>
+  <div id="content">
+    <!--BEFORE CONTENT-->
+    {{= it.content }}
+    <!--AFTER CONTENT-->
+  </div>
+  <span id="extra-scripts"></span>
+  <script type="text/javascript" src="/app.js"></script>
+</body>
+</html>

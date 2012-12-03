@@ -1,0 +1,27 @@
+{{
+  var basic  = require('./basic');
+  var footer = require('./footer');
+
+  it.classes = 'reading dark';
+  it.content = (function (it) {var out = '{{# def.list }}'; return out; })(it);
+}}
+
+{{= basic(it) }}
+
+
+{{## def.list:
+
+<article>
+  <h1>{{! it.title }}</h1>
+
+  <dl>
+    {{~ it.list :file}}
+    <dt><a href="{{! '/' + file.href }}">{{! file.title }}</a></dt>
+    <dd>{{! file.date.toString() }}</dd>
+    {{~}}
+  </dl>
+
+  {{= footer() }}
+</article>
+
+#}}
