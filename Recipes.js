@@ -49,7 +49,6 @@ recipe({
     save('utf8'))
 });
 
-
 var compile_index = flow(
   take(1),
   read('utf8'),
@@ -116,28 +115,14 @@ recipe({
     save('utf8'))
 });
 
-var dot_deps = meta.deps(dots.include_matcher, '.html');
-
-function dot_compile (src) {
-  return dot.compile(src, {
-    include: dots.include.bind(null, '.html', this.deps[0])
-  });
-}
-
-function dot_use (tmpl) {
-  return tmpl({
-    json: dots.include_json.bind(null, this.deps[0])
-  });
-}
-
 recipe({
   'in': 'templates/*.(html|xml)',
   out: 'templates/*.js',
-  dep: dot_deps,
+  dep: dots.deps,
   run: flow(
     take(1),
     read('utf8'),
-    compile(dot_compile),
+    compile(dots.compile),
     compile(dots.commonjs_wrapper),
     save('utf8'))
 });
@@ -145,12 +130,12 @@ recipe({
 recipe({
   'in': '*.in.html',
   out: '*.html',
-  dep: dot_deps,
+  dep: dots.deps,
   run: flow(
     take(1),
     read('utf8'),
-    compile(dot_compile),
-    compile(dot_use),
+    compile(dots.compile),
+    compile(dots.use),
     save('utf8'))
 });
 
