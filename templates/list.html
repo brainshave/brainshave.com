@@ -7,8 +7,8 @@
 
   <dl>
     {{~ it.list :file}}
-    <dt><a href="{{! '/' + file.href }}">{{! file.title }}</a></dt>
-    <dd>{{! file.date.toString() }}</dd>
+    <dt><a href="{{= '/' + file.href }}">{{! file.title }}</a></dt>
+    <dd>{{= new Date(file.date).toDateString() }}</dd>
     {{~}}
   </dl>
 

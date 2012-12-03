@@ -13,6 +13,7 @@
     })();
   </script>
   <link rel="stylesheet" type="text/css" href="/styles/all.css">
+  {{# def.head || '' }}
 </head>
 <body class="{{= it.classes }}">
   <div id="top">
@@ -42,7 +43,7 @@
   </div>
   <div id="content">
     <!--BEFORE CONTENT-->
-    {{# def.content }}
+    {{# def.content || '' }}
     <!--AFTER CONTENT-->
   </div>
   <span id="extra-scripts"></span>

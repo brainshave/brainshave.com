@@ -49,22 +49,33 @@ recipe({
     save('utf8'))
 });
 
+
+var compile_index = flow(
+  take(1),
+  read('utf8'),
+  compile(meta.unjson),
+  compile(function (index) {
+    return {
+      title: meta.index_title(this.deps[0]),
+      path:  this.path,
+      list:  index
+    };
+  }),
+  compile(dots.with_template),
+  save('utf8'));
+
 recipe({
   'in': '*/index.json',
   also: ['templates/list.js'],
   out: '*/index.html',
-  run: flow(
-    take(1),
-    read('utf8'),
-    compile(meta.unjson),
-    compile(function (index) {
-      return {
-        title: this.deps[0],
-        list:  index
-      };
-    }),
-    compile(dots.with_template),
-    save('utf8'))
+  run: compile_index
+});
+
+recipe({
+  'in': '*/index.json',
+  also: ['templates/atom.js'],
+  out: '*/index.xml',
+  run: compile_index
 });
 
 recipe({
@@ -105,19 +116,41 @@ recipe({
     save('utf8'))
 });
 
+var dot_deps = meta.deps(dots.include_matcher, '.html');
+
+function dot_compile (src) {
+  return dot.compile(src, {
+    include: dots.include.bind(null, '.html', this.deps[0])
+  });
+}
+
+function dot_use (tmpl) {
+  return tmpl({
+    json: dots.include_json.bind(null, this.deps[0])
+  });
+}
+
 recipe({
-  'in': 'templates/*.html',
+  'in': 'templates/*.(html|xml)',
   out: 'templates/*.js',
-  dep: meta.deps(dots.include_matcher, '.html'),
+  dep: dot_deps,
   run: flow(
     take(1),
     read('utf8'),
-    compile(function (src) {
-      return dot.template(src, null, {
-        include: dots.include.bind(null, this.deps[0])
-      });
-    }),
+    compile(dot_compile),
     compile(dots.commonjs_wrapper),
+    save('utf8'))
+});
+
+recipe({
+  'in': '*.in.html',
+  out: '*.html',
+  dep: dot_deps,
+  run: flow(
+    take(1),
+    read('utf8'),
+    compile(dot_compile),
+    compile(dot_use),
     save('utf8'))
 });
 
