@@ -1,15 +1,6 @@
-{{
-  var basic  = require('./basic');
-  var footer = require('./footer');
+{{ it.classes = 'reading dark'; }}
 
-  it.classes = 'reading dark';
-  it.content = (function (it) {var out = '{{# def.list }}'; return out; })(it);
-}}
-
-{{= basic(it) }}
-
-
-{{## def.list:
+{{## def.content:
 
 <article>
   <h1>{{! it.title }}</h1>
@@ -21,7 +12,9 @@
     {{~}}
   </dl>
 
-  {{= footer() }}
+  {{# def.include('footer') }}
 </article>
 
 #}}
+
+{{# def.include('basic') }}

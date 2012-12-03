@@ -8,6 +8,7 @@ var _      = require('underscore');
 
 var meta   = require('./lib/meta');
 var beauty = require('./lib/beauty');
+var dots   = require('./lib/dots');
 
 var jam = process.platform === 'win32' ? 'jam.cmd' : 'jam';
 
@@ -22,7 +23,6 @@ recipe({
     join(),
     save('utf8'))
 });
-
 
 recipe({
   'in': 'package.json',
@@ -49,11 +49,6 @@ recipe({
     save('utf8'))
 });
 
-function with_template (info, callback) {
-  var tmpl = require(path.resolve(this.deps[1]));
-  return tmpl(info);
-}
-
 recipe({
   'in': '*/index.json',
   also: ['templates/list.js'],
@@ -61,14 +56,14 @@ recipe({
   run: flow(
     take(1),
     read('utf8'),
-    compile(unjson),
+    compile(meta.unjson),
     compile(function (index) {
       return {
         title: this.deps[0],
         list:  index
       };
     }),
-    compile(with_template),
+    compile(dots.with_template),
     save('utf8'))
 });
 
@@ -79,21 +74,17 @@ recipe({
   run: flow(
     take(1),
     read('utf8'),
-    compile(unjson),
-    compile(with_template),
+    compile(meta.unjson),
+    compile(dots.with_template),
     save('utf8'))
 });
-
-function unjson (item, callback) {
-  return typeof item === 'string' ? JSON.parse(item) : item;
-}
 
 recipe({
   'in': '*/*.json',
   out: '*/index.json',
   run: flow(
     read('utf8'),
-    compile(unjson),
+    compile(meta.unjson),
     function (items, callback) {
       var index = _.sortBy(items, 'date').reverse();
       callback(null, [index]);
@@ -103,15 +94,6 @@ recipe({
     save('utf8'))
 });
 
-
-var amd_wrapper = dot.template("define(function () { return {{= it }}; });");
-var commonjs_wrapper = dot.template("module.exports = {{= it }};");
-
-function include (reference_path, include_path) {
-  return fs.readFileSync(
-    path.relative('.', path.join(reference_path, include_path)));
-}
-
 recipe({
   'in': 'app/*.html',
   out: 'app/*.js',
@@ -119,23 +101,23 @@ recipe({
     take(1),
     read('utf8'),
     compile(dot.template),
-    compile(amd_wrapper),
+    compile(dots.amd_wrapper),
     save('utf8'))
 });
 
 recipe({
-  'in': 'templates/*.(html|xml)',
+  'in': 'templates/*.html',
   out: 'templates/*.js',
-  // dep: meta.js_deps,
+  dep: meta.deps(dots.include_matcher, '.html'),
   run: flow(
     take(1),
     read('utf8'),
     compile(function (src) {
       return dot.template(src, null, {
-        include: include.bind(null, this.deps[0])
+        include: dots.include.bind(null, this.deps[0])
       });
     }),
-    compile(commonjs_wrapper),
+    compile(dots.commonjs_wrapper),
     save('utf8'))
 });
 
