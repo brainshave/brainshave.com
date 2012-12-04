@@ -1,20 +1,12 @@
 {
   "name": "szywon.pl",
   "version": "0.0.1",
-  "jam": {
-    "packageDir": "deps",
-    "baseUrl": "app",
-    "dependencies": {
-    }
-  },
   "dependencies": {
-    "coffee-script": "*",
-    "connect": "*",
-    "jade": "*",
     "marked": "*",
     "nib": "*",
     "stylus": "*",
     "underscore": "*",
-    "dot": "*"
+    "dot": "*",
+    "uglify-js": "*"
   }
 }
