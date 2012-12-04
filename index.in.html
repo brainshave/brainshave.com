@@ -1,0 +1,135 @@
+{{
+  it.title   = 'S/W';
+  it.classes = 'dark wide';
+}}
+
+{{## def.head:
+
+<link rel="alternate" type="application/atom+xml"
+      title="S/W Blog" href="blog/index.xml">
+
+#}}
+
+{{## def.dtddlist:
+
+{{~ it.list :item }}
+
+<dt><a href="{{= item.href }}">{{! item.name }}</a></dt>
+<dd>{{! item.desc }}</dd>
+
+{{~}}
+
+#}}
+
+{{## def.content:
+
+<div id="sections" data-extra-scripts="github photos">
+
+  <section>
+    <h1>Hi!</h1>
+
+    <p>
+      I'm <b>Szymon Witamborski</b>.
+      My dream job is to create fake operating systems for movies but for the time being I do some web stuff.
+      Here's my <a href="/cv.html">CV</a>.
+    </p>
+
+    <p>
+      You can reach me under <a href="mailto:szywon@szywon.pl">szywon@szywon.pl</a> or here otherwise:
+    </p>
+
+    <ul>
+      <li><a class="icon twitter-bird"
+             href="https://twitter.com/szywon">twitter</a></li>
+      <li><a class="icon github"
+             href="https://github.com/szywon">github</a></li>
+      <li><a class="icon dot-2"
+             href="http://flickr.com/photos/szywon">flickr</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h1>Projects</h1>
+
+    <dl id="github">
+      {{
+        it.list = [{
+          name: 'cherry',
+          href: 'https://github.com/szywon/cherry',
+          desc: 'general-purpose build system'
+        }, {
+          name: 'superbigle',
+          href: 'https://github.com/szywon/superbigle',
+          desc: 'examples from OpenGL SuperBible translated to WebGL'
+        }, {
+          name: 'dirvhost',
+          href: 'https://github.com/szywon/dirvhost',
+          desc: 'Serves all projects from a directory as static vhosts'
+        }];
+      }}
+
+      {{# def.dtddlist }}
+    </dl>
+
+    <div class="meta">
+      <a class="icon github" href="https://github.com/szywon">
+        all projects on github
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h1>Blog</h1>
+
+    <dl>
+      {{
+        it.list = it.json('blog/index').map(function (item) {
+          return {
+            name: item.title,
+            href: item.href,
+            desc: new Date(item.date).toDateString()
+          };
+        });
+      }}
+
+      {{# def.dtddlist }}
+    </dl>
+
+    <div class="meta">
+      <a class="icon th-list" href="/blog/index.html">full list</a>
+      <a class="icon rss-1" href="/blog/index.xml">feed</a>
+    </div>
+  </section>
+
+  <section>
+    <h1>Photography</h1>
+
+    <p>
+      I often have a camera with me wherever I go.
+      Scroll down to see some of my more recent uploads to Flickr.
+      <noscript>In case you have JavaScript disabled, you'd shurely prefer to visit my Flickr profile ;).</noscript>
+    </p>
+
+    <div class="meta">
+      <a class="icon dot-2" href="http://flickr.com/photos/szywon">
+        all photos on flickr
+      </a>
+    </div>
+  </section>
+</div>
+
+<div id="photos">
+  <div id="viewer"></div>
+
+  <div class="meta">
+    <a class="icon dot-2" href="http://flickr.com/photos/szywon">
+      more photos on flickr
+    </a>
+  </div>
+
+  {{# def.include('templates/footer') }}
+</div>
+
+#}}
+
+{{# def.include('templates/basic') }}

@@ -10,6 +10,7 @@ deps
 node_modules
 !templates/*.html
 !templates/*.xml
+!lib/*.js
 !package.json
 !Recipes.js
-!lib/*.js
+!*.in.html
