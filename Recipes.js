@@ -5,6 +5,7 @@ var dot    = require('dot');
 var stylus = require('stylus');
 var nib    = require('nib');
 var _      = require('underscore');
+var uglify = require('uglify-js').minify;
 
 var meta   = require('./lib/meta');
 var beauty = require('./lib/beauty');
@@ -139,12 +140,35 @@ recipe({
     save('utf8'))
 });
 
+var SOUREMAP_PATH = 'app.map.json';
+var MAIN_JS_NAMES = /\b(app|main)\.js$/;
+
 recipe({
   'in': 'app/*.js',
-  out: 'app.js',
-  run: function (deps, callback) {
-    spawn(jam,
-      'compile --no-license -a -i app -i github -i photos -o app.js'.split(' '),
-      spawn['default'](callback));
+  out: 'app.min.js',
+  run: function (paths, callback) {
+
+    // Put app.js as last:
+    paths.sort(function (a, b) {
+      if (MAIN_JS_NAMES.test(a)) return 1;
+      if (MAIN_JS_NAMES.test(b)) return -1;
+      return 0;
+    });
+
+    var result = uglify(paths, {
+      outSourceMap: SOUREMAP_PATH
+    });
+
+    result.code += '\n//@ sourceMappingURL=' + SOUREMAP_PATH;
+
+    do_all(function (desc, cb) {
+      fs.writeFile(desc.path, desc.data, cb);
+    })([{
+      path: this.path,
+      data: result.code
+    }, {
+      path: SOUREMAP_PATH,
+      data: result.map
+    }], callback);
   }
 });
