@@ -11,8 +11,6 @@ var meta   = require('./lib/meta');
 var beauty = require('./lib/beauty');
 var dots   = require('./lib/dots');
 
-var jam = process.platform === 'win32' ? 'jam.cmd' : 'jam';
-
 recipe({
   'in':  'styles/*.styl',
   out: 'styles/all.css',
@@ -23,14 +21,6 @@ recipe({
     }),
     join(),
     save('utf8'))
-});
-
-recipe({
-  'in': 'package.json',
-  out: 'deps/require.js',
-  run: function (deps, callback) {
-    spawn(jam, ['upgrade'], spawn['default'](callback));
-  }
 });
 
 recipe({
@@ -112,7 +102,7 @@ recipe({
     take(1),
     read('utf8'),
     compile(dot.template),
-    compile(dots.amd_wrapper),
+    compile(dots.wrap),
     save('utf8'))
 });
 
@@ -141,7 +131,9 @@ recipe({
 });
 
 var SOUREMAP_PATH = 'app.map.json';
-var MAIN_JS_NAMES = /\b(app|main)\.js$/;
+
+var MAIN_JS_NAMES   = /\b(app|main)\.js$/;
+var DEFINE_JS_NAMES = /\b(globals|defines)\.js$/;
 
 recipe({
   'in': 'app/*.js',
@@ -150,13 +142,14 @@ recipe({
 
     // Put app.js as last:
     paths.sort(function (a, b) {
-      if (MAIN_JS_NAMES.test(a)) return 1;
-      if (MAIN_JS_NAMES.test(b)) return -1;
+      if (MAIN_JS_NAMES.test(a) || DEFINE_JS_NAMES.test(b)) return 1;
+      if (MAIN_JS_NAMES.test(b) || DEFINE_JS_NAMES.test(a)) return -1;
       return 0;
     });
 
     var result = uglify(paths, {
-      outSourceMap: SOUREMAP_PATH
+      outSourceMap: SOUREMAP_PATH,
+      wrap:         'szywon'
     });
 
     result.code += '\n//@ sourceMappingURL=' + SOUREMAP_PATH;
