@@ -13,10 +13,13 @@
     })();
   </script>
   <link rel="stylesheet" type="text/css" href="/styles/all.css">
+
   {{# def.head || '' }}
+
 </head>
 <body class="{{= it.classes }}">
   <div id="top">
+
     <a id="logo" href="/">
       <div class="s block up left"></div>
       <div class="s block down right"></div>
@@ -33,6 +36,7 @@
       <div class="w mid right"></div>
       <div class="w col right"></div>
     </a>
+
     <div class="meta">
       <a class="icon th-list" href="/blog/index.html"></a>
       <a class="icon rss-1" href="/blog/index.xml"></a>
@@ -40,12 +44,19 @@
       <a class="icon twitter-bird" href="https://twitter.com/szywon"></a>
       <a class="icon github" href="https://github.com/szywon"></a>
     </div>
+
   </div>
+
   <div id="content">
+
     <!--BEFORE CONTENT-->
+
     {{# def.content || '' }}
+
     <!--AFTER CONTENT-->
+
   </div>
+
   <span id="extra-scripts"></span>
   <script type="text/javascript" src="/app.js"></script>
 </body>
