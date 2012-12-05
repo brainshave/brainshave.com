@@ -1,15 +1,9 @@
-var szywon;
-
-szywon.github = {};
-
 (function () {
   'use strict';
 
   var DATA_LOADED = 'data-github-loaded';
 
-  var CALL_URL = 'https://api.github.com/users/szywon/repos';
-
-  //?callback=github.receive&per_page=5&sort=pushed&order=desc
+  var CALL_URL  = 'https://api.github.com/users/szywon/repos';
   var CALL_ARGS = {
     callback: 'szywon.github.receive',
     sort:     'pushed',
@@ -46,9 +40,9 @@ szywon.github = {};
       return project;
     });
 
-    list.innerHTML = szywon.github_list(json);
+    list.innerHTML = this.list(json);
   }
 
   this.receive = receive;
   this.start   = start;
-}).call(szywon.github);
+}).call(ns('szywon.github'));

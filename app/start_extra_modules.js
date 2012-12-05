@@ -1,5 +1,3 @@
-var szywon;
-
 (function () {
   'use strict';
 
@@ -19,5 +17,6 @@ var szywon;
   }
 
   this.start_extra_modules = start_extra_modules;
-}).call(szywon);
+
+}).call(ns('szywon'));
 

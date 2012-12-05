@@ -1,5 +1,3 @@
-var szywon;
-
 (function () {
   'use strict';
 
@@ -25,4 +23,4 @@ var szywon;
   }
 
   this.jsonp = jsonp;
-}).call(szywon);
+}).call(ns('szywon'));

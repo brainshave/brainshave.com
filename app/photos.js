@@ -1,7 +1,3 @@
-var szywon;
-
-szywon.photos = {};
-
 (function () {
   'use strict';
 
@@ -28,7 +24,6 @@ szywon.photos = {};
   }
 
   function receive (data) {
-    console.log(data);
   }
 
   function reposition () {}
@@ -48,4 +43,4 @@ szywon.photos = {};
 
   this.start   = start;
   this.receive = receive;
-}).call(szywon.photos);
+}).call(ns('szywon.photos'));
