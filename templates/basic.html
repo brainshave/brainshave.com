@@ -59,15 +59,11 @@
 
   <span id="extra-scripts"></span>
 
-  <script type='text/javascript'>
-    if (window.outerHeight - window.innerHeight < 100) {
-      document.write(
-        '<script type="text/javascript" src="/app.min.js"></' + 'script>');
-    } else {
-      document.write(
-        '<script type="text/javascript" src="/load.js"></' + 'script>');
-    }
-  </script>
+  {{~ it.json('/source_list') :script}}
+
+  <script type="text/javascript" src="/{{= script }}"></script>
+
+  {{~}}
 
 </body>
 </html>

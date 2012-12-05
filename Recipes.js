@@ -130,22 +130,26 @@ recipe({
     save('utf8'))
 });
 
-var SOUREMAP_PATH = 'app.map.json';
-
 var MAIN_JS_NAMES   = /\b(app|main)\.js$/;
 var DEFINE_JS_NAMES = /\b(globals|defines)\.js$/;
+
+function sort_scripts (paths) {
+  // Put defines.js as first and app.js as last:
+  return paths.sort(function (a, b) {
+    if (MAIN_JS_NAMES.test(a) || DEFINE_JS_NAMES.test(b)) return 1;
+    if (MAIN_JS_NAMES.test(b) || DEFINE_JS_NAMES.test(a)) return -1;
+    return 0;
+  });
+}
+
+var SOUREMAP_PATH = 'app.map.json';
 
 recipe({
   'in': 'app/*.js',
   out: 'app.min.js',
   run: function (paths, callback) {
 
-    // Put app.js as last:
-    paths.sort(function (a, b) {
-      if (MAIN_JS_NAMES.test(a) || DEFINE_JS_NAMES.test(b)) return 1;
-      if (MAIN_JS_NAMES.test(b) || DEFINE_JS_NAMES.test(a)) return -1;
-      return 0;
-    });
+    sort_scripts(paths);
 
     var result = uglify(paths, {
       outSourceMap: SOUREMAP_PATH,
@@ -164,4 +168,13 @@ recipe({
       data: result.map
     }], callback);
   }
+});
+
+recipe({
+  'in': 'app/*.js',
+  out: 'source_list.json',
+  run: flow(function (paths, callback) {
+    sort_scripts(paths);
+    callback(null, [JSON.stringify(paths)]);
+  }, save('utf8'))
 });
