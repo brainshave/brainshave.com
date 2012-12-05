@@ -40,7 +40,7 @@
       return project;
     });
 
-    list.innerHTML = this.list(json);
+    list.innerHTML = szywon.github.list(json);
   }
 
   this.receive = receive;
