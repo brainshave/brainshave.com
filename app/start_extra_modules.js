@@ -1,11 +1,14 @@
 (function () {
   'use strict';
 
+  var ATTR_EXTRA_SCRIPTS = 'data-extra-scripts';
+
   function start_extra_modules (content_node) {
 
     if (!(content_node.firstElementChild)) return;
 
-    var names = content_node.firstElementChild.getAttribute('data-extra-scripts');
+    var names =
+      content_node.firstElementChild.getAttribute(ATTR_EXTRA_SCRIPTS);
 
     if (!names) return;
 

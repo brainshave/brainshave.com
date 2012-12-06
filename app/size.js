@@ -5,7 +5,7 @@
   var PIXEL_RATIO     = window.devicePixelRatio || 1;
 
   var old_width  = Infinity;
-  var old_height  = Infinity;
+  var old_height = Infinity;
   var old_scroll = Infinity;
 
   function coords () {
