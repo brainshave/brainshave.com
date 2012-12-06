@@ -1,6 +1,7 @@
 (function() {
-  'use strict';
 
-  this.start_extra_modules(document.getElementById('content'));
+  szywon.start_extra_modules(document.getElementById('content'));
+
+  szywon.history.start();
 
 }).call(ns('szywon'));
