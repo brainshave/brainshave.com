@@ -1,5 +1,4 @@
 (function () {
-  'use strict';
 
   var ATTR_EXTRA_SCRIPTS = 'data-extra-scripts';
 
@@ -12,11 +11,11 @@
 
     if (!names) return;
 
-    names = names.split(/\s+/).map(function (name) {
+    names.split(/\s+/).forEach(function (name) {
       if (name) {
-        this[name].start();
+        ns(name).start();
       }
-    }.bind(this));
+    });
   }
 
   this.start_extra_modules = start_extra_modules;
