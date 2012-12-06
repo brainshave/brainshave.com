@@ -16,6 +16,9 @@
   var ATTR_PHOTO_ID = 'data-photo-id';
   var ATTR_PHOTO    = 'data-photo';
 
+  var IMG_HEIGHT_RATIO = 0.8;
+  var IMG_WIDTH_DELTA  = 32;
+
   var photos = document.getElementById('photos');
   var viewer = document.getElementById('viewer');
 
@@ -68,7 +71,9 @@
   }
 
   function toggle_lights (coords) {
-    if (coords.scroll > coords.H / 2) {
+    if (viewer.firstElementChild &&
+        coords.scroll + coords.height > viewer.offsetTop +
+          viewer.firstElementChild.offsetHeight * 0.8) {
       replace_body_class(STD_BODY_CLASS, PHOTO_BODY_CLASS);
     } else {
       replace_body_class(PHOTO_BODY_CLASS, STD_BODY_CLASS);
@@ -80,7 +85,11 @@
       var photo = photo_info(preview);
 
       photo.size =
-        szywon.size.fit(photo.width_l, photo.height_l, coords.W, coords.H);
+        szywon.size.fit(
+          photo.width_l,
+          photo.height_l,
+          coords.width  - IMG_WIDTH_DELTA,
+          coords.height * IMG_HEIGHT_RATIO);
 
       preview.style.height = photo.size.h + 'px';
     });
@@ -117,7 +126,7 @@
 
   function visible_in (coords) {
     return children(viewer).filter(function (preview) {
-      var top    = coords.scroll > preview.offsetTop - preview.offsetHeight;
+      var top    = coords.scroll > preview.offsetTop - coords.height;
       var bottom = coords.scroll < preview.offsetTop + preview.offsetHeight;
       return top && bottom ? preview : null;
     });

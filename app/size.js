@@ -4,27 +4,28 @@
   var SIZE_NAME_INDEX = WIDTH_PREFIX.length;
   var PIXEL_RATIO     = window.devicePixelRatio || 1;
 
-  var old_W  = Infinity;
-  var old_H  = Infinity;
+  var old_width  = Infinity;
+  var old_height  = Infinity;
   var old_scroll = Infinity;
 
   function coords () {
-    var scroll = document.documentElement.scrollTop || document.body.scrollTop;
-    var W      = document.documentElement.clientWidth - 32;
-    var H      = window.innerHeight * 0.8;
+    var width  = document.documentElement.clientWidth;
+    var height = window.innerHeight;
+    var scroll = window.scrollY ||
+      document.documentElement.scrollTop || document.body.scrollTop;
 
     var value = {
+      width:  width,
+      height: height,
       scroll: scroll,
-      W:      W,
-      H:      H,
 
-      scroll_changed: scroll !== Math.abs(scroll - old_scroll) > H / 10,
-      size_changed:   W !== old_W || H !== old_H
+      scroll_changed: scroll !== old_scroll,
+      size_changed:   width !== old_width || height !== old_height
     };
 
+    old_width  = width;
+    old_height = height;
     old_scroll = scroll;
-    old_W      = W;
-    old_H      = H;
 
     return value;
   }
