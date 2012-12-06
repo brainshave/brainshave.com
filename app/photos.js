@@ -19,12 +19,18 @@
   var IMG_HEIGHT_RATIO = 0.8;
   var IMG_WIDTH_DELTA  = 32;
 
-  var photos = document.getElementById('photos');
-  var viewer = document.getElementById('viewer');
-
-  var photos_cache = {};
+  var photos, viewer, photos_cache, get_coords;
 
   function start () {
+    szywon.callbacks.register('onresize', reposition);
+    szywon.callbacks.register('onscroll', reposition);
+
+    photos = document.getElementById('photos');
+    viewer = document.getElementById('viewer');
+
+    photos_cache = {};
+    get_coords   = szywon.size.coords();
+
     if (viewer.firstElementChild) {
       reposition(); // we are comming back with history api
     } else {
@@ -50,7 +56,7 @@
   }
 
   function reposition () {
-    var coords = szywon.size.coords();
+    var coords = get_coords();
     var visible, unvisible;
 
     if (coords.size_changed) {
@@ -63,7 +69,7 @@
 
     if (coords.size_changed || coords.scroll_changed) {
       visible   = visible_in(coords);
-      unvisible = not_in(children(viewer), visible);
+      unvisible = not_in(szywon.utils.children(viewer), visible);
 
       load_photos(visible);
       unvisible.forEach(unload_photo);
@@ -81,7 +87,7 @@
   }
 
   function resize_containers (coords) {
-    children(viewer).forEach(function (preview) {
+    szywon.utils.children(viewer).forEach(function (preview) {
       var photo = photo_info(preview);
 
       photo.size =
@@ -125,7 +131,7 @@
   }
 
   function visible_in (coords) {
-    return children(viewer).filter(function (preview) {
+    return szywon.utils.children(viewer).filter(function (preview) {
       var top    = coords.scroll > preview.offsetTop - coords.height;
       var bottom = coords.scroll < preview.offsetTop + preview.offsetHeight;
       return top && bottom ? preview : null;
@@ -160,21 +166,6 @@
       return unwanted.indexOf(element) === -1;
     });
   }
-
-  function children (container) {
-    var result = [];
-    for (
-      element = container.firstElementChild;
-      element;
-      element = element.nextElementSibling
-    ) {
-      result.push(element);
-    }
-    return result;
-  }
-
-  window.onresize = reposition;
-  window.onscroll = reposition;
 
   this.start   = start;
   this.receive = receive;

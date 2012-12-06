@@ -4,30 +4,33 @@
   var SIZE_NAME_INDEX = WIDTH_PREFIX.length;
   var PIXEL_RATIO     = window.devicePixelRatio || 1;
 
-  var old_width  = Infinity;
-  var old_height = Infinity;
-  var old_scroll = Infinity;
 
   function coords () {
-    var width  = document.documentElement.clientWidth;
-    var height = window.innerHeight;
-    var scroll = window.scrollY ||
-      document.documentElement.scrollTop || document.body.scrollTop;
+    var old_width  = Infinity;
+    var old_height = Infinity;
+    var old_scroll = Infinity;
 
-    var value = {
-      width:  width,
-      height: height,
-      scroll: scroll,
+    return function () {
+      var width  = document.documentElement.clientWidth;
+      var height = window.innerHeight;
+      var scroll = window.scrollY ||
+        document.documentElement.scrollTop || document.body.scrollTop;
 
-      scroll_changed: scroll !== old_scroll,
-      size_changed:   width !== old_width || height !== old_height
+      var value = {
+        width:  width,
+        height: height,
+        scroll: scroll,
+
+        scroll_changed: scroll !== old_scroll,
+        size_changed:   width !== old_width || height !== old_height
+      };
+
+      old_width  = width;
+      old_height = height;
+      old_scroll = scroll;
+
+      return value;
     };
-
-    old_width  = width;
-    old_height = height;
-    old_scroll = scroll;
-
-    return value;
   }
 
   function choose (w, photo) {

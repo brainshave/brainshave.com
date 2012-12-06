@@ -14,9 +14,11 @@
   var FIRST_LETTER = /^\w/;
   var LAST_DOT     = /\.$/;
 
-  var list = document.getElementById('github');
+  var list;
 
   function start() {
+    list = document.getElementById('github');
+
     if (!list.getAttribute(DATA_LOADED)) {
       szywon.jsonp(CALL_URL, CALL_ARGS);
     }
@@ -40,7 +42,7 @@
       return project;
     });
 
-    list.innerHTML = szywon.github.list(json);
+    list.innerHTML = szywon.templates.github.list(json);
   }
 
   this.receive = receive;
