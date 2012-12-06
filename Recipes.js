@@ -96,8 +96,8 @@ recipe({
 });
 
 recipe({
-  'in': 'app/*.html',
-  out: 'app/*.js',
+  'in': 'app_templates/*.html',
+  out: 'app_templates/*.js',
   run: flow(
     take(1),
     read('utf8'),
@@ -144,8 +144,10 @@ function sort_scripts (paths) {
 
 var SOUREMAP_PATH = 'app.map.json';
 
+var APP_SOURCES = '(app|app_templates)/*.js';
+
 recipe({
-  'in': 'app/*.js',
+  'in': APP_SOURCES,
   out: 'app.min.js',
   run: function (paths, callback) {
 
@@ -171,7 +173,7 @@ recipe({
 });
 
 recipe({
-  'in': 'app/*.js',
+  'in': APP_SOURCES,
   out: 'source_list.json',
   run: flow(function (paths, callback) {
     sort_scripts(paths);
