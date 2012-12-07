@@ -1,5 +1,5 @@
 (function () {
-  var CHAR_ENTITY = /&#(\d+);/;
+  var CHAR_ENTITY = /&#(\d+);/g;
 
   var slice = Array.prototype.slice;
 
