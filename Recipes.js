@@ -6,6 +6,7 @@ var stylus = require('stylus');
 var nib    = require('nib');
 var _      = require('underscore');
 var uglify = require('uglify-js').minify;
+var csso   = require('csso').justDoIt;
 
 var meta   = require('./lib/meta');
 var beauty = require('./lib/beauty');
@@ -158,20 +159,34 @@ recipe({
   save('utf8'))
 });
 
-recipe({
+function compile_stylus (src, callback) {
+  stylus(src).use(nib()).render(callback);
+}
+
+var MINIFIED_CSS = 'all.min.css';
+
+if (RELEASE) recipe({
   'in':  'styles/*.styl',
-  out: RELEASE ? 'all.css' : 'styles/*.css',
+  out: MINIFIED_CSS,
   run: flow(
     read('utf8'),
-    do_all(function compile_stylus (src, callback) {
-      stylus(src).use(nib()).render(callback);
-    }),
+    do_all(compile_stylus),
     join(),
+    compile(csso),
+    save('utf8'))
+});
+
+if (DEBUG) recipe({
+  'in':  'styles/*.styl',
+  out: 'styles/*.css',
+  run: flow(
+    read('utf8'),
+    do_all(compile_stylus),
     save('utf8'))
 });
 
 recipe({
-  'in': RELEASE ? 'all.css' : 'styles/*.css',
+  'in': RELEASE ? MINIFIED_CSS : 'styles/*.css',
   out: 'styles_list.json',
   run: flow(function (paths, callback) {
     callback(null, [JSON.stringify(paths)]);
