@@ -11,17 +11,11 @@ var meta   = require('./lib/meta');
 var beauty = require('./lib/beauty');
 var dots   = require('./lib/dots');
 
-recipe({
-  'in':  'styles/*.styl',
-  out: 'styles/all.css',
-  run: flow(
-    read('utf8'),
-    do_all(function compile_stylus (src, callback) {
-      stylus(src).use(nib()).render(callback);
-    }),
-    join(),
-    save('utf8'))
-});
+var BuildMode = require('./lib/buildmode');
+var mode      = new BuildMode('master');
+
+var DEBUG   = mode.debug();
+var RELEASE = mode.release();
 
 recipe({
   'in': '*/*.md',
@@ -142,41 +136,45 @@ function sort_scripts (paths) {
   });
 }
 
-var SOUREMAP_PATH = 'app.map.json';
-
 var APP_SOURCES = '(app|app_templates)/*.js';
 
-recipe({
+if (RELEASE) recipe({
   'in': APP_SOURCES,
   out: 'app.min.js',
-  run: function (paths, callback) {
-
+  run: flow(function (paths, callback) {
     sort_scripts(paths);
-
-    var result = uglify(paths, {
-      outSourceMap: SOUREMAP_PATH,
-      wrap:         'szywon'
-    });
-
-    result.code += '\n//@ sourceMappingURL=' + SOUREMAP_PATH;
-
-    do_all(function (desc, cb) {
-      fs.writeFile(desc.path, desc.data, cb);
-    })([{
-      path: this.path,
-      data: result.code
-    }, {
-      path: SOUREMAP_PATH,
-      data: result.map
-    }], callback);
-  }
+    callback(null, [uglify(paths).code]);
+  },
+  save('utf8'))
 });
 
 recipe({
-  'in': APP_SOURCES,
-  out: 'source_list.json',
+  'in': RELEASE ? 'app.min.js' : APP_SOURCES,
+  out: 'sources_list.json',
   run: flow(function (paths, callback) {
     sort_scripts(paths);
     callback(null, [JSON.stringify(paths)]);
-  }, save('utf8'))
+  },
+  save('utf8'))
+});
+
+recipe({
+  'in':  'styles/*.styl',
+  out: RELEASE ? 'all.css' : 'styles/*.css',
+  run: flow(
+    read('utf8'),
+    do_all(function compile_stylus (src, callback) {
+      stylus(src).use(nib()).render(callback);
+    }),
+    join(),
+    save('utf8'))
+});
+
+recipe({
+  'in': RELEASE ? 'all.css' : 'styles/*.css',
+  out: 'styles_list.json',
+  run: flow(function (paths, callback) {
+    callback(null, [JSON.stringify(paths)]);
+  },
+  save('utf8'))
 });

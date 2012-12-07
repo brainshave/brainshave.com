@@ -12,7 +12,12 @@
       }
     })();
   </script>
-  <link rel="stylesheet" type="text/css" href="/styles/all.css">
+
+  {{~ it.json('/styles_list') :sheet}}
+
+  <link rel="stylesheet" type="text/css" href="/{{= sheet }}" />
+
+  {{~}}
 
   {{# def.head || '' }}
 
@@ -59,7 +64,7 @@
 
   <span id="extra-scripts"></span>
 
-  {{~ it.json('/source_list') :script}}
+  {{~ it.json('/sources_list') :script}}
 
   <script type="text/javascript" src="/{{= script }}"></script>
 
