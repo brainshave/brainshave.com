@@ -1,5 +1,5 @@
 function ns (path) {
-  names = path.split('.');
+  var names = path.split('.');
 
   var parent = window;
   var object, name;
