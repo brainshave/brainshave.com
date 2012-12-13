@@ -83,7 +83,7 @@
 
     <dl>
       {{
-        it.list = it.json('blog/index').map(function (item) {
+        it.list = it.json('blog/index').slice(0, 4).map(function (item) {
           return {
             name: item.title,
             href: item.href,
