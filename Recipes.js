@@ -1,6 +1,5 @@
 var fs     = require('fs');
 var path   = require('path');
-var marked = require('marked');
 var dot    = require('dot');
 var stylus = require('stylus');
 var nib    = require('nib');
@@ -8,9 +7,9 @@ var _      = require('underscore');
 var uglify = require('uglify-js').minify;
 var csso   = require('csso').justDoIt;
 
-var meta   = require('./lib/meta');
-var beauty = require('./lib/beauty');
-var dots   = require('./lib/dots');
+var meta = require('./lib/meta');
+var md   = require('./lib/md');
+var dots = require('./lib/dots');
 
 var BuildMode = require('./lib/buildmode');
 var mode      = new BuildMode('master');
@@ -23,11 +22,10 @@ recipe({
   out: '*/*.json',
   run: flow(
     read('utf8'),
-    compile(function (md) {
-      md = beauty.md(md);
-      return _.extend(meta.info(this.deps[0], md), {
-        md: md,
-        html: beauty.html(marked.parse(md))
+    compile(function (text) {
+      return _.extend(meta.info(this.deps[0], text), {
+        md: text,
+        html: md(text)
       });
     }),
     remember,
