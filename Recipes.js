@@ -1,8 +1,7 @@
 var fs     = require('fs');
 var path   = require('path');
 var dot    = require('dot');
-var stylus = require('stylus');
-var nib    = require('nib');
+var less   = require('less');
 var _      = require('underscore');
 var uglify = require('uglify-js').minify;
 var csso   = require('csso').justDoIt;
@@ -164,29 +163,29 @@ recipe({
   save('utf8'))
 });
 
-function compile_stylus (src, callback) {
-  stylus(src).use(nib()).render(callback);
-}
-
 var MINIFIED_CSS = 'all.min.css';
 
+function compile_less (src, callback) {
+  less.render(src, { paths: ['./styles'] }, callback);
+}
+
 if (RELEASE) recipe({
-  'in':  'styles/*.styl',
+  'in':  'styles/*.less',
   out: MINIFIED_CSS,
   run: flow(
     read('utf8'),
-    do_all(compile_stylus),
+    do_all(compile_less),
     join(),
     compile(csso),
     save('utf8'))
 });
 
 if (DEBUG) recipe({
-  'in':  'styles/*.styl',
+  'in':  'styles/*.less',
   out: 'styles/*.css',
   run: flow(
     read('utf8'),
-    do_all(compile_stylus),
+    do_all(compile_less),
     save('utf8'))
 });
 

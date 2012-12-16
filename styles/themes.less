@@ -1,0 +1,55 @@
+.a (@anchor, @hover, @shadow_text) {
+  a, a:visited {
+    color: @anchor;
+  }
+  a:hover, a:active {
+    color: @hover;
+    text-shadow: @shadow_text;
+  }
+}
+
+.theme(@back, @front, @anchor, @hover, @shadow) {
+  color: @front;
+  background: @back;
+
+  .a(@anchor, @hover, 0 0 1em @shadow);
+
+  footer, .small, .parenthesis {
+    color: mix(@front, @back, 50%);
+    .a(mix(@anchor, @back, 60%), mix(@hover, @back, 70%), none);
+  }
+
+  #top { .a(@front, @hover, none); }
+
+  #logo {
+    & > div {
+      background: @front;
+    }
+    &:hover > div,
+    &:active > div {
+      background: @hover;
+    }
+  }
+}
+
+.dark {
+  .theme(#333338, #fffff5, #9ee, #0ff, #fff);
+}
+
+.black {
+  .theme(#000, #aaa, #9aa, #0ff, #fff);
+}
+
+.light {
+  .theme(#fff, #000, #088, #0cc, #0ff);
+
+  font-weight: 400;
+
+  h3, h4, thead {
+    font-weight: 600;
+  }
+}
+
+.red {
+  .theme(#422, #fda, #ffa, #fff, #ff0);
+}

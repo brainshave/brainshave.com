@@ -12,7 +12,7 @@
 !lib
 !lib/*
 !styles
-!styles/*.styl
+!styles/*.less
 !templates
 !templates/*.html
 !CNAME

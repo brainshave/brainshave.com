@@ -1,0 +1,83 @@
+@import "defs";
+
+.big-headers () {
+  font-weight: inherit;
+}
+
+.following-headers () {
+  margin-top: 1.7em;
+}
+
+h1 {
+  font-size: 1.5em;
+  .big-headers;
+}
+
+h2 {
+  font-size: 1.2em;
+  .big-headers;
+  .following-headers;
+}
+
+h3, h4 {
+  font-weight: 400;
+  font-size: 1em;
+  .following-headers;
+}
+
+article {
+  line-height: 1.6em;
+}
+
+blockquote {
+  font-style: italic;
+
+  i, em {
+    font-style: normal;
+  }
+}
+
+pre {
+  font-size:   0.85em;
+  line-height: 1.25em;
+}
+
+img {
+  border: none;
+  article & {
+    max-width: 100%;
+  }
+}
+
+a {
+  text-decoration: none;
+  .transition(color 0.3s, text-shadow 1s);
+}
+
+dd, .meta {
+  font-size: 0.8em;
+}
+
+dd {
+  margin: 0 0 16px 0;
+}
+
+sup {
+  vertical-align: top;
+  position:       relative;
+  font-size:      0.83em;
+  top:            -0.25em;
+}
+
+.tldr {
+  display:        inline-block;
+  text-transform: uppercase;
+  font-weight:    bold;
+  font-size:      0.45em;
+  line-height:    0.8em;
+  width:          1.2em;
+}
+
+.only-in-feed {
+  display: none;
+}

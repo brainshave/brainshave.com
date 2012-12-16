@@ -1,0 +1,18 @@
+@import "defs";
+
+#top, #sections, article {
+  padding: 0 16px;
+  margin:  0 auto;
+
+  .wide & {
+    max-width: @wide_width;
+  }
+
+  .reading & {
+    max-width: @reading_width;
+  }
+
+  .cv & {
+    max-width: @cv_width;
+  }
+}
