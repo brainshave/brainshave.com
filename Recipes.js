@@ -147,11 +147,18 @@ if (RELEASE) recipe({
   save('utf8'))
 });
 
+var DIRVHOST_AUTO_REFRESH = '__refresh.js';
+
 recipe({
   'in': RELEASE ? 'app.min.js' : APP_SOURCES,
   out: 'sources_list.json',
   run: flow(function (paths, callback) {
     sort_scripts(paths);
+
+    if (DEBUG) {
+      paths = paths.concat([DIRVHOST_AUTO_REFRESH]);
+    }
+
     callback(null, [JSON.stringify(paths)]);
   },
   save('utf8'))
