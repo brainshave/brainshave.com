@@ -42,7 +42,7 @@ div#top a
 a:focus
   outline 0 // disable ugly firefox dotted outlines
 
-pre, code
+pre, code, .tldr
   font-family 'Source Code Pro', monospace
 
 .light
@@ -56,6 +56,17 @@ blockquote
 blockquote
   i, em
     font-style normal
+
+.tldr
+  display        inline-block
+  text-transform uppercase
+  font-size      0.45em
+  line-height    0.8em
+  font-weight    bold
+  width          1.2em
+
+.only-in-feed
+  display none
 
 div#content
   clear both
