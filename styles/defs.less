@@ -1,16 +1,13 @@
-.transition (@a1, @a2) {
-  transition:         @a1, @a2;
-  -webkit-transition: @a1, @a2;
+.transition (@text) {
+  transition:         ~"@{text}";
+  -webkit-transition: ~"@{text}";
 }
 
-.transition1 (@a1) {
-  transition:         @a1;
-  -webkit-transition: @a1;
-}
-
-.transition4 (@a1, @a2, @a3, @a4) {
-  transition:         @a1, @a2, @a3, @a4;
-  -webkit-transition: @a1, @a2, @a3, @a4;
+.transform (@trans) {
+  transform:         @trans;
+  -ms-transform:     @trans;
+  -moz-transform:    @trans;
+  -webkit-transform: @trans;
 }
 
 @wide_width:    1500px;

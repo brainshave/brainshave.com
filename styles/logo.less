@@ -16,7 +16,7 @@
 
   > div {
     position: absolute;
-    .transition4(width 0.3s, height 0.3s, border-radius 0.3s, background-color 1s);
+    .transition("width 0.3s, height 0.3s, border-radius 0.3s, background-color 1s");
 
     &.block { .size(@unit, @unit); }
     &.tail  { .size(0, @unit / 2); }
