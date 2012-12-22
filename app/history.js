@@ -1,4 +1,5 @@
 (function () {
+
   var BEFORE_TITLE   = '<title>';
   var AFTER_TITLE    = '</title>';
   var BEFORE_CONTENT = '<!--BEFORE CONTENT-->';
@@ -24,7 +25,6 @@
   function restore_state (event) {
     if (!event.state) return;
 
-    szywon.callbacks.reset();
     apply_state(event.state);
     update_links();
   }
@@ -74,7 +74,7 @@
       document.body.scrollTop            = 0;
 
     } catch (error) {
-      console.log(error);
+      console.log(error.stack || error);
       window.location.href = href;
     }
   }
