@@ -164,6 +164,7 @@ recipe({
 });
 
 var MINIFIED_CSS = 'all.min.css';
+var STYLES_LIST  = 'styles_list.json';
 
 function compile_less (src, callback) {
   less.render(src, { paths: ['./styles'] }, callback);
@@ -189,11 +190,33 @@ if (DEBUG) recipe({
     save('utf8'))
 });
 
-recipe({
-  'in': RELEASE ? MINIFIED_CSS : 'styles/*.css',
-  out: 'styles_list.json',
-  run: flow(function (paths, callback) {
-    callback(null, [JSON.stringify(paths)]);
-  },
-  save('utf8'))
+function read_dir (paths, callback) {
+  var dir = paths[0];
+  fs.readdir(dir, function (err, names) {
+    if (err) return callback(err);
+    callback(null, names.map(path.join.bind(path, dir)));
+  });
+}
+
+if (RELEASE) recipe({
+  'in': 'styles',
+  out: STYLES_LIST,
+  run: flow(function (data, callback) {
+    callback(null, [JSON.stringify([MINIFIED_CSS])]);
+  }, save('utf8'))
+});
+
+if (DEBUG) recipe({
+  'in': 'styles',
+  out: STYLES_LIST,
+  run: flow(
+    read_dir,
+    filter('styles/*.less'),
+    do_all(function (name, callback) {
+      callback(null, name.replace(/\.less$/, '.css'));
+    }),
+    function (paths, callback) {
+      callback(null, [JSON.stringify(paths)]);
+    },
+    save('utf8'))
 });
