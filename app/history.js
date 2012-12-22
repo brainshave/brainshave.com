@@ -81,6 +81,7 @@
 
   function apply_state (state) {
     szywon.callbacks.reset();
+    szywon.scripts.clear();
 
     document.title            = szywon.utils.unescape(state.title);
     document.body.className   = state.classes;

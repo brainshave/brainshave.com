@@ -20,7 +20,7 @@
     list = document.getElementById('github');
 
     if (!list.getAttribute(DATA_LOADED)) {
-      szywon.jsonp(CALL_URL, CALL_ARGS);
+      szywon.scripts.jsonp(CALL_URL, CALL_ARGS);
     }
   }
 

@@ -34,7 +34,7 @@
     if (viewer.firstElementChild) {
       reposition(); // we are comming back with history api
     } else {
-      szywon.jsonp(CALL_URL, CALL_ARGS);
+      szywon.scripts.jsonp(CALL_URL, CALL_ARGS);
     }
   }
 
