@@ -3,16 +3,22 @@
 
   var DATA_LOADED = 'data-github-loaded';
 
+  var OMMITTED_PROJECTS = [
+    'szywon.github.com',
+    'dotfiles',
+    'oh-my-zsh'
+  ];
+
   var CALL_URL  = 'https://api.github.com/users/szywon/repos';
   var CALL_ARGS = {
     callback: 'szywon.github.receive',
     sort:     'pushed',
     order:    'desc',
-    per_page: 5
+    per_page: 4 + OMMITTED_PROJECTS.length
   };
 
-  var FIRST_LETTER = /^\w/;
-  var LAST_DOT     = /\.$/;
+  var MORE_SENTENCES = /\.\s.*/;
+  var LAST_DOT       = /\.$/;
 
   var list;
 
@@ -32,12 +38,11 @@
     list.setAttribute(DATA_LOADED, true);
 
     json.data = json.data.filter(function (project) {
-      return project.name !== 'szywon.github.com';
+      return OMMITTED_PROJECTS.indexOf(project.name) === -1;
     }).map(function (project) {
       project.description = project.description
-        .replace(FIRST_LETTER, function (x) {
-          return x.toLowerCase();
-        }).replace(LAST_DOT, '');
+        .replace(MORE_SENTENCES, '')
+        .replace(LAST_DOT, '');
 
       return project;
     });
