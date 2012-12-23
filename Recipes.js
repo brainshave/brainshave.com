@@ -78,6 +78,12 @@ recipe({
   run: flow(
     read('utf8'),
     compile(meta.unjson),
+    compile(function (item) {
+      // some files are read from memory, some from from files,
+      // those from files have dates saved as strings.
+      item.date = new Date(item.date);
+      return item;
+    }),
     function (items, callback) {
       var index = _.sortBy(items, 'date').reverse();
       callback(null, [index]);
