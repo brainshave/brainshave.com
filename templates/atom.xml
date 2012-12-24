@@ -3,6 +3,7 @@
 
   {{
     var BASE_URL = 'http://szywon.pl';
+    var TITLE_TAG = /<h1>[^<]*<\/h1>/;
 
     it.id   = BASE_URL + '/' + it.path;
     it.date = it.list[0].date;
@@ -28,7 +29,7 @@
     <link href="{{= file.href }}" />
     <updated>{{= new Date(file.date).toISOString() }}</updated>
     <id>{{= file.id }}</id>
-    <content type="html">{{! file.html }}</content>
+    <content type="html">{{! file.html.replace(TITLE_TAG, '') }}</content>
   </entry>
 
   {{~}}
