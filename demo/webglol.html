@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WebGLOL &mdash; Robots</title>
+  <style>
+    html, body {
+      margin:     0;
+      padding:    0;
+      background: black;
+      color:      #777;
+      overflow:   hidden;
+    }
+    canvas {
+      display: block;
+      margin:  0 auto;
+    }
+    .shader {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="fragment" class="shader">
+    #ifdef GL_ES
+    precision highp float;
+    #endif
+
+    uniform vec4 vColor;
+
+    void main(void) {
+      gl_FragColor = vColor;
+    }
+  </div>
+  <div id="vertex" class="shader">
+    attribute vec3 aVertexPosition;
+
+    uniform mat4 uMVMatrix;
+    uniform mat4 uPMatrix;
+
+    void main(void) {
+      gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+    }
+  </div>
+  <script>
+  (function () {
+    'strict mode';
+    var CANVAS_ID = 'robots';
+
+    window.onresize = init;
+    init();
+
+    function init () {
+      delete_old_canvas();
+      var canvas  = new_canvas();
+      var gl      = init_gl(canvas);
+      var program = compile_program(gl);
+    }
+
+    function new_canvas () {
+      var canvas = document.createElement('canvas');
+      canvas.setAttribute('id',     CANVAS_ID);
+      canvas.setAttribute('width',  window.innerWidth);
+      canvas.setAttribute('height', window.innerHeight);
+      document.body.appendChild(canvas);
+      return canvas;
+    }
+
+    function delete_old_canvas () {
+      var canvas = document.getElementById(CANVAS_ID);
+      if (canvas) {
+        canvas.parentElement.removeChild(canvas);
+      }
+    }
+
+    function init_gl (canvas) {
+      var gl = canvas.getContext('experimental-webgl');
+      if (!gl) {
+        document.body.innerHTML = 'No WebGLOL support :(';
+      }
+      return gl;
+    }
+
+    function compile_shader (gl, type, src)  {
+      var shader = gl.createShader(type);
+      gl.shaderSource(shader, src);
+      gl.compileShader(shader);
+
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+        console.log(gl.getShaderInfoLog(shader));
+      }
+
+      return shader;
+    }
+
+    function compile_shader_from_dom (gl, id) {
+      var src = document.getElementById(id).innerHTML;
+      var type =
+        id == 'vertex'   ? gl.VERTEX_SHADER   :
+        id == 'fragment' ? gl.FRAGMENT_SHADER :
+                           0;
+
+      return compile_shader(gl, type, src);
+    }
+
+    function compile_program (gl) {
+      var vertex   = compile_shader_from_dom(gl, 'vertex');
+      var fragment = compile_shader_from_dom(gl, 'fragment');
+
+      var program = gl.createProgram();
+      gl.attachShader(program, vertex);
+      gl.attachShader(program, fragment);
+
+      gl.linkProgram(program);
+      gl.useProgram(program);
+    }
+  })();
+  </script>
+</body>
+</html>
