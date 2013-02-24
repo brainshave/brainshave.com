@@ -161,7 +161,7 @@ recipe({
     sort_scripts(paths);
 
     if (DEBUG) {
-      paths = paths.concat([DIRVHOST_AUTO_REFRESH]);
+      // paths = paths.concat([DIRVHOST_AUTO_REFRESH]);
     }
 
     callback(null, [JSON.stringify(paths)]);
