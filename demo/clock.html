@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Clock's clock</title>
+
+  <style>
+    /* generic stuff */
+    body {
+      background: white;
+      color:      black;
+      font-family: 'Century Schoolbook', 'Century Schoolbook L',
+        'Palatino Linotype', Georgia, serif;
+    }
+
+    .hint {
+      text-align: center;
+    }
+
+    footer {
+      max-width: 424px;
+      margin: auto;
+      font-size: 0.8em;
+      color: #aaa;
+      -webkit-transition: color 0.5s;
+      transition: color 0.5s;
+    }
+
+    footer a {
+      color: #aaf;
+      -webkit-transition: color 0.3s;
+      transition: color 0.3s;
+    }
+
+    footer ul, footer li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    footer:hover {
+      color: #555;
+    }
+
+    footer:hover a {
+      color: #68f;
+    }
+
+    footer a:hover {
+      color: #04f;
+    }
+
+    /* clock's elements */
+    #clock,
+    #clock * {
+      -webkit-transition:
+        width 0.5s, height 0.5s, border-width 0.5s,
+        bottom 0.5s, left 0.5s,
+        background 0.5s, border-color 0.5s,
+        -webkit-transform 0.4s;
+      transition:
+        width 0.5s, height 0.5s, border-width 0.5s,
+        bottom 0.5s, left 0.5s,
+        background 0.5s, border-color 0.5s,
+        transform 0.4s;
+    }
+
+    #dot {
+      -webkit-transition: width 0.4s, height 0.4s, bottom 0.4s, left 0.4s;
+      transition: width 0.4s, height 0.4s, bottom 0.4s, left 0.4s;
+    }
+
+    #clock {
+      position: relative;
+      width:  424px;
+      height: 270px;
+      margin: 45px auto;
+    }
+
+    #clock * {
+      position: absolute;
+      z-index: 1;
+    }
+
+    /* c's and o's */
+    #clock .holed {
+      width:  0;
+      height: 0;
+      border: 45px solid black;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    /* holes in c's and o's */
+    #clock .holed .hole {
+      content: "";
+      display: block;
+      width:  0;
+      height: 0;
+      border: 29px solid white;
+      border-radius: 50%;
+      position: relative;
+      bottom:  29px;
+      left:   -29px;
+    }
+
+    #clock .c {
+      border-right: 45px solid transparent;
+    }
+
+    #clock .l,
+    #clock .arm {
+      -webkit-transform-origin: 50% 100%;
+      transform-origin: 50% 100%;
+    }
+
+    #clock .l {
+      width:   16px;
+      height: 135px;
+      background: black;
+    }
+
+    #clock .arm {
+      width:  22px;
+      height: 47px;
+      background: black;
+    }
+
+    #hours {
+      -webkit-transform: translate(0, 4px) skew(-45deg);
+      transform: translate(0, 4px) skew(-45deg);
+    }
+
+    #mins {
+      -webkit-transform: rotate(180deg) skew(45deg);
+      transform: rotate(180deg) skew(45deg);
+    }
+
+    #dot {
+      width:  18px;
+      height: 18px;
+      background: black;
+      border-radius: 50%;
+    }
+
+    /* positions */
+
+    #clock * { bottom: 135px; }
+
+    #clock .arm { left: 326px; bottom: 182px; }
+
+    #c1   { left:   0;   }
+    #l1   { left:  91px; }
+    #o    { left: 120px; }
+    #c2   { left: 224px; }
+    #secs { left: 314px; }
+    #dot  { left: 406px; }
+
+    /* positions and sizes on hovers */
+
+    #clock:hover .holed {
+      left: 77px;
+      bottom: 0;
+      border-width: 135px;
+    }
+
+    #clock:hover .holed .hole {
+      border-width: 119px;
+      left:  -119px;
+      bottom: 119px;
+    }
+
+    #clock:hover #dot {
+      width:   37px;
+      height:  37px;
+      left:   193px;
+      bottom: 117px;
+    }
+
+    #clock:hover .arm {
+      bottom: 135px;
+    }
+
+    #clock:hover #hours {
+      width:   21px;
+      height:  60px;
+      left:   201px;
+    }
+
+    #clock:hover #mins {
+      width:   15px;
+      height:  80px;
+      left:   204px;
+    }
+
+    #clock:hover .l {
+      width:    2px;
+      height: 100px;
+      bottom: 135px;
+      left:   211px;
+    }
+
+    #clock:hover #l1 {
+      width:    0px;
+      bottom: 135px;
+      background: transparent;
+    }
+
+    #clock:hover .c {
+      border-color: transparent;
+    }
+  </style>
+
+  <!-- a separate stylesheet controlled by the system clock via js -->
+  <style>
+    #clock:hover #secs  {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+
+    #clock:hover #mins  {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+
+    #clock:hover #hours {
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  </style>
+
+</head>
+<body>
+
+  <p class="hint">
+    Hover on the <em>clock</em> to see <em>a</em> clock.
+  </p>
+
+  <div id="clock">
+    <div id="c1" class="c holed"><div class="hole"></div></div>
+    <div id="l1" class="l"></div>
+    <div id="o" class="o holed"><div class="hole"></div></div>
+    <div id="c2" class="c holed"><div class="hole"></div></div>
+    <div id="secs" class="l"></div>
+    <div id="hours" class="arm"></div>
+    <div id="mins" class="arm"></div>
+    <div id="dot"></div>
+  </div>
+
+  <footer>
+    <ul>
+      <li>The logo is a trademark of <a href="http://clock.co.uk">Clock, Ltd.</a></li>
+      <li>The animation was made by Szymon Witamborski.</li>
+      <li>Tested in Chrome 23 and Firefox 17.</li>
+      <li>mail: <a href="mailto:szywon@szywon.pl">szywon@szywon.pl</a></li>
+      <li>website: <a href="http://szywon.pl">szywon.pl</a></li>
+      <li>résumé: <a href="http://szywon.pl/cv.html">szywon.pl/cv.html</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // This was an experiment in how I would feel with comma-first syntax, I am
+    // not using it normally.
+    var Rotator = (function (window, document, undefined) {
+      var PREFIXES = ['', '-webkit-', '-o-', '-moz-']
+
+      function calcDeg (max, value) {
+        return (value / max) * 360
+      }
+
+      function turn (cssRule, max, value) {
+        var deg       = calcDeg(max, value)
+          , transform = 'translateZ(0) rotate(' + Math.round(deg) + 'deg)'
+
+        PREFIXES.forEach(function (prefix) {
+          cssRule.style[prefix + 'transform'] = transform
+        })
+      }
+
+      function Rotator (cssRules) {
+        var start = new Date
+
+        this.rules = cssRules
+        this.start = start
+
+        this.startSeconds = start.getSeconds()
+        this.startMinutes = start.getMinutes() + this.startSeconds / 60
+        this.startHours   = start.getHours()   + this.startMinutes / 60
+
+        this.rotate(start)
+      }
+
+      Rotator.prototype.update = function (time) {
+        var passed = time - this.start
+
+        this.seconds =            this.startSeconds + passed / 1000
+        this.minutes = Math.floor(this.startMinutes + passed / 60000)
+        this.hours   = Math.floor(this.startHours   + passed / 3600000)
+      }
+
+      Rotator.prototype.applyToRules = function () {
+        turn(this.rules[0], 60, this.seconds)
+        turn(this.rules[1], 60, this.minutes)
+        turn(this.rules[2], 12, this.hours)
+      }
+
+      Rotator.prototype.rotate = function (time) {
+        this.update(time || new Date)
+        this.applyToRules()
+      }
+
+      return Rotator
+    })(window, document);
+
+    (function (window, document, undefined) {
+      var clockElement = document.getElementById('clock')
+        , controlSheet = document.styleSheets[1]
+        , cssRules     = controlSheet.rules || controlSheet.cssRules
+        , rotator
+        , interval
+
+      function tick () {
+        rotator.rotate()
+      }
+
+      function inBoundsOf (element, event) {
+        var minX = element.offsetLeft
+          , minY = element.offsetTop
+          , maxX = minX + element.offsetWidth
+          , maxY = minY + element.offsetHeight
+
+        return event.clientX >= minX && event.clientX < maxX &&
+               event.clientY >= minY && event.clientY < maxY
+      }
+
+      function startClock (event) {
+        if (inBoundsOf(clockElement, event) && !rotator) {
+          rotator  = new Rotator(cssRules)
+          interval = setInterval(tick, 500)
+        }
+      }
+
+      function stopClock (event) {
+        if (!inBoundsOf(clockElement, event)) {
+          clearInterval(interval)
+          rotator = null
+        }
+      }
+
+      clockElement.onmouseover = startClock
+      clockElement.onmouseout  = stopClock
+    })(window, document)
+  </script>
+
+</body>
+</html>​

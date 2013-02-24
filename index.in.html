@@ -102,19 +102,20 @@
   </section>
 
   <section>
-    <h1>Photography</h1>
+    <h1>Demos</h1>
 
-    <p>
-      I often have a camera with me wherever I go.
-      Scroll down to see some of my more recent uploads to Flickr.
-      <noscript>In case you have JavaScript disabled, you'd shurely prefer to visit my Flickr profile ;).</noscript>
-    </p>
+    <dl id="demos">
+      {{
+        it.list = [{
+          name: 'Clock',
+          href: '/demo/clock.html',
+          desc: 'Having fun with one company\'s logo with CSS transitions and animating CSS style sheets'
+        }];
+      }}
 
-    <div class="meta">
-      <a class="icon dot-2" href="http://flickr.com/photos/szywon">
-        all photos on flickr
-      </a>
-    </div>
+      {{# def.dtddlist }}
+    </dl>
+
   </section>
 
 </div>
