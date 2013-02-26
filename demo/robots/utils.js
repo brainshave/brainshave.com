@@ -1,9 +1,21 @@
 (function () {
-  ns.show(this, trim);
+  ns.show(this, trim, statements, by_field);
 
   var whitespace_both_sides = /^\s+|\s+$/mg;
 
   function trim (src) {
     return src.replace(whitespace_both_sides, '');
+  }
+
+  function statements (src) {
+    return utils.trim(src).split(/;|\n/).map(function (stmt) {
+      return stmt.split(/\s+/);
+    });
+  }
+
+  function by_field (field, value) {
+    return function (object) {
+      return object[field] === value;
+    };
   }
 }).call(ns('utils'));
