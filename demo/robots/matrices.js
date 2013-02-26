@@ -1,5 +1,16 @@
+/*
+
+A simple matrix function library, taken from my other project, superbigle.
+
+In every function the `mat` parameter will hold the result but it's optional and
+will be created automatically if not passed. Use it when you want to avoid
+memory allocation.
+
+*/
+
 (function () {
   'strict mode';
+
   this.zero = zero;
   function zero (mat) {
     if (mat) {
