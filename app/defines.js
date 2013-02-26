@@ -16,3 +16,14 @@ function ns (path) {
 
   return object;
 }
+
+ns.show = function (target) {
+  if (typeof target === 'string') {
+    target = ns(target);
+  }
+
+  for (var i = 1; i < arguments.length; ++i) {
+    var fn = arguments[i];
+    target[fn.name] = fn;
+  }
+};
