@@ -11,7 +11,8 @@ memory allocation.
 (function () {
   'strict mode';
 
-  this.zero = zero;
+  ns.show('matrices', zero, identity, frustum, multiply, scale, translate);
+
   function zero (mat) {
     if (mat) {
       for (var i = 0; i < 16; ++i) {
@@ -23,7 +24,6 @@ memory allocation.
     }
   }
 
-  this.identity = identity;
   function identity (mat) {
     mat = zero(mat);
 
@@ -35,7 +35,6 @@ memory allocation.
     return mat;
   }
 
-  this.frustum = frustum;
   function frustum (width, height, near, far, mat) {
     mat = zero(mat);
 
@@ -48,7 +47,6 @@ memory allocation.
     return mat;
   }
 
-  this.multiply = multiply;
   function multiply (a, b, mat) {
     mat = mat || new Float32Array(16);
 
@@ -72,7 +70,6 @@ memory allocation.
     return mat;
   }
 
-  this.scale = scale;
   function scale (x, y, z, mat) {
     mat = mat || identity(mat);
 
@@ -83,7 +80,6 @@ memory allocation.
     return mat;
   }
 
-  this.translate = translate;
   function translate (x, y, z, mat) {
     mat = mat || identity();
 

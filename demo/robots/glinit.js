@@ -2,7 +2,7 @@
   'strict mode';
   var CANVAS_ID = 'robots';
 
-  this.init = init;
+  ns.show(this, init);
 
   function init () {
     delete_old_canvas();
