@@ -68,4 +68,4 @@
     gl.linkProgram(program);
     gl.useProgram(program);
   }
-}).call(ns('robots.glinit'));
+}).call(ns('glinit'));

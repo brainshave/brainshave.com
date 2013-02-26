@@ -1,2 +1,2 @@
-window.onresize = robots.glinit.init;
-robots.glinit.init();
+window.onresize = glinit.init;
+glinit.init();

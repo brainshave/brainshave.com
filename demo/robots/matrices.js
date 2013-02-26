@@ -93,4 +93,4 @@ memory allocation.
 
     return mat;
   }
-}).call(ns('robots.matrices'));
+}).call(ns('matrices'));
