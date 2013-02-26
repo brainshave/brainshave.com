@@ -9,6 +9,9 @@
     var canvas  = new_canvas();
     var gl      = init_gl(canvas);
     var program = compile_program(gl);
+
+    set_all_locations(gl, program);
+    console.log(gl, program);
   }
 
   function new_canvas () {
@@ -35,6 +38,45 @@
     return gl;
   }
 
+  function shader_statements (src) {
+    return utils.trim(src).split(/;|\n/).map(function (stmt) {
+      return stmt.split(/\s+/);
+    });
+  }
+
+  function by_field (field, value) {
+    return function (object) {
+      return object[field] === value;
+    };
+  }
+
+  function set_all_locations (gl, program) {
+    var statements =
+      shader_statements(get_shader_src('vertex') + '\n' +
+                        get_shader_src('fragment'));
+
+    Object.keys(STMT_GETTER_NAMES)
+      .forEach(set_locations.bind(null, gl, program, statements));
+  }
+
+  var STMT_TYPE_POS = 0;
+  var STMT_NAME_POS = 2;
+  var STMT_GETTER_NAMES = {
+    uniform:   'getUniformLocation',
+    attribute: 'getAttribLocation'
+  };
+
+  function set_locations (gl, program, statements, type) {
+    var stmts = statements.filter(by_field(STMT_TYPE_POS, type));
+    var get_location = gl[STMT_GETTER_NAMES[type]].bind(gl);
+
+    var i, name;
+    for (i = 0; i < stmts.length; ++i) {
+      name = stmts[i][STMT_NAME_POS];
+      program[name] = get_location(program, name);
+    }
+  }
+
   function compile_shader (gl, type, src)  {
     var shader = gl.createShader(type);
     gl.shaderSource(shader, src);
@@ -47,12 +89,18 @@
     return shader;
   }
 
+  function get_shader_src (id) {
+    return document.getElementById(id).innerHTML;
+  }
+
+  var SHADER_TYPES = {
+    vertex:   'VERTEX_SHADER',
+    fragment: 'FRAGMENT_SHADER'
+  };
+
   function compile_shader_from_dom (gl, id) {
-    var src = document.getElementById(id).innerHTML;
-    var type =
-      id == 'vertex'   ? gl.VERTEX_SHADER   :
-      id == 'fragment' ? gl.FRAGMENT_SHADER :
-                         0;
+    var src  = get_shader_src(id);
+    var type = gl[SHADER_TYPES[id]];
 
     return compile_shader(gl, type, src);
   }
@@ -67,5 +115,7 @@
 
     gl.linkProgram(program);
     gl.useProgram(program);
+
+    return program;
   }
 }).call(ns('glinit'));
