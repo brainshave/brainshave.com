@@ -9,6 +9,7 @@
 !blog/*.md
 !demo
 !demo/*
+!demo/*/*
 !fonts
 !fonts/*
 !lib
