@@ -9,7 +9,7 @@ memory allocation.
 */
 
 (function () {
-  'strict mode';
+  'use strict';
 
   ns.show('matrices', zero, identity, frustum, multiply, scale, translate);
 

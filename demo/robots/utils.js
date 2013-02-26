@@ -1,4 +1,6 @@
 (function () {
+  'use strict';
+
   ns.show(this, trim, statements, by_field);
 
   var whitespace_both_sides = /^\s+|\s+$/mg;

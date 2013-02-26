@@ -1,8 +1,9 @@
 (function () {
   'use strict';
-  var CANVAS_ID = 'robots';
 
   ns.show(this, init);
+
+  var CANVAS_ID = 'robots';
 
   function init () {
     delete_old_canvas();
