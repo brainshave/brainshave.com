@@ -27,8 +27,8 @@ ns('matrices', function () {
   function identity (mat) {
     mat = zero(mat);
 
-    mat[0] = 1;
-    mat[5] = 1;
+    mat[0]  = 1;
+    mat[5]  = 1;
     mat[10] = 1;
     mat[15] = 1;
 
@@ -38,8 +38,8 @@ ns('matrices', function () {
   function frustum (width, height, near, far, mat) {
     mat = zero(mat);
 
-    mat[0] = 2 * near / width;
-    mat[5] = 2 * near / height;
+    mat[0]  = 2 * near / width;
+    mat[5]  = 2 * near / height;
     mat[10] = (far + near) / (far - near);
     mat[11] = 1;
     mat[14] = (-2 * far * near) / (far - near);
@@ -56,9 +56,9 @@ ns('matrices', function () {
       j = i % 4;
 
       mat[i] =
-        a[j] * b[k] +
-        a[j + 4] * b[k + 1] +
-        a[j + 8] * b[k + 2] +
+        a[j]      * b[k]     +
+        a[j + 4]  * b[k + 1] +
+        a[j + 8]  * b[k + 2] +
         a[j + 12] * b[k + 3];
 
       // after a column:
@@ -73,8 +73,8 @@ ns('matrices', function () {
   function scale (x, y, z, mat) {
     mat = mat || identity(mat);
 
-    mat[0] *= x;
-    mat[5] *= y;
+    mat[0]  *= x;
+    mat[5]  *= y;
     mat[10] *= z;
 
     return mat;
