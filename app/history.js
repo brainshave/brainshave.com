@@ -1,4 +1,12 @@
-(function () {
+ns('szywon.history', function () {
+  'use strict';
+
+  var register_callback   = use('szywon.callbacks.register');
+  var reset_callbacks     = use('szywon.callbacks.reset');
+  var clear_scripts       = use('szywon.scripts.clear');
+  var start_extra_modules = use('szywon.extra_modules.start');
+  var to_array            = use('szywon.utils.array');
+  var unescape            = use('szywon.utils.unescape');
 
   var BEFORE_TITLE   = '<title>';
   var AFTER_TITLE    = '</title>';
@@ -14,7 +22,7 @@
 
     if (!history_supported) return;
 
-    szywon.callbacks.register('onpopstate', restore_state, true);
+    register_callback('onpopstate', restore_state, true);
 
     content_element = document.getElementById('content');
     extra_scripts   = document.getElementById('extra-scripts');
@@ -30,7 +38,7 @@
   }
 
   function update_links () {
-    var links = szywon.utils.array(document.getElementsByTagName('a'));
+    var links = to_array(document.getElementsByTagName('a'));
 
     links.forEach(function (a) {
       var href = a.getAttribute('href');
@@ -80,15 +88,15 @@
   }
 
   function apply_state (state) {
-    szywon.callbacks.reset();
-    szywon.scripts.clear();
+    reset_callbacks();
+    clear_scripts();
 
-    document.title            = szywon.utils.unescape(state.title);
+    document.title            = unescape(state.title);
     document.body.className   = state.classes;
     content_element.innerHTML = state.content;
 
     update_links();
-    szywon.start_extra_modules(content_element);
+    start_extra_modules(content_element);
   }
 
   function save_current_state () {
@@ -109,4 +117,4 @@
 
   this.start = start;
 
-}).call(ns('szywon.history'));
+});

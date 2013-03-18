@@ -1,4 +1,10 @@
-(function () {
+ns('szywon.utils', function () {
+  'use strict';
+
+  this.children = children;
+  this.array    = array;
+  this.unescape = unescape;
+
   var CHAR_ENTITY = /&#(\d+);/g;
 
   var slice = Array.prototype.slice;
@@ -16,9 +22,4 @@
       return String.fromCharCode(+number);
     });
   }
-
-  this.children = children;
-  this.array    = array;
-  this.unescape = unescape;
-
-}).call(ns('szywon.utils'));
+});

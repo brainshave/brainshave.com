@@ -1,5 +1,11 @@
-(function () {
+ns('szywon.github', function () {
   'use strict';
+
+  this.receive = receive;
+  this.start   = start;
+
+  var jsonp       = use('szywon.scripts.jsonp');
+  var github_list = use('szywon.templates.github.list');
 
   var DATA_LOADED = 'data-github-loaded';
 
@@ -26,7 +32,7 @@
     list = document.getElementById('github');
 
     if (!list.getAttribute(DATA_LOADED)) {
-      szywon.scripts.jsonp(CALL_URL, CALL_ARGS);
+      jsonp(CALL_URL, CALL_ARGS);
     }
   }
 
@@ -47,9 +53,6 @@
       return project;
     });
 
-    list.innerHTML = szywon.templates.github.list(json);
+    list.innerHTML = github_list(json);
   }
-
-  this.receive = receive;
-  this.start   = start;
-}).call(ns('szywon.github'));
+});

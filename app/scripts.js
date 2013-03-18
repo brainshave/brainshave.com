@@ -1,4 +1,10 @@
-(function () {
+ns('szywon.scripts', function () {
+  'use strict';
+
+  this.add       = add;
+  this.clear     = clear;
+  this.jsonp     = jsonp;
+  this.query_str = query_str;
 
   function extra_scripts () {
     return document.getElementById('extra-scripts');
@@ -34,10 +40,4 @@
   function jsonp (url, args) {
     add(url + query_str(args));
   }
-
-  this.add       = add;
-  this.clear     = clear;
-  this.jsonp     = jsonp;
-  this.query_str = query_str;
-
-}).call(ns('szywon.scripts'));
+});

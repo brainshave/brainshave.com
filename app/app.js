@@ -1,7 +1,9 @@
-(function() {
+main(function() {
+  'use strict';
 
-  szywon.start_extra_modules(document.getElementById('content'));
+  var start_extra_modules = use('szywon.extra_modules.start');
+  var start_history       = use('szywon.history.start');
 
-  szywon.history.start();
-
-}).call(ns('szywon'));
+  start_extra_modules(document.getElementById('content'));
+  start_history();
+});

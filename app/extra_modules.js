@@ -1,8 +1,9 @@
-(function () {
+ns('szywon.extra_modules', function () {
+  this.start = start;
 
   var ATTR_EXTRA_SCRIPTS = 'data-extra-scripts';
 
-  function start_extra_modules (content_node) {
+  function start (content_node) {
 
     if (!(content_node.firstElementChild)) return;
 
@@ -17,8 +18,5 @@
       }
     });
   }
-
-  this.start_extra_modules = start_extra_modules;
-
-}).call(ns('szywon'));
+});
 

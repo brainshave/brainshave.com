@@ -1,4 +1,8 @@
-(function () {
+ns('szywon.callbacks', function () {
+  'use strict';
+
+  this.register = register;
+  this.reset    = reset;
 
   var old = {};
 
@@ -16,8 +20,4 @@
       delete old[name];
     }
   }
-
-  this.register = register;
-  this.reset    = reset;
-
-}).call(ns('szywon.callbacks'));
+});
