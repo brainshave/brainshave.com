@@ -8,10 +8,10 @@ memory allocation.
 
 */
 
-(function () {
+ns('matrices', function () {
   'use strict';
 
-  ns.show('matrices', zero, identity, frustum, multiply, scale, translate);
+  this.fns(zero, identity, frustum, multiply, scale, translate);
 
   function zero (mat) {
     if (mat) {
@@ -89,4 +89,4 @@ memory allocation.
 
     return mat;
   }
-}).call(ns('matrices'));
+});

@@ -1,7 +1,7 @@
-(function () {
+ns('glinit', function () {
   'use strict';
 
-  ns.show(this, init);
+  this.fns(init);
 
   var CANVAS_ID = 'robots';
 
@@ -52,4 +52,4 @@
 
     return program;
   }
-}).call(ns('glinit'));
+});

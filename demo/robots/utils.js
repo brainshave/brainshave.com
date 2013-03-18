@@ -1,7 +1,7 @@
-(function () {
+ns('utils', function () {
   'use strict';
 
-  ns.show(this, trim, statements, by_field);
+  this.fns(trim, statements, by_field);
 
   var whitespace_both_sides = /^\s+|\s+$/mg;
 
@@ -20,4 +20,4 @@
       return object[field] === value;
     };
   }
-}).call(ns('utils'));
+});

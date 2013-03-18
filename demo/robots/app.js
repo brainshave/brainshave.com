@@ -1,2 +1,4 @@
-window.onresize = glinit.init;
-glinit.init();
+main(function () {
+  window.onresize = glinit.init;
+  glinit.init();
+});

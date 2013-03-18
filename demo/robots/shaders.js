@@ -1,7 +1,7 @@
-(function () {
+ns('shaders', function () {
   'use strict';
 
-  ns.show(this, compile, compile_from_dom, set_all_locations);
+  this.fns(compile, compile_from_dom, set_all_locations);
 
   var SHADER_TYPES = {
     vertex:   'VERTEX_SHADER',
@@ -58,4 +58,4 @@
 
     return compile(gl, type, src);
   }
-}).call(ns('shaders'));
+});
