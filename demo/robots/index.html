@@ -26,20 +26,20 @@
     precision highp float;
     #endif
 
-    uniform vec4 vColor;
+    uniform vec4 color;
 
     void main(void) {
-      gl_FragColor = vColor;
+      gl_FragColor = color;
     }
   </div>
   <div id="vertex" class="shader">
-    attribute vec3 aVertexPosition;
+    attribute vec3 pos;
 
-    uniform mat4 uMVMatrix;
-    uniform mat4 uPMatrix;
+    uniform mat4 mv;
+    uniform mat4 p;
 
     void main(void) {
-      gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+      gl_Position = p * mv * vec4(pos, 1.0);
     }
   </div>
   <script src="../../app/ns.js"></script>
@@ -47,6 +47,9 @@
   <script src="matrices.js"></script>
   <script src="shaders.js"></script>
   <script src="glinit.js"></script>
+  <script src="buffers.js"></script>
+  <script src="elements.js"></script>
+  <script src="animation.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

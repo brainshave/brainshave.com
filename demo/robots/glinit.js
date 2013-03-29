@@ -12,7 +12,11 @@ ns('glinit', function () {
     var program = compile_program(gl);
 
     shaders.set_all_locations(gl, program);
+    gl.enableVertexAttribArray(program.pos);
+
     console.log(gl, program);
+
+    animation.start(gl, program);
   }
 
   function new_canvas () {
