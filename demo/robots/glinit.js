@@ -14,11 +14,6 @@ ns('glinit', function () {
     shaders.set_all_locations(gl, program);
     gl.enableVertexAttribArray(program.pos);
 
-    console.log(gl, program);
-
-    window.gl = gl;
-    window.program = program;
-
     animation.start(gl, program);
   }
 
