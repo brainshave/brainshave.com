@@ -11,7 +11,7 @@ memory allocation.
 ns('matrices', function () {
   'use strict';
 
-  this.fns(zero, identity, frustum, multiply, scale, translate);
+  this.fns(zero, identity, diagonal, frustum, multiply, scale, translate);
 
   function zero (mat) {
     if (mat) {
@@ -25,12 +25,16 @@ ns('matrices', function () {
   }
 
   function identity (mat) {
+    return diagonal(1, mat);
+  }
+
+  function diagonal (value, mat) {
     mat = zero(mat);
 
-    mat[0]  = 1;
-    mat[5]  = 1;
-    mat[10] = 1;
-    mat[15] = 1;
+    mat[0]  = value;
+    mat[5]  = value;
+    mat[10] = value;
+    mat[15] = value;
 
     return mat;
   }

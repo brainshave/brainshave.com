@@ -16,6 +16,9 @@ ns('glinit', function () {
 
     console.log(gl, program);
 
+    window.gl = gl;
+    window.program = program;
+
     animation.start(gl, program);
   }
 

@@ -30,19 +30,17 @@ ns('elements', function () {
     };
   }
 
-  function draw (gl, program, element) {
+  function draw (gl, program, el) {
     return function (mode) {
-      gl.bindBuffer(gl.ARRAY_BUFFER, element.buffer);
-      gl.vertexAttribPointer(program.pos, element.buffer.item_size, gl.FLOAT, false, 0, 0);
+      gl.bindBuffer(gl.ARRAY_BUFFER, el.buffer);
+      gl.vertexAttribPointer(program.pos, el.buffer.item_size, gl.FLOAT, false, 0, 0);
 
       if (element.indices) {
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, element.indices);
-        gl.drawElements(mode, element.indices.length, gl.UNSIGNED_SHORT, 0);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, el.indices);
+        gl.drawElements(mode, el.indices.length, gl.UNSIGNED_SHORT, 0);
       } else {
-        gl.drawArrays(mode, 0, elment.buffer.length);
+        gl.drawArrays(mode, 0, el.buffer.length);
       }
     }
   }
-
-
 });

@@ -10,8 +10,8 @@ ns('utils', function () {
   }
 
   function statements (src) {
-    return utils.trim(src).split(/;|\n/).map(function (stmt) {
-      return stmt.split(/\s+/);
+    return src.split(/;|\n/).map(function (stmt) {
+      return trim(stmt).split(/\s+/);
     });
   }
 

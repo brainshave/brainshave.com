@@ -7,23 +7,25 @@ ns('animation', function () {
     set_view(gl, program);
 
     var cube = elements.cube(gl, program);
-    cube.draw(gl, gl.LINES);
 
-    console.log(gl.getError());
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    cube.draw(gl.LINES);
   }
 
   function stop (gl, program) {
   }
 
   function set_view (gl, program) {
-    gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+    gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
     gl.clearColor(0, 0, 0, 1);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    var p =  matrices.frustum(5, 5, 3, 500);
+    var mv = matrices.translate(0, 0, 6);
+
+    console.log(p, mv);
 
     gl.uniform4f(program.color, 1, 1, 1, 1);
-    gl.uniformMatrix4fv(program.p,  false, matrices.frustum(20, 10, -10, 10));
-    gl.uniformMatrix4fv(program.mv, false, matrices.identity());
+    gl.uniformMatrix4fv(program.p,  false, p);
+    gl.uniformMatrix4fv(program.mv, false, mv);
   }
-
-
 });
