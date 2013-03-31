@@ -8,6 +8,11 @@ ns('animation', function () {
 
     var cube = elements.cube(gl, program);
 
+    var requestAnimationFrame =
+      window.requestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.webkitRequestAnimationFrame;
+
     var mv = matrices.switcher();
 
     var angle = matrices.multiply(matrices.rotate_x(Math.PI/800),
