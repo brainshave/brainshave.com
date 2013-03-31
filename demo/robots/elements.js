@@ -35,7 +35,7 @@ ns('elements', function () {
       gl.bindBuffer(gl.ARRAY_BUFFER, el.buffer);
       gl.vertexAttribPointer(program.pos, el.buffer.item_size, gl.FLOAT, false, 0, 0);
 
-      if (element.indices) {
+      if (el.indices) {
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, el.indices);
         gl.drawElements(mode, el.indices.length, gl.UNSIGNED_SHORT, 0);
       } else {
