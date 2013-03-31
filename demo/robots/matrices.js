@@ -39,8 +39,23 @@ ns('matrices', function () {
     return mat;
   }
 
+
+  /**
+     Simple Frustum function. Eye position is in (0,0,0), both near
+     and far must be positive. Eye is looking straight along the Z
+     axis. To get a different eye positions or different angles you
+     need to translate/rotate the matrix respectively.
+  */
   function frustum (width, height, near, far, mat) {
     mat = zero(mat);
+
+    if (near <= 0) {
+      throw new RangeError('Near plane must be > 0.');
+    }
+
+    if (far <= near) {
+      throw new RangeError('Far plane must be > near plane.');
+    }
 
     mat[0]  = 2 * near / width;
     mat[5]  = 2 * near / height;
