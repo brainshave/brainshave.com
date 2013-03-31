@@ -25,6 +25,14 @@ ns('matrices', function () {
     }
   }
 
+  function copy (source, mat) {
+    mat = zero(mat);
+
+    mat.set(source);
+
+    return mat;
+  }
+
   function identity (mat) {
     return diagonal(1, mat);
   }

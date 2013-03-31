@@ -6,7 +6,7 @@ ns('animation', function () {
   function start (gl, program) {
     set_view(gl, program);
 
-    var cube = elements.cube(gl, program);
+    var bot = window.bot.create(gl, program);
 
     var requestAnimationFrame =
       window.requestAnimationFrame ||
@@ -15,14 +15,13 @@ ns('animation', function () {
 
     var mv = matrices.switcher();
 
-    var angle = matrices.multiply(matrices.rotate_x(Math.PI/800),
-                                  matrices.rotate_y(Math.PI/200),
-                                  matrices.rotate_z(Math.PI/100));
+    var angle = matrices.rotate_y(Math.PI/100);
+
     step();
 
     function step () {
       matrices.multiply(mv.current(), angle, mv.switch());
-      gl.uniformMatrix4fv(program.mv, false, mv.current());
+      //gl.uniformMatrix4fv(program.mv, false, mv.current());
 
       draw();
 
@@ -31,7 +30,7 @@ ns('animation', function () {
 
     function draw () {
       gl.clear(gl.COLOR_BUFFER_BIT);
-      cube.draw(gl.LINES);
+      bot(mv.current());
     }
   }
 
@@ -44,8 +43,8 @@ ns('animation', function () {
 
     var size = near_plane_size(16, 9, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
-    var p = matrices.multiply(matrices.frustum(size.w, size.h, 3, 500),
-                              matrices.translate(0, 0, 6));
+    var p = matrices.multiply(matrices.frustum(size.w, size.h, 10, 500),
+                              matrices.translate(0, -4, 20));
 
     gl.uniform4f(program.color, 1, 1, 1, 1);
     gl.uniformMatrix4fv(program.p,  false, p);
