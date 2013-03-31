@@ -11,7 +11,8 @@ memory allocation.
 ns('matrices', function () {
   'use strict';
 
-  this.fns(zero, identity, diagonal, frustum, multiply, scale, translate);
+  this.fns(zero, identity, diagonal, frustum, multiply, scale, translate,
+           rotate_x, rotate_y, rotate_z, switcher);
 
   function zero (mat) {
     if (mat) {
@@ -38,7 +39,6 @@ ns('matrices', function () {
 
     return mat;
   }
-
 
   /**
      Simple Frustum function. Eye position is in (0,0,0), both near
@@ -90,7 +90,7 @@ ns('matrices', function () {
   }
 
   function scale (x, y, z, mat) {
-    mat = mat || identity(mat);
+    mat = identity(mat);
 
     mat[0]  *= x;
     mat[5]  *= y;
@@ -100,12 +100,92 @@ ns('matrices', function () {
   }
 
   function translate (x, y, z, mat) {
-    mat = mat || identity();
+    mat = identity(mat);
 
     mat[12] += x;
     mat[13] += y;
     mat[14] += z;
 
     return mat;
+  }
+
+  function rotate_x (rad, mat) {
+    mat = identity(mat);
+
+    var sin = Math.sin(rad);
+    var cos = Math.cos(rad);
+
+    mat[5]  =  cos;
+    mat[6]  = -sin;
+    mat[9]  =  sin;
+    mat[10] =  cos;
+
+    return mat;
+  }
+
+  function rotate_y (rad, mat) {
+    mat = identity(mat);
+
+    var sin = Math.sin(rad);
+    var cos = Math.cos(rad);
+
+    mat[0]  =  cos;
+    mat[2]  =  sin;
+    mat[8]  = -sin;
+    mat[10] =  cos;
+
+    return mat;
+  }
+
+  function rotate_z (rad, mat) {
+    mat = identity(mat);
+
+    var sin = Math.sin(rad);
+    var cos = Math.cos(rad);
+
+    mat[0] =  cos;
+    mat[1] = -sin;
+    mat[4] =  sin;
+    mat[5] =  cos;
+
+    return mat;
+  }
+
+
+  /**
+     Switcher between two matrices. Useful when you want to reuse the
+     old value of one matrix to calculate value of the second one, and
+     then use the second one to calculate value of the first one (and
+     avoid allocation for each calculation.
+
+     Example (rotating):
+
+     var mv = matrices.switcher();
+     var angle = matrices.rotate_x(Math.PI/100);
+
+     // then in the loop:
+
+     matrices.multiply(mv.current(), angle, mv.switch());
+     gl.uniformMatrix4fv(program.mv, false, mv.current());
+
+     gl.clear(...)
+     gl.draw...(...)
+
+   */
+  function switcher () {
+    var one = matrices.identity();
+    var two = matrices.identity();
+
+    var use_one = true;
+
+    return {
+      switch: function () {
+        use_one = !use_one;
+        return use_one ? one : two;
+      },
+      current: function () {
+        return use_one ? one : two;
+      }
+    };
   }
 });

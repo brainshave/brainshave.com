@@ -8,8 +8,21 @@ ns('animation', function () {
 
     var cube = elements.cube(gl, program);
 
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    cube.draw(gl.LINES);
+    var mv = matrices.switcher();
+
+    var angle = matrices.rotate_x(Math.PI/100);
+
+    step();
+
+    function step () {
+      matrices.multiply(mv.current(), angle, mv.switch());
+      gl.uniformMatrix4fv(program.mv, false, mv.current());
+
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      cube.draw(gl.LINES);
+
+      requestAnimationFrame(step);
+    }
   }
 
   function stop (gl, program) {
@@ -21,10 +34,8 @@ ns('animation', function () {
 
     var p =  matrices.multiply(matrices.frustum(5, 5, 3, 500),
                                matrices.translate(0, 0, 6));
-    var mv = matrices.identity();
 
     gl.uniform4f(program.color, 1, 1, 1, 1);
     gl.uniformMatrix4fv(program.p,  false, p);
-    gl.uniformMatrix4fv(program.mv, false, mv);
   }
 });
