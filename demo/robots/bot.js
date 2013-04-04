@@ -23,13 +23,13 @@ ns('bot', function () {
     var to_head_centre = matrices.translate(1, 0, 0);
     var head_size = matrices.scale(1.5, 1.5, 1.5);
 
-    var right_ankle_rotate = matrices.rotate_x(Math.PI * 5 / 8);
-    var right_knee_rotate = matrices.rotate_x(- Math.PI * 2 / 8);
-    var right_leg_unrotate = matrices.rotate_x(Math.PI * 5 / 8);
+    var first_ankle_rotate = matrices.rotate_x(Math.PI * 5 / 8);
+    var first_knee_rotate = matrices.rotate_x(- Math.PI * 2 / 8);
+    var first_leg_unrotate = matrices.rotate_x(Math.PI * 5 / 8);
 
-    var left_leg_rotate = matrices.rotate_x(Math.PI * 3 / 8);
-    var left_knee_rotate = matrices.rotate_x(Math.PI * 2 / 8);
-    var left_ankle_rotate = matrices.rotate_x(- Math.PI * 5 / 8);
+    var second_leg_rotate = matrices.rotate_x(Math.PI * 3 / 8);
+    var second_knee_rotate = matrices.rotate_x(Math.PI * 2 / 8);
+    var second_ankle_rotate = matrices.rotate_x(- Math.PI * 5 / 8);
 
     function set_mv () {
       gl.uniformMatrix4fv(program.mv, false, mv.current());
@@ -48,7 +48,21 @@ ns('bot', function () {
       cube();
     }
 
-    return function draw (start_mv) {
+    return {
+      draw: draw,
+      angles: {
+        first_ankle:  first_ankle_rotate,
+        first_knee:   first_knee_rotate,
+        body:         first_leg_unrotate,
+        second_leg:   second_leg_rotate,
+        second_knee:  second_knee_rotate,
+        second_ankle: second_ankle_rotate
+      }
+    };
+
+    function set_angles () {}
+
+    function draw (start_mv) {
       mv.current().set(start_mv);
 
       // centering preview.
@@ -62,37 +76,37 @@ ns('bot', function () {
 
       series(
         to_feet_joint,
-        right_ankle_rotate,
+        first_ankle_rotate,
         to_shin_centre,
         leg_part_size);
 
       series(
         to_leg_part_centre,
-        right_knee_rotate,
+        first_knee_rotate,
         to_leg_part_centre,
         leg_part_size);
 
       series(
         to_leg_head_joint,
-        right_leg_unrotate,
+        first_leg_unrotate,
         to_head_centre,
         head_size);
 
       series(
         to_head_centre,
-        left_leg_rotate,
+        second_leg_rotate,
         to_leg_head_joint,
         leg_part_size);
 
       series(
         to_leg_part_centre,
-        left_knee_rotate,
+        second_knee_rotate,
         to_leg_part_centre,
         leg_part_size);
 
       series(
         to_shin_centre,
-        left_ankle_rotate,
+        second_ankle_rotate,
         to_feet_joint,
         feet_size);
     };

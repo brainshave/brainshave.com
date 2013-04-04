@@ -7,6 +7,7 @@ ns('animation', function () {
     set_view(gl, program);
 
     var bot = window.bot.create(gl, program);
+    var set_progress = window.bot.kinetics.animator(bot.angles);
 
     var requestAnimationFrame =
       window.requestAnimationFrame ||
@@ -14,14 +15,21 @@ ns('animation', function () {
       window.webkitRequestAnimationFrame;
 
     var mv = matrices.switcher();
+    matrices.rotate_y(Math.PI / 2, mv.current());
 
     var angle = matrices.rotate_y(Math.PI/100);
+
+    var start_time = (new Date()).getTime();
+    var term  = 2000;
+
 
     step();
 
     function step () {
-      matrices.multiply(mv.current(), angle, mv.switch());
-      //gl.uniformMatrix4fv(program.mv, false, mv.current());
+      //matrices.multiply(mv.current(), angle, mv.switch());
+
+      var progress = (((new Date()).getTime() - start_time) % term) / term;
+      set_progress(progress);
 
       draw();
 
@@ -30,7 +38,7 @@ ns('animation', function () {
 
     function draw () {
       gl.clear(gl.COLOR_BUFFER_BIT);
-      bot(mv.current());
+      bot.draw(mv.current());
     }
   }
 
@@ -44,7 +52,7 @@ ns('animation', function () {
     var size = near_plane_size(16, 9, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
     var p = matrices.multiply(matrices.frustum(size.w, size.h, 10, 500),
-                              matrices.translate(0, -4, 20));
+                              matrices.translate(0, -2.5, 20));
 
     gl.uniform4f(program.color, 1, 1, 1, 1);
     gl.uniformMatrix4fv(program.p,  false, p);
