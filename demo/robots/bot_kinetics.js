@@ -5,7 +5,7 @@ ns('bot.kinetics', function () {
 
   var sequence = [
     [90, -60, 90, 60],
-    [120, 0, 30, 60],
+    [100, -10, 10, 80],
     [150, -60, 30, 60]
   ].map(function (moment) { return moment.map(deg_to_rad); });
 
@@ -18,8 +18,10 @@ ns('bot.kinetics', function () {
     var second_leg   = angles.second_leg;
     var second_knee  = angles.second_knee;
     var second_ankle = angles.second_ankle;
+    var switch_sides = angles.switch_sides;
 
     var rotate_x = matrices.rotate_x;
+    var scale = matrices.scale;
 
     return set_progress;
 
@@ -35,28 +37,24 @@ ns('bot.kinetics', function () {
     }
   }
 
+  var moment_tmp = new Float64Array(4);
+
   function moment_at (progress) {
-    var cursor = key_frames_count * progress;
+    var cursor = (key_frames_count - 1)* progress;
     var first_frame_index = Math.floor(cursor);
     var first_frame_amount = 1 - (cursor - first_frame_index);
     var second_frame_amount = 1 - first_frame_amount;
 
     var second_frame_index = first_frame_index + 1;
 
-    if (second_frame_index >= sequence.length) {
-      second_frame_index = 0;
-    }
-
     var first_frame = sequence[first_frame_index];
     var second_frame = sequence[second_frame_index];
 
-    var new_moment = [];
-
     for (var i = 0; i < 4; ++i) {
-      new_moment[i] = first_frame[i] * first_frame_amount + second_frame[i] * second_frame_amount;
+      moment_tmp[i] = first_frame[i] * first_frame_amount + second_frame[i] * second_frame_amount;
     }
 
-    return new_moment;
+    return moment_tmp;
   }
 
   function deg_to_rad (deg) {

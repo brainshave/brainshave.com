@@ -31,6 +31,8 @@ ns('bot', function () {
     var second_knee_rotate = matrices.rotate_x(Math.PI * 2 / 8);
     var second_ankle_rotate = matrices.rotate_x(- Math.PI * 5 / 8);
 
+    var switch_sides = matrices.identity();
+
     function set_mv () {
       gl.uniformMatrix4fv(program.mv, false, mv.current());
     }
@@ -64,11 +66,6 @@ ns('bot', function () {
 
     function draw (start_mv) {
       mv.current().set(start_mv);
-
-      // centering preview.
-      op(invert_x);
-      op(to_head_centre);
-      op(invert_x);
 
       op(feet_size);
       set_mv();
@@ -109,6 +106,8 @@ ns('bot', function () {
         second_ankle_rotate,
         to_feet_joint,
         feet_size);
+
+      return mv.switch(); // position of second foot without the scale
     };
   }
 });

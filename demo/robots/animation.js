@@ -15,30 +15,54 @@ ns('animation', function () {
       window.webkitRequestAnimationFrame;
 
     var mv = matrices.switcher();
-    matrices.rotate_y(Math.PI / 2, mv.current());
+    matrices.multiply(matrices.translate(-8, 0, 0),
+                      matrices.rotate_y(Math.PI / 2),
+                      mv.current());
 
     var angle = matrices.rotate_y(Math.PI/100);
+    var invert = matrices.scale(-1, -1, -1);
 
     var start_time = (new Date()).getTime();
-    var term  = 2000;
+    var term  = 1000;
 
+    var bot_second_foot_pos;
+    var old_progress = 0;
 
     step();
 
     function step () {
       //matrices.multiply(mv.current(), angle, mv.switch());
 
-      var progress = (((new Date()).getTime() - start_time) % term) / term;
-      set_progress(progress);
-
+      set_positions();
       draw();
 
       requestAnimationFrame(step);
     }
 
+    function set_positions () {
+      var progress = (((new Date()).getTime() - start_time) % term) / term;
+      set_progress(progress);
+
+      if (progress < old_progress) {
+        // Start drawing from the other foot
+        // rotation is in all directions:
+        // x - because we want to invert legs
+        // y & z - because after drawing the second foot the matrix is
+        // inverted in those directions (the first foot is drawn with
+        // z directing to back of the robot, the second is drawn with
+        // z directing to the front of the robot)
+        matrices.multiply(bot_second_foot_pos, invert, mv.current());
+      }
+
+      old_progress = progress;
+    }
+
     function draw () {
       gl.clear(gl.COLOR_BUFFER_BIT);
-      bot.draw(mv.current());
+
+      // Saving the matrix that holds position of the second foot
+      // because on switch we use it as a starting point.
+      bot_second_foot_pos = bot.draw(mv.current());
     }
   }
 
