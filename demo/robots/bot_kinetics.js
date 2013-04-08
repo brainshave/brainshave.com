@@ -5,7 +5,7 @@ ns('bot.kinetics', function () {
 
   var sequence = [
     [90, -60, 90, 60],
-    [100, -10, 10, 80],
+    [100, -10, 40, 80],
     [150, -60, 30, 60]
   ].map(function (moment) { return moment.map(deg_to_rad); });
 
