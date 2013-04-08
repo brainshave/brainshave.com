@@ -33,21 +33,19 @@ ns('bot', function () {
 
     var switch_sides = matrices.identity();
 
-    function set_mv () {
-      gl.uniformMatrix4fv(program.mv, false, mv.current());
-    }
-
     function op (other) {
       matrices.multiply(mv.current(), other, mv.switch());
     }
 
-    function series () {
-      mv.switch();
+    function series (/* mat1, mat2, ..., mat_scale */) {
       for (var i = 0; i < arguments.length; ++i) {
         op(arguments[i]);
       }
-      set_mv();
+
+      gl.uniformMatrix4fv(program.mv, false, mv.current());
       cube();
+
+      mv.switch(); // revert last operation which is scale
     }
 
     return {
@@ -67,9 +65,7 @@ ns('bot', function () {
     function draw (start_mv) {
       mv.current().set(start_mv);
 
-      op(feet_size);
-      set_mv();
-      cube();
+      series(feet_size);
 
       series(
         to_feet_joint,
@@ -107,7 +103,7 @@ ns('bot', function () {
         to_feet_joint,
         feet_size);
 
-      return mv.switch(); // position of second foot without the scale
+      return mv.current();
     };
   }
 });
