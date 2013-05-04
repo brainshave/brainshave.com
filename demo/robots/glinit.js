@@ -4,6 +4,7 @@ ns('glinit', function () {
   this.fns(init);
 
   var CANVAS_ID = 'robots';
+  var PIXEL_RATIO = window.devicePixelRatio || 1;
 
   function init () {
     delete_old_canvas();

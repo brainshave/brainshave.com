@@ -11,7 +11,8 @@ memory allocation.
 ns('matrices', function () {
   'use strict';
 
-  this.fns(zero, identity, diagonal, frustum, multiply, scale, translate,
+  this.fns(zero, identity, diagonal, multiply, subtract,
+           scale, translate, frustum,
            rotate_x, rotate_y, rotate_z, switcher);
 
   function zero (mat) {
@@ -92,6 +93,16 @@ ns('matrices', function () {
       if (j === 3) {
         k += 4;
       }
+    }
+
+    return mat;
+  }
+
+  function subtract (a, b, mat) {
+    mat = mat || new Float32Array(16);
+
+    for (var i = 0; i < 16; ++i) {
+      mat[i] = a[i] - b[i];
     }
 
     return mat;

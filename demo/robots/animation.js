@@ -9,17 +9,24 @@ ns('animation', function () {
     var bot = window.bot.create(gl, program);
     var set_progress = window.bot.kinetics.animator(bot.angles);
 
+    // Measure difference between bot's feet positions
+    set_progress(0);
+    tracks.create(bot);
+
     var requestAnimationFrame =
       window.requestAnimationFrame ||
       window.mozRequestAnimationFrame ||
       window.webkitRequestAnimationFrame;
 
     var mv = matrices.switcher();
-    matrices.multiply(matrices.translate(-8, 0, 0),
+    matrices.multiply(matrices.translate(4, 0, 4),
                       matrices.rotate_y(Math.PI / 2),
                       mv.current());
 
-    var angle = matrices.rotate_y(Math.PI/100);
+    var angle = matrices.switcher();
+    matrices.rotate_y(-Math.PI/300, angle.current());
+    matrices.rotate_y(Math.PI/300, angle.switch());
+
     var invert = matrices.scale(-1, -1, -1);
 
     var start_time = (new Date()).getTime();
@@ -31,8 +38,6 @@ ns('animation', function () {
     step();
 
     function step () {
-      //matrices.multiply(mv.current(), angle, mv.switch());
-
       set_positions();
       draw();
 
@@ -50,9 +55,12 @@ ns('animation', function () {
         // y & z - because after drawing the second foot the matrix is
         // inverted in those directions (the first foot is drawn with
         // z directing to back of the robot, the second is drawn with
-        // z directing to the front of the robot)
+        // z directing to the front of the robot and upside down)
         matrices.multiply(bot_second_foot_pos, invert, mv.current());
+        angle.switch();
       }
+
+      matrices.multiply(mv.current(), angle.current(), mv.switch());
 
       old_progress = progress;
     }
@@ -76,7 +84,7 @@ ns('animation', function () {
     var size = near_plane_size(16, 9, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
     var p = matrices.multiply(matrices.frustum(size.w, size.h, 10, 500),
-                              matrices.translate(0, -2.5, 20));
+                              matrices.translate(0, 0, 40));
 
     gl.uniform4f(program.color, 1, 1, 1, 1);
     gl.uniformMatrix4fv(program.p,  false, p);

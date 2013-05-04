@@ -16,6 +16,13 @@ ns('elements', function () {
     0, 6, 2, 4, 3, 5, 1, 7
   ]);
 
+
+  this.circle = element(3, (new Array(10)).map(function (element, index, array) {
+    return [Math.cos(index / array.length), 0, Math.sin(index / array.length)];
+  }).reduce(function (mem, triple) {
+    return mem.concat(triple);
+  }, []));
+
   function element (item_size, verts, indices, default_mode) {
     return function (gl, program) {
       var verts_buffer =  buffers.init_buffer(gl, verts, item_size);

@@ -7,8 +7,6 @@ ns('bot', function () {
     var mv = matrices.switcher();
     var cube = elements.cube(gl, program);
 
-    var invert_x = matrices.scale(-1, 1, 1);
-
     var cube_size_forward = matrices.translate(0, 0, 2);
 
     var feet_size = matrices.scale(0.3, 0.3, 1);
