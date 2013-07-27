@@ -8,6 +8,7 @@ ns('tracks', function () {
 
   function create (bot) {
     var spread = measure(bot);
+    console.log(spread);
     var xl = INNER;
     var zl = 0;
 
@@ -20,12 +21,10 @@ ns('tracks', function () {
     var identity = matrices.identity();
     var outcome = bot.draw(identity);
 
-    var difference = matrices.subtract(identity, outcome);
-
     return {
-      x: difference[12],
-      y: difference[13],
-      z: difference[14]
+      x: outcome[12],
+      y: outcome[13],
+      z: outcome[14]
     };
   }
 

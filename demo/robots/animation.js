@@ -58,6 +58,8 @@ ns('animation', function () {
         // z directing to the front of the robot and upside down)
         matrices.multiply(bot_second_foot_pos, invert, mv.current());
         angle.switch();
+
+        console.log(mv.current()[13]);
       }
 
       matrices.multiply(mv.current(), angle.current(), mv.switch());
