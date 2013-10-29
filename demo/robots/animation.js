@@ -3,31 +3,40 @@ ns('animation', function () {
 
   this.fns(start, stop);
 
+  var create_bot   = use('bot.create');
+  var create_tracks = use('tracks.create');
+  var bot_animator = use('bot.kinetics.animator');
+  var mat_switcher = use('matrices.switcher');
+
+  var frustum   = use('matrices.frustum');
+  var multiply  = use('matrices.multiply');
+  var translate = use('matrices.translate');
+  var scale     = use('matrices.scale');
+  var rotate_y  = use('matrices.rotate_y');
+
   function start (gl, program) {
     set_view(gl, program);
 
-    var bot = window.bot.create(gl, program);
-    var set_progress = window.bot.kinetics.animator(bot.angles);
+    var bot = create_bot(gl, program);
+    var set_progress = bot_animator(bot.angles);
 
     // Measure difference between bot's feet positions
     set_progress(0);
-    tracks.create(bot);
+    create_tracks(bot);
 
     var requestAnimationFrame =
       window.requestAnimationFrame ||
       window.mozRequestAnimationFrame ||
       window.webkitRequestAnimationFrame;
 
-    var mv = matrices.switcher();
-    matrices.multiply(matrices.translate(4, 0, 4),
-                      matrices.rotate_y(Math.PI / 2),
-                      mv.current());
+    var mv = mat_switcher();
+    multiply(translate(4, 0, 4), rotate_y(Math.PI / 2), mv.current());
 
-    var angle = matrices.switcher();
-    matrices.rotate_y(-Math.PI/300, angle.current());
-    matrices.rotate_y(Math.PI/300, angle.switch());
+    var angle = mat_switcher();
+    rotate_y(-Math.PI/300, angle.current());
+    rotate_y( Math.PI/300, angle.switch());
 
-    var invert = matrices.scale(-1, -1, -1);
+    var invert = scale(-1, -1, -1);
 
     var start_time = (new Date()).getTime();
     var term  = 1000;
@@ -56,13 +65,15 @@ ns('animation', function () {
         // inverted in those directions (the first foot is drawn with
         // z directing to back of the robot, the second is drawn with
         // z directing to the front of the robot and upside down)
-        matrices.multiply(bot_second_foot_pos, invert, mv.current());
+        multiply(bot_second_foot_pos, invert, mv.current());
         angle.switch();
 
-        console.log(mv.current()[13]);
+        // Set Y coord to 0 to avoid the robot from climbing (that's a
+        // result of floating-point math errors probably)
+        mv.current()[13] = 0;
       }
 
-      matrices.multiply(mv.current(), angle.current(), mv.switch());
+      multiply(mv.current(), angle.current(), mv.switch());
 
       old_progress = progress;
     }
@@ -85,8 +96,8 @@ ns('animation', function () {
 
     var size = near_plane_size(16, 9, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
-    var p = matrices.multiply(matrices.frustum(size.w, size.h, 10, 500),
-                              matrices.translate(0, 0, 40));
+    var p = multiply(frustum(size.w, size.h, 10, 500),
+                     translate(0, 0, 40));
 
     gl.uniform4f(program.color, 1, 1, 1, 1);
     gl.uniformMatrix4fv(program.p,  false, p);

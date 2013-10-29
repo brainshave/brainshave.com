@@ -5,8 +5,14 @@ ns('szywon.disqus', function () {
 
   var add_script = use('szywon.scripts.add');
 
+  var is_localhost = /^((\d+\.){3}\d+|localhost)$/;
+
   function start () {
     cleanup();
+
+    if (is_localhost.test(location.hostname)) {
+      return;
+    }
 
     var disqus_shortname  = 'szywon';
 

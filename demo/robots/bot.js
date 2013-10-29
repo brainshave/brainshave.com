@@ -3,6 +3,15 @@ ns('bot', function () {
 
   this.fns(create);
 
+  var cube_element = use('elements.cube');
+  var mat_switcher = use('matrices.switcher');
+
+  var identity  = use('matrices.identity');
+  var translate = use('matrices.translate');
+  var multiply  = use('matrices.multiply');
+  var scale     = use('matrices.scale');
+  var rotate_x  = use('matrices.rotate_x');
+
   var FOOT_LENGTH = 1;
   var LEG_PART_LENGTH = 2;
   var LEG_PART_SIZE = 0.3;
@@ -10,36 +19,36 @@ ns('bot', function () {
   var LEG_HALFSIZE = 1.35;
 
   function create (gl, program) {
-    var mv = matrices.switcher();
-    var cube = elements.cube(gl, program);
+    var mv = mat_switcher();
+    var cube = cube_element(gl, program);
 
-    var cube_size_forward  = matrices.translate(0, 0, 2);
+    var cube_size_forward  = translate(0, 0, 2);
 
-    var feet_size          = matrices.scale(0.3, 0.3, 1);
-    var to_feet_joint      = matrices.translate(0, 0, 0.2);
+    var feet_size          = scale(0.3, 0.3, 1);
+    var to_feet_joint      = translate(0, 0, 0.2);
 
-    var to_shin_centre     = matrices.translate(0, 0, 1.35);
-    var to_leg_part_centre = matrices.translate(0, 0, 1.15);
-    var leg_part_size      = matrices.scale(0.3, 0.3, 2);
-    var leg_half_length    = matrices.translate(0, 0, LEG_HALFSIZE);
+    var to_shin_centre     = translate(0, 0, 1.35);
+    var to_leg_part_centre = translate(0, 0, 1.15);
+    var leg_part_size      = scale(0.3, 0.3, 2);
+    var leg_half_length    = translate(0, 0, LEG_HALFSIZE);
 
-    var to_leg_head_joint  = matrices.translate(0, 0, 0.85);
+    var to_leg_head_joint  = translate(0, 0, 0.85);
 
-    var to_head_centre     = matrices.translate(1, 0, 0);
-    var head_size          = matrices.scale(1.5, 1.5, 1.5);
+    var to_head_centre     = translate(1, 0, 0);
+    var head_size          = scale(1.5, 1.5, 1.5);
 
-    var first_ankle_rotate = matrices.rotate_x(Math.PI * 5 / 8);
-    var first_knee_rotate = matrices.rotate_x(- Math.PI * 2 / 8);
-    var first_leg_unrotate = matrices.rotate_x(Math.PI * 5 / 8);
+    var first_ankle_rotate = rotate_x( Math.PI * 5 / 8);
+    var first_knee_rotate  = rotate_x(-Math.PI * 2 / 8);
+    var first_leg_unrotate = rotate_x( Math.PI * 5 / 8);
 
-    var second_leg_rotate = matrices.rotate_x(Math.PI * 3 / 8);
-    var second_knee_rotate = matrices.rotate_x(Math.PI * 2 / 8);
-    var second_ankle_rotate = matrices.rotate_x(- Math.PI * 5 / 8);
+    var second_leg_rotate   = rotate_x( Math.PI * 3 / 8);
+    var second_knee_rotate  = rotate_x( Math.PI * 2 / 8);
+    var second_ankle_rotate = rotate_x(-Math.PI * 5 / 8);
 
-    var switch_sides = matrices.identity();
+    var switch_sides = identity();
 
     function op (other) {
-      matrices.multiply(mv.current(), other, mv.switch());
+      multiply(mv.current(), other, mv.switch());
     }
 
     function series (/* mat1, mat2, ..., mat_scale */) {

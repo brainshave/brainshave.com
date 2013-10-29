@@ -3,6 +3,11 @@ ns('glinit', function () {
 
   this.fns(init);
 
+  var set_all_locations = use('shaders.set_all_locations');
+  var compile_from_dom  = use('shaders.compile_from_dom');
+  var start = use('animation.start');
+
+
   var CANVAS_ID = 'robots';
   var PIXEL_RATIO = window.devicePixelRatio || 1;
 
@@ -12,10 +17,10 @@ ns('glinit', function () {
     var gl      = init_gl(canvas);
     var program = compile_program(gl);
 
-    shaders.set_all_locations(gl, program);
+    set_all_locations(gl, program);
     gl.enableVertexAttribArray(program.pos);
 
-    animation.start(gl, program);
+    start(gl, program);
   }
 
   function new_canvas () {
@@ -43,8 +48,8 @@ ns('glinit', function () {
   }
 
   function compile_program (gl) {
-    var vertex   = shaders.compile_from_dom(gl, 'vertex');
-    var fragment = shaders.compile_from_dom(gl, 'fragment');
+    var vertex   = compile_from_dom(gl, 'vertex');
+    var fragment = compile_from_dom(gl, 'fragment');
 
     var program = gl.createProgram();
     gl.attachShader(program, vertex);

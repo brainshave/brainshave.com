@@ -6,9 +6,10 @@ ns('tracks', function () {
   var OUTER = 6;
   var INNER = 8;
 
+  var identity = use('matrices.identity');
+
   function create (bot) {
     var spread = measure(bot);
-    console.log(spread);
     var xl = INNER;
     var zl = 0;
 
@@ -18,8 +19,7 @@ ns('tracks', function () {
   }
 
   function measure (bot) {
-    var identity = matrices.identity();
-    var outcome = bot.draw(identity);
+    var outcome = bot.draw(identity());
 
     return {
       x: outcome[12],

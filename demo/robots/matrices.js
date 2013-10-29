@@ -192,8 +192,8 @@ ns('matrices', function () {
 
    */
   function switcher () {
-    var one = matrices.identity();
-    var two = matrices.identity();
+    var one = identity();
+    var two = identity();
 
     var use_one = true;
 

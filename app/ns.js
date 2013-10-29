@@ -30,7 +30,7 @@ function ns (path, fn) {
   return object;
 }
 
-ns.root = window;
+ns.root = {};
 
 ns.NS = function () {};
 

@@ -1,6 +1,9 @@
 ns('elements', function () {
   'use strict';
 
+  var init_buffer  = use('buffers.init_buffer');
+  var init_indices = use('buffers.init_indices');
+
   this.cube = element(3, [
    -0.5,  0.5,  0.5,
    -0.5, -0.5,  0.5,
@@ -25,11 +28,11 @@ ns('elements', function () {
 
   function element (item_size, verts, indices, default_mode) {
     return function (gl, program) {
-      var verts_buffer =  buffers.init_buffer(gl, verts, item_size);
+      var verts_buffer =  init_buffer(gl, verts, item_size);
 
       var indices_buffer;
       if (indices) {
-        indices_buffer = buffers.init_indices(gl, indices);
+        indices_buffer = init_indices(gl, indices);
       }
 
       var draw_fn = draw(gl, program, verts_buffer, indices_buffer, default_mode);

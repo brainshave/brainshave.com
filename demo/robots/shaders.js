@@ -3,6 +3,9 @@ ns('shaders', function () {
 
   this.fns(compile, compile_from_dom, set_all_locations);
 
+  var statements = use('utils.statements');
+  var by_field   = use('utils.by_field');
+
   var SHADER_TYPES = {
     vertex:   'VERTEX_SHADER',
     fragment: 'FRAGMENT_SHADER'
@@ -16,17 +19,16 @@ ns('shaders', function () {
   };
 
   function set_all_locations (gl, program) {
-    var statements =
-      utils.statements(src_from_dom('vertex') + '\n' +
-                       src_from_dom('fragment'));
+    var glsl_stmts = statements(src_from_dom('vertex') + '\n' +
+                                src_from_dom('fragment'));
 
     Object.keys(STMT_GETTER_NAMES)
-      .forEach(set_locations.bind(null, gl, program, statements));
+      .forEach(set_locations.bind(null, gl, program, glsl_stmts));
   }
 
 
   function set_locations (gl, program, statements, type) {
-    var stmts = statements.filter(utils.by_field(STMT_TYPE_POS, type));
+    var stmts = statements.filter(by_field(STMT_TYPE_POS, type));
     var get_location = gl[STMT_GETTER_NAMES[type]].bind(gl);
 
     var i, name;

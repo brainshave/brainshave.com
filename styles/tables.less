@@ -1,7 +1,11 @@
 table {
   border-spacing: 0;
 
-  &.sparse {
+  &.full {
+    width: 100%;
+  }
+
+  .sparse {
     td { padding-top: 1em; }
 
     :first-child tr:first-child td {
@@ -10,7 +14,7 @@ table {
   }
 }
 
-thead { font-weight: 400; }
+thead, .head { font-weight: 400; }
 
 td {
   vertical-align: top;

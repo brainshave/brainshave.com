@@ -3,6 +3,9 @@ ns('bot.kinetics', function () {
 
   this.fns(animator);
 
+  var rotate_x = use('matrices.rotate_x');
+  var scale    = use('matrices.scale');
+
   var sequence = [
     [90, -60, 90, 60],
     [100, -10, 40, 80],
@@ -19,9 +22,6 @@ ns('bot.kinetics', function () {
     var second_knee  = angles.second_knee;
     var second_ankle = angles.second_ankle;
     var switch_sides = angles.switch_sides;
-
-    var rotate_x = matrices.rotate_x;
-    var scale = matrices.scale;
 
     return set_progress;
 
