@@ -200,7 +200,9 @@ function read_dir (paths, callback) {
   var dir = paths[0];
   fs.readdir(dir, function (err, names) {
     if (err) return callback(err);
-    callback(null, names.map(path.join.bind(path, dir)));
+    callback(null, names.map(function (name) {
+      return path.join(dir, name);
+    }));
   });
 }
 
