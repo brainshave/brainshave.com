@@ -47,6 +47,29 @@ footer {
   font-size: 0.75em;
 }
 
+.math {
+  text-align: center;
+  font-style: italic;
+}
+
+.sidenote {
+  font-size: 0.75em;
+  line-height: 1.4em;
+
+  @media (max-width: 850px) {
+    text-align: center;
+  }
+
+  @media (min-width: 850px) {
+    margin: 0.5em 0 0 0;
+    p { margin: 0 0 0.5em 0; }
+    position: absolute;
+    left: -100px;
+    width: 100px;
+    text-align: right;
+  }
+}
+
 @media print {
   * {
     color: black !important;

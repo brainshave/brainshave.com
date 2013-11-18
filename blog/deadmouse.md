@@ -16,7 +16,7 @@ The idea was always the same: take the whole screen and intercept any clicks and
 Scenario is simple: start DeadBeeF, setup a playlist and start deadmouse.
 Here's an image of the button mapping:
 
-![deadmouse button mapping](/0desk/dead-mapping.svg)
+![deadmouse button mapping](/blog/deadmouse/deadmouse.svg)
 
 On some mice the back and forward buttons are arranged the other way.
 Additionally, clicking the middle button (the wheel) puts the computer into sleep (and closes the program).
