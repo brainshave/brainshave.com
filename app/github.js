@@ -1,5 +1,11 @@
-(function () {
+ns('szywon.github', function () {
   'use strict';
+
+  this.fns(start);
+
+  var jsonp       = use('szywon.scripts.jsonp');
+  var callback    = use('szywon.scripts.callback');
+  var github_list = use('szywon.templates.github.list');
 
   var DATA_LOADED = 'data-github-loaded';
 
@@ -10,12 +16,6 @@
   ];
 
   var CALL_URL  = 'https://api.github.com/users/szywon/repos';
-  var CALL_ARGS = {
-    callback: 'szywon.github.receive',
-    sort:     'pushed',
-    order:    'desc',
-    per_page: 4 + OMMITTED_PROJECTS.length
-  };
 
   var MORE_SENTENCES = /\.\s.*/;
   var LAST_DOT       = /\.$/;
@@ -26,7 +26,12 @@
     list = document.getElementById('github');
 
     if (!list.getAttribute(DATA_LOADED)) {
-      szywon.scripts.jsonp(CALL_URL, CALL_ARGS);
+      jsonp(CALL_URL, {
+        callback: callback(receive),
+        sort:     'pushed',
+        order:    'desc',
+        per_page: 4 + OMMITTED_PROJECTS.length
+      });
     }
   }
 
@@ -47,9 +52,6 @@
       return project;
     });
 
-    list.innerHTML = szywon.templates.github.list(json);
+    list.innerHTML = github_list(json);
   }
-
-  this.receive = receive;
-  this.start   = start;
-}).call(ns('szywon.github'));
+});

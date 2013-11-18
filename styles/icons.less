@@ -6,12 +6,12 @@
   font-style: normal;
 }
 
-.icon:before { font-family: icons; }
+.icon {
+  &:before { font-family: icons; }
 
-.icon.th-list:before       { content: '\2630\020'; }
-.icon.rss-1:before         { content: '\e800\020'; }
-.icon.twitter-bird:before  { content: '\f303\020'; }
-.icon.github:before        { content: '\f308\020'; }
-.icon.skype:before         { content: '\f30b\020'; }
-.icon.dot-2:before         { content: '\e78c\020'; }
-.icon.facebook-rect:before { content: '\f301\020'; }
+  &.list:before    { content: '\e000\020'; }
+  &.rss:before     { content: '\e001\020'; }
+  &.five00:before  { content: '\e002\020'; }
+  &.twitter:before { content: '\e003\020'; }
+  &.github:before  { content: '\e004\020'; }
+}

@@ -129,7 +129,7 @@ recipe({
 });
 
 var MAIN_JS_NAMES   = /\b(app|main)\.js$/;
-var DEFINE_JS_NAMES = /\b(globals|defines)\.js$/;
+var DEFINE_JS_NAMES = /\b(globals|defines|ns)\.js$/;
 
 function sort_scripts (paths) {
   // Put defines.js as first and app.js as last:
@@ -161,7 +161,7 @@ recipe({
     sort_scripts(paths);
 
     if (DEBUG) {
-      paths = paths.concat([DIRVHOST_AUTO_REFRESH]);
+      // paths = paths.concat([DIRVHOST_AUTO_REFRESH]);
     }
 
     callback(null, [JSON.stringify(paths)]);

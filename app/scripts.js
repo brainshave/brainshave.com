@@ -1,4 +1,9 @@
-(function () {
+ns('szywon.scripts', function () {
+  'use strict';
+
+  this.fns(jsonp, callback);
+
+  var cb_counter = 0;
 
   function extra_scripts () {
     return document.getElementById('extra-scripts');
@@ -35,9 +40,21 @@
     add(url + query_str(args));
   }
 
-  this.add       = add;
-  this.clear     = clear;
-  this.jsonp     = jsonp;
-  this.query_str = query_str;
+  function callback (fn) {
+    var id = callback_id();
 
-}).call(ns('szywon.scripts'));
+    window[id] = function () {
+      delete window[id];
+
+      fn.apply(this, arguments);
+    };
+
+    return id;
+  }
+
+  function callback_id () {
+    var id = '_szywon_scripts_callback_' + cb_counter;
+    ++cb_counter;
+    return id;
+  }
+});
