@@ -97,9 +97,10 @@ In my humble proof of concept I just extended the use of
 - a tag without attributes but with children (if a tag is childless you have to pass an empty children list, otherwise it will be treated as a text node)
 
 For each variant there's a different constructor. That's pretty much
-it. I've pasted a complete [gist](https://gist.github.com/1380325/) at
-the end of this article. Probably the longest and least interesting
-part is the `render()` method, but somewhat obligatory to see if the
+it. The source code is in
+[this gist](https://gist.github.com/1380325/).
+Probably the longest and least interesting
+part is the `render` method, but somewhat obligatory to see if the
 whole thing works at all.
 
 <p class="sidenote">Without macros!</p>
@@ -111,5 +112,4 @@ made it possible to create more sophisticated internal DSLs than the
 one presented here. I actually believe it *is* now possible to implement
 something like [GUI FTW](http://github.com/santamon/GUIFTW) in C++.
 
-The source code is in
-[this gist](https://gist.github.com/1380325/).
+([source code](https://gist.github.com/1380325/))
