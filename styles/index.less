@@ -27,23 +27,17 @@
     }
   }
 
-  ul, li {
+  ul.flat, .flat li {
     list-style: none;
     margin:     0;
     padding:    0;
   }
 
-  li a {
-    display: inline-block;
-    &:before {
-      display: inline-block;
-      width: 2em;
+  footer {
+    padding-top: 20px;
+
+    @media (min-width: 700px) {
       text-align: center;
     }
-  }
-
-  footer {
-    text-align: center;
-    padding-top: 20px;
   }
 }

@@ -36,7 +36,7 @@
       You can reach me under <a href="mailto:szywon@szywon.pl">szywon@szywon.pl</a> or here otherwise:
     </p>
 
-    <ul>
+    <ul class="flat">
       <li><a class="icon twitter"
              href="https://twitter.com/szywon">twitter</a></li>
       <li><a class="icon github"
@@ -78,20 +78,19 @@
 
   <section>
     <h1>Blog</h1>
-
-    <dl>
-      {{
-        it.list = it.json('blog/index').slice(0, 4).map(function (item) {
-          return {
-            name: item.title,
-            href: item.href,
-            desc: new Date(item.date).toDateString()
-          };
-        });
-      }}
-
-      {{# def.dtddlist }}
-    </dl>
+    <ul class="archive right">
+      {{~ it.json('blog/index').slice(0, 4) :file}}
+      <li>
+        {{ file.d = new Date(file.date); }}
+        <a href="{{= '/' + file.href }}">{{! file.title }}</a>
+        <div class="date">
+          <span class="day">{{= file.d.getUTCDate() }}</span>
+          <span class="month">{{= file.d.getUTCMonth() + 1 }}</span>
+          <span class="year">{{= file.d.getUTCFullYear() }}</span>
+        </div>
+      </li>
+      {{~}}
+    </ul>
 
     <div class="meta">
       <a class="icon archive" href="/blog/index.html">full list</a>
