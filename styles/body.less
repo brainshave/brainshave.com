@@ -9,17 +9,8 @@ body {
   margin:      0;
   padding:     8px 0 0 0;
   font-size:   20px;
-  font-weight: 300;
-  .transition("color 0.5s, background-color 0.7s");
-
-  @media (max-width: 400px) {
-    font-size: 14px;
-    font-weight: 400;
-  }
-}
-
-b {
   font-weight: 400;
+  .transition("color 0.5s, background-color 0.7s");
 }
 
 #content {
@@ -30,12 +21,8 @@ code, .tldr, .emot {
   font-family: 'Source Code Pro', monospace;
 }
 
-footer, .small, .thin {
+footer, .small, .thin, .date {
   font-size: 0.6em;
-
-  @media screen {
-    font-weight: 400;
-  }
 }
 
 footer {
@@ -61,7 +48,7 @@ footer {
   line-height: 1.4em;
 
   @media (max-width: 850px) {
-    text-align: center;
+    text-align: right;
   }
 
   @media (min-width: 850px) {

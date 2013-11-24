@@ -5,5 +5,4 @@ main(function() {
   var start_history       = use('szywon.history.start');
 
   start_extra_modules(document.getElementById('content'));
-  start_history();
 });

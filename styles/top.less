@@ -1,44 +1,43 @@
 @import "defs";
 
 #top {
-  overflow: hidden;
-  .transition("max-width 0.5s");
+  position: relative;
+  line-height: 32px;
 
-  .meta {
-    margin-top:  12px;
-    font-size:   14px;
-    line-height: 32px;
+  .group {
+    display: inline;
 
     a {
-      display:     block;
-      float:       left;
-      text-align:  center;
-      width:       16px;
-      margin-left: 12px;
-
-      &:first-child { margin-left: 0; }
+      display: block;
     }
   }
 
-  @media (min-width: 350px) {
-    #logo { float: left; }
+  @media (min-width: 260px) {
+    font-size: 0;
 
-    .meta {
-      float:      right;
-      font-size:  16px;
-      margin-top: 0;
-
+    .group {
       a {
-        width:       32px;
-        margin-left: 0;
+        width: (100/6%);
+        padding: 0;
+        margin: 0;
+        display:  inline-block;
       }
     }
+
+    .group.right a {
+      background-position: right center;
+    }
+
   }
 
-  @media (min-width: 500px) {
-    .meta {
-      font-size: 20px;
-      a { margin-left: 16px; }
+  @media (min-width: 600px) {
+    .group a {
+      width: 48px;
+    }
+    .group.right {
+      position: absolute;
+      top: 0;
+      right: 16px;
     }
   }
 }
