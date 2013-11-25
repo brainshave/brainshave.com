@@ -2,42 +2,46 @@
 
 #top {
   position: relative;
-  line-height: 32px;
+  line-height: 30px;
 
-  .group {
-    display: inline;
-
-    a {
-      display: block;
-    }
+  .icon {
+    display: block;
   }
 
-  @media (min-width: 260px) {
+  @media (min-width: 304px) {
     font-size: 0;
+    height: 30px;
 
     .group {
-      a {
-        width: (100/6%);
-        padding: 0;
-        margin: 0;
-        display:  inline-block;
+      position: absolute;
+      top: 0;
+    }
+
+    .left {
+      left: 16px;
+      right: 50%;
+    }
+
+    .right {
+      right: 16px;
+      left: 50%;
+      text-align: right;
+
+      .icon {
+        background-position: right center;
       }
     }
 
-    .group.right a {
-      background-position: right center;
-    }
-
-  }
-
-  @media (min-width: 700px) {
-    .group a {
+    .icon {
+      padding: 0;
+      display: inline-block;
       width: 48px;
+      height: 30px;
     }
-    .group.right {
-      position: absolute;
-      top: 0;
-      right: 16px;
+
+    .left .icon:last-child,
+    .right .icon:first-child {
+      width: 40px;
     }
   }
 }
