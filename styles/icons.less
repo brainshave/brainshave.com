@@ -5,12 +5,13 @@
 }
 
 .icon_size (@n) {
-  @size: (@n * 16px);
+  @w: (@n * 16px);
+  @h: (@n * 15px);
 
   .x@{n} .icon, .icon.x@{n} {
-    background-size: @size @size;
-    padding-left: (@size + 4px);
-    min-height: @size;
+    background-size: @w @h;
+    padding-left: (@w + 4px);
+    min-height: @h;
   }
 }
 
