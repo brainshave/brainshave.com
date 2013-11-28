@@ -15,7 +15,7 @@
 {{~ it.list :item }}
 
 <dt><a href="{{= item.href }}">{{! item.name }}</a></dt>
-<dd>{{! item.desc }}</dd>
+<dd>{{= item.desc }}</dd>
 
 {{~}}
 
@@ -29,7 +29,7 @@
     <h1>Hi!</h1>
 
     <p>
-      I'm <b class="icon head">Szymon Witamborski</b>. I used to do a lot of Clojure, nowadays it's various Web technologies.
+      I'm <b class="icon head">Szymon Witamborski</b>. I'm a programmer from Lublin <span class="parenthesis">PL</span>, living currently in London <span class="parenthesis">UK</span>.
     </p>
 
     <p>
@@ -52,6 +52,10 @@
     <dl id="github">
       {{
         it.list = [{
+          name: 'Health Analytics',
+          href: 'http://analytics.howareyou.com',
+          desc: 'Part of <a href="http://howareyou.com">How are you?</a> <span class="parenthesis">(work)</span>, designed by <a href="http://dribbble.com/andyisonline">Andrew Lucas</a>'
+        }, {
           name: 'grunt-stencil',
           href: 'https://github.com/cambridge-healthcare/grunt-stencil',
           desc: 'HTML generation with templates and partials for grunt'
@@ -79,7 +83,7 @@
   <section>
     <h1>Blog</h1>
     <ul class="archive right">
-      {{~ it.json('blog/index').slice(0, 4) :file}}
+      {{~ it.json('blog/index').slice(0, 5) :file}}
       <li>
         {{ file.d = new Date(file.date); }}
         <a href="{{= '/' + file.href }}">{{! file.title }}</a>
@@ -99,13 +103,8 @@
   </section>
 
   <section>
-    <h1>…</h1>
+    <h1>Silly things</h1>
 
-    <p>
-      <em>…intentionaly left blank…</em>
-    </p>
-
-    <!--
     <dl id="demos">
       {{
         it.list = [{
@@ -115,13 +114,13 @@
         }, {
           name: 'Clock',
           href: '/demo/clock.html',
-          desc: 'Having fun with one company\'s logo with CSS transitions and animating CSS style sheets'
+          desc: 'I thought this logo needed some action'
         }];
       }}
 
       {{# def.dtddlist }}
     </dl>
-    -->
+
 
   </section>
 
