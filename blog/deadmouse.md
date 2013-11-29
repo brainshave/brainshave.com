@@ -20,9 +20,9 @@ Here's an image of the button mapping:
 
 On some mice the back and forward buttons are arranged the other way.
 Additionally, clicking the middle button (the wheel) puts the computer into sleep (and closes the program).
-There's no option to quit the application using the mouse otherwise but the traditional `Alt-F4` works.
+There's no option to quit the application using the mouse otherwise but the traditional `Alt-F4`.
 The right button is not used for anything at the moment.
-(It could be used for closing program or sleeping but I think it's to easy to accidentally hit it.)
+(It could be used for closing program or sleeping but I think it's too easy to accidentally hit it.)
 
 ## Installation
 

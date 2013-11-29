@@ -67,7 +67,7 @@ It has the simplicity that I needed but it doesn't mitigate the problem of the b
 ## Filling the Void
 
 I've asked a friend what he thinks about the pattern and more importantly what he uses for namespacing.
-He pointed me at the [`Ext.ns` function](http://docs.sencha.com/ext-js/4-1/#!/api/Ext-method-ns) which basically just ensures that all objects on a given path exist.
+He pointed me at the [`Ext.ns` function](http://docs.sencha.com/extjs/4.1.3/#!/api/Ext-method-ns) which basically just ensures that all objects on a given path exist.
 
 The neat thing about the `ns` function is that it returns the namespace object.
 We can use this value to pass it to the `call` of a module constructor:

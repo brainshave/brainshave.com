@@ -2,7 +2,7 @@
 
 Lublin, 2011-11-20
 
-How about writing that in C++:
+Here's for some crazy C++:
 
     Node html
     {"html", {{ "lang", "pl" }}, { // tag with attributes
@@ -19,7 +19,7 @@ How about writing that in C++:
 
     cout << html;
 
-and getting that:
+that's giving us this:
 
     <html lang="pl">
       <head>
@@ -36,19 +36,10 @@ and getting that:
     </html>
 
 
-Clojure has the [Hiccup](https://github.com/weavejester/hiccup) and
-Groovy has it's
-[builders](http://groovy.codehaus.org/Creating+XML+using+Groovy%27s+MarkupBuilder)
-for XML/HTML generation. I saw today a
+Inspired by [Hiccup](https://github.com/weavejester/hiccup) and a slide in a
 [presentation](http://www.infoq.com/presentations/The-Kotlin-Programming-Language)
-with an example of this in
-[Kotlin](http://confluence.jetbrains.net/display/Kotlin/Welcome), with
-static typing...
-
-I wanted to see if something like this is possible in C++. It turned
-out that with help of some newest and freshest stuff in
-[C++11](http://en.wikipedia.org/wiki/C%2B%2B11) it was pretty
-straight-forward.
+on Kotlin language, I wanted to try something like this with the newest bits of
+[C++11](http://en.wikipedia.org/wiki/C%2B%2B11).
 
 ## `std::initializer_list`
 
@@ -61,11 +52,11 @@ initializer lists are a way for creating arrays and structs:
     struct { float a, b; } number = { 0, -1 };
 
 
-C++'s `std::initializer_list` is a clever enhancement because it's an
-runtime object which knows how many elements are in it and are created
-automatically by the compiler. It's useful in functions and
-constructors when you want to pass some inlined data structures, for
-example a function:
+C++'s `std::initializer_list` is a clever enhancement because it's a
+runtime object which knows how many elements are in it and those
+elements are created automatically by the compiler. It's useful in
+functions and constructors when you want to pass some inline data
+structures, for example a function:
 
     int sum(initializer_list<int> numbers) {
       int s = 0;
@@ -109,7 +100,7 @@ In C++11, solution is straight-forward and maybe even handsome but I am
 most curious how it could be done in older versions of C++. I think
 that `initializer_list`s and other new features of C++11 (lambdas!)
 made it possible to create more sophisticated internal DSLs than the
-one presented here. I actually believe it *is* now possible to implement
-something like [GUI FTW](http://github.com/santamon/GUIFTW) in C++.
+one presented here. Maybe even something like
+[GUI FTW](http://github.com/santamon/GUIFTW).
 
 ([source code](https://gist.github.com/1380325/))
