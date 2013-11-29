@@ -13,10 +13,12 @@
 {{## def.dtddlist:
 
 {{~ it.list :item }}
+{{? !item.hide }}
 
 <dt><a href="{{= item.href }}">{{! item.name }}</a></dt>
 <dd>{{= item.desc }}</dd>
 
+{{?}}
 {{~}}
 
 #}}
@@ -110,18 +112,21 @@
         it.list = [{
           name: 'Robots',
           href: '/demo/robots',
-          desc: 'WebGLOL'
+          desc: 'WebGLOL',
+          hide: true
         }, {
           name: 'Clock',
           href: '/demo/clock.html',
-          desc: 'I thought this logo needed some action'
+          desc: 'I thought this logo needed some action…'
         }];
       }}
 
       {{# def.dtddlist }}
     </dl>
 
-
+    <p class="small parenthesis">
+      …space intentionally left blank…
+    </p>
   </section>
 
   {{# def.include('templates/footer') }}
