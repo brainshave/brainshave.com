@@ -1,4 +1,8 @@
-# Sound Synthesis & Playback in Clojure
+# Sound Synthesis from Scratch (w/Clojure)
+
+<p class="sidenote">
+This post used to be hosted [here](http://longstandingbug.com/sound-synthesis.html).
+</p>
 
 Lublin, 2011-06-20
 
@@ -15,46 +19,48 @@ Entry level: *know where your repl is*.
 
 ## Fast Facts About Sound
 
-Making some noise is in fact moving particles of air and a speaker
-does that. And we will move the speaker. From perspective of a
-programmer playing some sound is changing speaker's position over
-time. Because on computers nothing is continuous, we can manage it's
-position in concrete moments only. These *moments* come at constant
-rate. So we can imagine that playing a sound is actually feeding our
-speaker with it's position values regularly.
+Making some noise is in fact moving particles of air by a speaker. And
+we will tell the speaker how to move. From perspective of a programmer
+playing some sound is changing speaker's position over time. Because
+for computers nothing is continuous but is discrete, we can manage
+it's position in concrete moments only. These *moments* come at
+constant rate. So we can imagine that playing a sound is actually
+feeding our speaker with it's position values regularly.
 
-About those **moments**: Speaker can move back and forth. It's
-position is relative to some starting position to which we will refer
-as position *zero*. Moving speaker forward is increasing it's position
-and moving backward is decreasing it's position (actually, it can be
-the other way around but this time we shouldn't care). So, the
-speaker's position is a number and it's called a *sample*.
+A speaker can move back and forth. It's position is relative to some
+starting position to which we will refer as position *zero*. Moving
+speaker forward is increasing it's position and moving backward is
+decreasing it's position (actually, it can be the other way around but
+this time we don't care). So, the speaker's position is a number and
+it's called a *sample*.
 
 ## Technicalia of Sound
 
-Sample has fixed size and it's usually 16 bits. Sample size is
-limiting our minimum and maximum value. We don't have to bother about
-what these values are (it'll be handled automatically).
+<p class="sidenote">There are systems with either more bits per sample
+or floating point samples but again we don't care about it today.</p>
+
+Sample is a fixed size integer and it's usually 16 bits. Sample size
+is limiting our minimum and maximum value. We don't have to bother
+about what these values are (it'll be handled automatically).
 
 Pace at which samples come to a sound system is usually 48000 Hz (Hz
 [Hertz] means "ticks/samples per second") or 44100 Hz ("Audio CD"
-quality) and it's called *sample rate*. Yes, we need to feed our
-speaker **that** fast ;).
+quality) and it's called *sample rate*. At first it might sound like a
+lot to handle but recently (haha) computers got fast enough to keep up
+;).
 
 ## Know Your Math
 
-Because this tut is about generating sines I have to say what a sine
-actually is. Sine is the cleanest type of sound possible. It's also
-the outcome of universally known *sin* function.
-
+Because this tut is about generating sines I feel obliged what a sine
+actually is. In five words *sine* is the cleanest sound wave
+possible. It's also the outcome of universally known *sin* function.
 
 <!-- (save (function-plot #(sin (* 2 % Math/PI)) 0 1 :step-size 0.005
 :y-label "" :x-label "" ) "sin-plain.png" :width 600 :height 160) -->
 ![@](/blog/sound-synthesis/sin-plain.png)
 
-Someone said that every sound can be torn to several sines. So once we
-can generate one sine we can synthesize any sound. In this tut we'll
-generate just one at a time ;) .
+If we want to get a more complicated sound wave, we would play couple
+of different sines together.
 
 Every sine played over time has it's frequency *f*. It's measured just
 like sample rate, in Hz. Frequency is a weird number, because it's
@@ -62,7 +68,7 @@ just inverted period (also called *term* and abbreviated *T*: time
 after it repeats itself):
 
 <p class="math">
-f = 1 / T<br />
+f = 1 / T
 T = 1 / f
 </p>
 
@@ -75,8 +81,8 @@ frequency have 0.5 s period and so on.
 Hz")) "sin-two.png" :width 600 :height 200) -->
 ![@](/blog/sound-synthesis/sin-two.png)
 
-Period is important because we will generate data only for one pass of
-a sine and play it in a loop (without any `loop` involved ;) ).
+We will generate data only for one pass of
+a sine and play it in a loop.
 
 ## Some Code At Last!
 
@@ -98,15 +104,15 @@ numbered lines:
 
 1.  Amount of samples depends directly on term and sample rate. Sample
     rate tells how many samples correspond to 1 sec. So if we take a
-    product of term and sample rate we will get the amount of samples
-    for this frequency.
+    product of `term` and `sample-rate` we will get the amount of
+    samples for this frequency.
 
 2.  To scale 2*&pi;* period to our sample count we will multiply every
     number from `(range samples)` by `factor`.
 
 3.  Actual collection generation using `Math/sin` function.
 
-Every number in returned collection will be in [-1..1] range. We can
+Every number in returned collection will be in [-1…1] range. We can
 check that by just invoking `sine` (tip: test only with large values
 of frequencies because small frequencies results in very long
 sequences):
@@ -143,7 +149,7 @@ keep it somewhere and pass it around.
                     48000 ;   sample rate
                     16    ;   bits per sample (2 bytes)
                     2     ;   channels: stereo!
-                    4     ;2: frame size 2*16bits [bytes]
+                    4     ;2: frame size 2*16bits (in bytes)
                     48000 ;3: frame rate
                     false ;4: little endian
                     ))
@@ -169,16 +175,15 @@ Again, I'll explain the numbered lines:
     read them matters. It's so-called
     [*endianness*](http://en.wikipedia.org/wiki/Endianness). Big
     endian is reading bytes in forward direction, little endian is
-    reading them backwards. My computer is little endian and I'm
-    sympathizing with him.
+    reading them backwards. Intel-based machines are little-endian.
 
 ## How To Actually Play Something?
 
 To make our speakers move we need a *medium* (as in *mediation*) that
 will tell speakers what to do for us. This medium is called a *line*
 in other places by analogy with lines in mixers. It can be acquired
-from [AudioSystem](http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/AudioSystem.html) class using `getLine` method. There's a [more
-elaborate explanation](http://download.oracle.com/javase/tutorial/sound/accessing.html) on mixers and lines so I won't get into much detail.
+from [AudioSystem](http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/AudioSystem.html) class by using the `getLine` method. There's a [more
+elaborate explanation](http://download.oracle.com/javase/tutorial/sound/accessing.html) on mixers and lines so I won't get into much detail here.
 
 
     (import '(javax.sound.sampled AudioSystem DataLine$Info
@@ -190,7 +195,7 @@ elaborate explanation](http://download.oracle.com/javase/tutorial/sound/accessin
         (.start)))
 
 "Getting a line" is actually querying Java's audio system about line
-that complies to our needs. Query is an instance of
+that complies with our needs. Query is an instance of
 [DataLine.Info](http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/DataLine.Info.html)
 class. `SourceDataLine` says that we require a line that we can write
 to. Names of `SourceDataLine` and `TargetDataLine` correspond to how
@@ -202,12 +207,12 @@ Next thing after getting a line is opening it and allowing data to
 flow through it. This is done by `open` and `start` methods
 respectively.
 
-Then, playing a sound is done by invoking method [write(byte[] b, int off, int len)](http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/SourceDataLine.html#write(byte[],%20int,%20int%29) which writes `len` bytes from `b` starting at index `off`. Writing will block until all bytes from `b` are flushed to sound system buffers.
+Then, playing a sound is done by invoking method [`write`](http://download.oracle.com/javase/7/docs/api/javax/sound/sampled/SourceDataLine.html#write(byte[],%20int,%20int%29) which writes `len` bytes from `b` starting at index `off`. Writing will block until all bytes from `b` are flushed to sound system buffers.
 
-Phew, now we know where we need to get: we'll generate that byte array for
-particular line.
+Phew, now we know where we need to get: we'll generate that byte array
+for a particular line.
 
-## According To Contract...
+## According To Contract…
 
 Our sine is not quite ready to push it to speakers yet. We need to
 satisfy audio format that we defined earlier. To do that we will:
@@ -222,14 +227,13 @@ satisfy audio format that we defined earlier. To do that we will:
 
 4.  **Pack whole sine** to byte array.
 
-### Scaling
+### Scaling (1/4)
 
-When coming out from `sine` function our samples have floating-point
-values from -1 to 1. We need to scale them to signed integers with
-values from -2<sup>samplesize-1</sup> to
-2<sup>samplesize-1</sup>-1. So just mulplying by amplitude of
-2<sup>samplesize-1</sup> will do the trick. Actual amplitude will be
-delivered by `amplitude` function:
+Samples coming out of `sine` function our have floating-point values
+from -1 to 1. We need to scale them to signed integers with values
+from -2<sup>samplesize-1</sup> to 2<sup>samplesize-1</sup>-1. So just
+mulplying by amplitude of 2<sup>samplesize-1</sup> will do the
+trick. Actual amplitude will be delivered by `amplitude` function:
 
     (defn amplitude [sample-size]
       (Math/pow 2 (- sample-size 1.1)))
@@ -242,7 +246,7 @@ Actual scaling will be done in `quantize` function:
     (defn quantize [amplitude value]
       (int (* amplitude value)))
 
-### Fragmentation To Bytes
+### Fragmentation To Bytes (2/4)
 
 I do reading integers backward and forward like this:
 
@@ -266,14 +270,17 @@ This is one thing that I won't explain here :P. It'd be just too
 big. It's based on how signed and unsigned numbers [look
 internally](http://en.wikipedia.org/wiki/Two%27s_complement).
 
-### Repeating Data For Each Channel
+### Repeating Data For Each Channel (3/4)
 
 OK. This will be very lame stereo. We'll just repeat data for each
-channel and I do it like this: `(take frame-size (cycle bytes))`. If
-you wanna you can modify that code (in fact, you should, wink wink,
+channel and I do it like this:
+
+    (take frame-size (cycle bytes))
+
+If you want to you can modify that code (in fact, you should, wink wink,
 nudge nudge) and incorporate some fancy space-age surround effect.
 
-### Gathering It All Together
+### Gathering It All Together (4/4)
 
 Whole pipeline is mirrored in `sine-bytes` function with each of these
 steps represented by mapping a function on a collection returned by
@@ -304,9 +311,9 @@ I've promised that there will be no `loop` so here it is: whole playing
 thingy will be handled by an agent. State of our agent will look like
 this:
 
-    {:line    line to write to
-     :playing are we are playing or not
-     :data    byte array with sound data}
+    {:line    -- line to write to
+     :playing -- are we are playing or not
+     :data    -- byte array with sound data}
 
 Setting sine data of desired `freq` will be done by `recalc-data`:
 
@@ -314,8 +321,8 @@ Setting sine data of desired `freq` will be done by `recalc-data`:
       (assoc state :data (sine-bytes (.getFormat line) freq)))
 
 
-For most of the time of agent's life, `play-data` will run (actually
-making the noise):
+For most of the time of agent's life, it will be busy executing
+`play-data` function (actually making desired noises):
 
     (defn play-data [{:keys [line data playing] :as state} agent]
       (when (and line data playing)
@@ -324,10 +331,11 @@ making the noise):
       state)
 
 
-`play-data` will write whole `data` to the `line` [1], and send itself
-to agent to play it again [2] (here's how there's no `loop` but there's a
-loop). Turns out, agents are nice way to model such continuous I/O
-asynchronously. We'll start and pause playing by these fns:
+`play-data` will write whole `data` to the `line` [1], and then will
+send itself to agent to execute again [2] So the current sine will
+play indefinetely. Turns out, agents are nice way to model such
+continuous I/O asynchronously. We'll communicate with the agent
+telling him to start or pause playing with these fns:
 
     (defn pause [agent]
       (send agent assoc :playing false)
@@ -339,15 +347,13 @@ asynchronously. We'll start and pause playing by these fns:
       (send agent assoc :playing true)
       (send-off agent play-data agent))
 
-`pause` is `stop`ping the line to pause immediatly when
-called. Without this, pause would take effect after whole buffer is
-played. `flush` is invoked to flush anything that's left in sound
-system buffers.
-
-I use `send-off` to `play-data` because it's a blocking operation.
-
 Two final fns will automate creating fresh agent and changing
-frequency on the fly:
+frequency as soon as possible:
+
+    (defn line-agent [line freq]
+      (let [agent (agent {:line line})]
+        (send agent recalc-data freq)
+        (play agent)))
 
     (defn change-freq [agent freq]
       (doto agent
@@ -355,15 +361,10 @@ frequency on the fly:
         (send recalc-data freq)
         play))
 
-    (defn line-agent [line freq]
-      (let [agent (agent {:line line})]
-        (send agent recalc-data freq)
-        (play agent)))
-
 ## Testing Section Without Any Interesting Title
 
-Now we can test it. Lets create a line agent playing some nice bass
-tone.
+Now we can experiment with it. Lets create a line agent playing some
+nice bass tone.
 
     user> (def a (line-agent (open-line popular-format) 60))
 
