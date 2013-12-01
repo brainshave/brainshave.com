@@ -2,15 +2,14 @@
 
 #cv {
 
-.center {
-  margin: 0 auto;
-}
+  .center {
+    margin: 0 auto;
+  }
 
-.right {
-  float: right;
-}
+  .right {
+    float: right;
+  }
 
-#cv {
   max-width: @cv_width;
   min-width: 600px;
   padding: 0 16px;
@@ -37,8 +36,21 @@
   }
 
   .meta {
-    font-size: 1em;
-    a { margin-right: 0.5em; }
+
+    @media screen {
+      font-size: 0;
+
+      .icon {
+        min-height: 30px;
+        margin-right: 10px;
+        display: inline-block;
+      }
+    }
+
+    @media print {
+      .icon { padding-left: 0; }
+      font-size: 1em;
+    }
   }
 
   footer { margin-top: 3em; }
@@ -53,5 +65,4 @@
 
     footer { display: none; }
   }
-}
 }

@@ -1,29 +1,16 @@
 @import "defs";
 
-.big-headers () {
-  font-weight: inherit;
+h1, h2, h3, h4 {
+  font-weight: 400;
 }
 
-.following-headers () {
+h2, h3, h4 {
   margin-top: 1.7em;
 }
 
-h1 {
-  font-size: 1.5em;
-  .big-headers;
-}
-
-h2 {
-  font-size: 1.2em;
-  .big-headers;
-  .following-headers;
-}
-
-h3, h4 {
-  font-weight: 400;
-  font-size: 1em;
-  .following-headers;
-}
+h1 { font-size: 1.5em; }
+h2 { font-size: 1.2em; }
+h3, h4 { font-size: 1em; }
 
 article {
   line-height: 1.6em;
@@ -65,8 +52,8 @@ dd {
 
 sup {
   vertical-align: top;
+  position:       relative;
   font-size:      0.83em;
-  position: relative;
   top:            -0.25em;
 }
 
