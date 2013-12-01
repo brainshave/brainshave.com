@@ -101,5 +101,5 @@ function use (path) {
 
 function main (fn) {
   // TODO: do the proper DOMContentLoaded here:
-  fn.call(null);
+  setTimeout(fn, 0);
 }

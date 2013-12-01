@@ -1,7 +1,8 @@
 ns('szywon.scripts', function () {
   'use strict';
 
-  this.fns(jsonp, callback);
+  this.add = add;
+  this.jsonp = jsonp;
 
   var cb_counter = 0;
 

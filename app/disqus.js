@@ -17,7 +17,7 @@ ns('szywon.disqus', function () {
     var disqus_shortname  = 'szywon';
 
     window.disqus_shortname  = disqus_shortname;
-    window.disqus_url        = location.url;
+    window.disqus_url        = "http://szywon.pl";
     window.disqus_identifier = location.pathname;
 
     add_script('http://' + disqus_shortname + '.disqus.com/embed.js');
