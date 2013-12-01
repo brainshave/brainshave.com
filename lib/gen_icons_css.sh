@@ -10,6 +10,7 @@ mv icons/{3,rss}.gif
 mv icons/{4,photos}.gif
 mv icons/{5,twitter}.gif
 mv icons/{6,github}.gif
+mv icons/{7,npm}.gif
 
 function svg {
   name=$1
@@ -46,7 +47,7 @@ function css {
   echo
 }
 
-for name in head bug archive rss photos twitter github; do
+for name in head bug archive rss photos twitter github npm; do
   svg $name > icons/$name.svg
   css $name
 done > styles/icons_files.less
