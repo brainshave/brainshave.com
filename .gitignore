@@ -9,6 +9,7 @@
 !blog/*.md
 !blog/*/
 !blog/*/*.png
+!blog/*/*.svg
 !demo
 !demo/*
 !demo/*/*
