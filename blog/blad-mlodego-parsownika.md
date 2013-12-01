@@ -21,7 +21,7 @@ funkcja, która wywoływana była na tekście do którego zostało
 dopasowane to wyrażenie. Aby zapobiec złemu przeplataniu się tagów
 wyrażenia ozdobników (takich jak pogrubienie, pochylenie,
 podkreślenie; do tego używam pojedynczych znaków, np: `/asdf/` →
-`<em>asdf</em>`) stały się bardzo skomplikowane. Mam na myśli coś
+*`asdf`*) stały się bardzo skomplikowane. Mam na myśli coś
 takiego (`@` to odpowiednik dla znacznika `<code>`):
 
     r"(?<!<|\w|[@])\@(?=\S)([^@]+)(?<=\S)\@(?=\W)"

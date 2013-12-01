@@ -89,7 +89,7 @@ druga lista jest listą właściwości jak poprzednio. `^unroll` jest
 potrzebne dla setterów, które mają więcej niż jeden parametr. Lista
 poprzedzona `^unroll` zostanie rozwinięta na wszystkie jego parametry
 zamiast wywołać setter z listą jako parametrem. Czyli otrzymamy
-odpowiednik `setSize(300, 200)` zamiast `setSize((300, 200))`.
+odpowiednik <code>setSize(300, 200)</code> zamiast <code>setSize((300, 200))</code>.
 
 Makro `swing` zwraca funkcję, która utworzy chciane GUI, więc `window`
 będzie funkcją. Parametrami tej funkcji jest ew. obiekt nadrzędny
