@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir -p icons
-convert resources/icons.gif -crop 16x16 +repage icons/%d.gif
+convert resources/icons.gif -crop 16x15 +repage icons/%d.gif
 
 mv icons/{0,head}.gif
 mv icons/{1,bug}.gif
