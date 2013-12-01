@@ -67,10 +67,8 @@ like sample rate, in Hz. Frequency is a weird number, because it's
 just inverted period (also called *term* and abbreviated *T*: time
 after it repeats itself):
 
-<p class="math">
-f = 1 / T
-T = 1 / f
-</p>
+<p class="math">f = 1 / T
+T = 1 / f</p>
 
 It means that sine of 1 Hz frequency have 1 s period and sine of 2 Hz
 frequency have 0.5 s period and so on.
@@ -333,7 +331,7 @@ For most of the time of agent's life, it will be busy executing
 
 `play-data` will write whole `data` to the `line` [1], and then will
 send itself to agent to execute again [2] So the current sine will
-play indefinetely. Turns out, agents are nice way to model such
+play indefinitely. Turns out, agents are nice way to model such
 continuous I/O asynchronously. We'll communicate with the agent
 telling him to start or pause playing with these fns:
 
@@ -382,7 +380,7 @@ If there's nothing coming out from speakers or some exception happened
 try changing audio format, my guesses would be toggling endianness and
 changing both rates to 44100.
 
-## Appendix A: Melody
+## <span class="parenthesis">Appendix A:</span> Melody
 
 Maybe simple continuous sound is boring? Let's play a melody! :)
 
@@ -403,7 +401,8 @@ First number of every pair is a distance in semitones from some base
 tone. The second is a duration of note relative to some base duration.
 
 Function `tone-freq` will translate tones to raw frequencies. For the
-value 99 it's 440 Hz which happens to be [so-called *pitch
+value 99 it's 440 Hz which happens to be standard A note that
+instruments are tuned to [so-called A440 *pitch
 standard*](http://en.wikipedia.org/wiki/A440_%28pitch_standard%29).
 To get a note an octave higher or lower just add/subtract 11.
 
@@ -432,3 +431,16 @@ decreasing `base-duration`.
 
 That's all. I've put the code here:
 <https://gist.github.com/1034374>. Tell me what you think.
+
+## <span class="parenthesis">Appendix B:</span> 2½ Years Later
+
+This post came to life mostly because I wanted to create a silly
+application inspired by [UserFriendly comic
+strip](http://ars.userfriendly.org/cartoons/?id=20120514).
+
+![](http://www.userfriendly.org/cartoons/archives/12may/uf003044.gif)
+
+The application would give you couple of sliders to combine different
+frequencies together creating a pleasant experience for your
+feet. Probably the application was in fact just an excuse to play with
+sound :)
