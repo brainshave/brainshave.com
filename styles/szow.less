@@ -1,0 +1,28 @@
+.szow {
+  section {
+    font-size: 5vh;
+    line-height: 6vh;
+    position: relative;
+    height: 100vh;
+    border-bottom: 1px solid #999;
+
+    .wrap {
+      @trans: translateY(-50%) translateX(-50%);
+      position: absolute;
+      max-width: 120vh;
+      min-width: 80vh;
+      top: 50%;
+      left: 50%;
+      transform: @trans;
+      -webkit-transform: @trans;
+    }
+
+    h1 {
+      font-size: 1.3em;
+    }
+
+    .parenthesis {
+      color: #999;
+    }
+  }
+}
