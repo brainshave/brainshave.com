@@ -3,5 +3,5 @@ main(function() {
 
   var start_extra_modules = use('szywon.extra_modules.start');
 
-  start_extra_modules(document.getElementById('content'));
+  start_extra_modules();
 });
