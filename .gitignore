@@ -19,6 +19,8 @@
 !lib/*
 !styles
 !styles/*.less
+!talks
+!talks/*.md
 !templates
 !templates/*.html
 !resources
