@@ -12,9 +12,10 @@ http://szywon.pl
 
 # Where I come from?
 
-Clojure
+- Clojure during uni
+- GUI FTW
 
-(before it was cool, circa 2009)
+(we were allowed to write in anything we wanted)
 
 # Clojure
 
@@ -27,10 +28,7 @@ Clojure
 
 enforce separation between things
 
-<pre class="parenthesis"><code>
-(things = [functions,
-           modules,
-           third-party code])</code></pre>
+(functions, modules, third-party code)
 
 # Why immutability?
 
@@ -86,13 +84,18 @@ You will break it
 
 # Conventions, meh
 
-Computer!
+- Laura and Mike agree
+- but Zenon doesn't care
 
-(let's program computers, not people)
+(third-party code)
+
+# Computer!
+
+let's program computers, not people
 
 # Object.freeze
 
-has to be done recursively for true immutability
+has to be done recursively for full immutability
 
 # Object.freeze
 
@@ -104,12 +107,12 @@ any modification: full copy.
 - versioned
 - old (databases, Clojure, Haskell, Scala)
 
-# Multi-Version Concurrency Control
+# MVCC
 
 - each version is immutable
 - each *mutation* creates a new version
 
-# MVCC -- original purpose
+# Original purpose of MVCC
 
 - writes don't block reads
 - readers never see inconsistent state
@@ -123,7 +126,7 @@ MVCC
 # Clojure's persistent data structures
 
 - structure sharing between versions
-- only the part affected by the update is copied.
+- only the part affected by the update is copied
 
 # Clojure's structure sharing
 
@@ -132,7 +135,9 @@ MVCC
 
 # Clojure's persistent data structures
 
-nearly linear lookups and updates (log<sub>n</sub> 32)
+nearly linear lookups and updates
+
+(log<sub>n</sub> 32)
 
 # Making peace with immutability
 
@@ -233,11 +238,11 @@ log<sub>32</sub>N
 
 # Lookup performance
 
-    function lookups (chunk_bits, array_size) {
+    function lookups (bits, size) {
       return Math.ceil(
-        Math.log(array_size)
+        Math.log(size)
         /
-        Math.log(Math.pow(2, chunk_bits))
+        Math.log(Math.pow(2, bits))
       );
     }
 
@@ -304,7 +309,7 @@ immutable:
 <li>on function boundary
 <li>on module boundary
 <li>mutable data
-</ul>]
+</ul>
 
 # In a functional program…
 
@@ -341,6 +346,8 @@ Some JavaScript types are immutable, namely all simple types:
 # Ancient Oak
 
 Clojure-style MVCC library for plain JavaScript data trees
+
+(with emphasis on trees)
 
 # Ancient Oak
 
@@ -397,7 +404,7 @@ unsorted map
 # Ancient Oak assumptions
 
 - functions and simple types treated as immutable
-- functions are assumed to be collections (getters)
+- functions are assumed to be interfaces to data (getters)
 
 # Ancient Oak
 
@@ -406,7 +413,7 @@ unsorted map
 
 # API: get
 
-    var data = I({ a: 1, b: [ 2, 3 ]});
+    data = I({ a: 1, b: [ 2, 3 ]});
     data         // function…
     data("a")    // 1
     data("b")    // function…
@@ -414,15 +421,15 @@ unsorted map
 
 # API: dump
 
-    var data = I({ a: 1, b: [ 2, 3 ]});
+    data = I({ a: 1, b: [ 2, 3 ]});
 
     data.dump() // { a: 1, b: [ 2, 3 ] }
     data.json() // '{"a":1,"b":[2,3]}'
 
 # API: set
 
-    var v0 = I({ a: 1, b: [ 2, 3 ] });
-    var v1 = v0.set("c", 5).set("a", 4);
+    v0 = I({ a: 1, b: [ 2, 3 ] });
+    v1 = v0.set("c", 5).set("a", 4);
 
     v0.dump() // { a: 1, b: [ 2, 3 ] }
     v1.dump() // { a: 4, b: [ 2, 3 ], c: 5 }
@@ -431,8 +438,8 @@ unsorted map
 
 remove an address from the tree
 
-    var v0 = I({ a: 1, b: { c: 3, d: 4 } });
-    var v1 = v0.rm("b", "d");
+    v0 = I({ a: 1, b: { c: 3, d: 4 } });
+    v1 = v0.rm("b", "d");
 
     v1.dump(); // { a: 1, b: { c: 3 } }
 
@@ -440,8 +447,8 @@ remove an address from the tree
 
 apply a function on a value
 
-    var v0 = I({ a: 1, b: 2 });
-    var v1 = v0.update("a", function (v) {
+    v0 = I({ a: 1, b: 2 });
+    v1 = v0.update("a", function (v) {
       return v + 1;
     });
 
@@ -451,8 +458,8 @@ apply a function on a value
 
 apply a diff on the whole tree
 
-    var v0 = I({ a: 1, b: [ 2, 3 ] });
-    var v1 = v0.patch({
+    v0 = I({ a: 1, b: [ 2, 3 ] });
+    v1 = v0.patch({
       a: 2,
       b: { 0: 4, 3: 5 }
     });
@@ -471,8 +478,8 @@ apply a diff on the whole tree
 
 returns the same type of collection as the original (object/array)
 
-    var v0 = I({a: 1, b: 2});
-    var v1 = v0.map(function (v) {
+    v0 = I({a: 1, b: 2});
+    v1 = v0.map(function (v) {
       return v + 1;
     });
 
@@ -492,8 +499,9 @@ returns the same type of collection as the original (object/array)
 - any ideas about dates? (possibly other stuff with getters and setters)
 - performance testing and tweaking for speed
 
-# Why not just use ClojureScript
+# Resources
 
-- my personal preference
-- JavaScript is good enough language
-- functions with closures and plain data is powerful enough
+- [@szywon](https://github.com/szywon), [szywon.pl](http://szywon.pl)
+- [Understanding Clojure's Persistent Vectors by Jean Niklas L'orange](http://hypirion.com/musings/understanding-persistent-vector-pt-1)
+- [Ancient Oak on GitHub](https://github.com/szywon/)
+- [Ancient Oak's docs with lib in included](http://szywon.pl/ancient-oak)
