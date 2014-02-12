@@ -46,8 +46,6 @@ security
 
 avoid copying data over and over
 
-(which is an alternative)
-
 # Different ways of sharing state
 
 When passing data from one place to another…
@@ -90,7 +88,7 @@ You will break it
 
 Computer!
 
-(if a computer can enforce something, we have one convention less, a win!)
+(let's program computers, not people)
 
 # Object.freeze
 
@@ -124,7 +122,13 @@ MVCC
 
 # Clojure's persistent data structures
 
-structure sharing between version, only the part affected by update is copied to the new version.
+- structure sharing between versions
+- only the part affected by the update is copied.
+
+# Clojure's structure sharing
+
+- saves RAM
+- saves operations when creating new versions
 
 # Clojure's persistent data structures
 
@@ -153,7 +157,7 @@ nearly linear lookups and updates (log<sub>n</sub> 32)
     1 | 0
     1 | 1
 
-(divide keys to K-bit sized chunks,<br>K=1 here)
+(divide keys to 1 bit sized chunks)
 
 ***
 
@@ -184,8 +188,8 @@ nearly linear lookups and updates (log<sub>n</sub> 32)
 <p class="math">chunk_size = 1 (bit)
 size = 4 (elements)
 
-max_mode_size = 2<sup>chunk_size</sup> = 2<sup>1</sup> = 2
-lookups = log<sub>max_node_size</sub>size = 2</p>
+node_size = 2<sup>chunk_size</sup> = 2<sup>1</sup> = 2
+lookups = log<sub>node_size</sub>size = 2</p>
 
 # Lookup performance (1 bit)
 
@@ -210,6 +214,8 @@ What happens if we
 - key is split to **3 chunks**
 - tree has to be **3-level** deep
 
+(00000 00000 00000)
+
 **3** lookups
 
 # Lookup performance (5 bits)
@@ -217,9 +223,9 @@ What happens if we
 <p class="math">chunk_size = 5 (bits)
 size = 4096 (elements)
 
-max_mode_size = 2<sup>chunk_size</sup> = 2<sup>5</sup> = 32
+node_size = 2<sup>chunk_size</sup> = 2<sup>5</sup> = 32
 lookups =
-log<sub>max_node_size</sub>size = log<sub>32</sub>1024 = 2</p>
+log<sub>node_size</sub>size = log<sub>32</sub>32768 = 2</p>
 
 # Lookup performance (5 bit)
 
@@ -230,16 +236,22 @@ log<sub>32</sub>N
     function lookups (chunk_bits, array_size) {
       return Math.ceil(
         Math.log(array_size)
-        / Math.log(Math.pow(2, chunk_bits)));
+        /
+        Math.log(Math.pow(2, chunk_bits))
+      );
     }
 
-    lookups(5, 1024) // 2
-    lookups(5, 4096) // 3
-    lookups(1, 16)   // 1
+    lookups(5, 32768) // 3
+    lookups(5, 1024)  // 2
+    lookups(1, 16)    // 1
 
 # Mutation
 
     v1 = v0.set(10, "z")
+
+# Mutation
+
+copy only nodes on the path to the updated leaf
 
 ***
 
@@ -287,10 +299,12 @@ immutable:
 
 # Choice is yours
 
-- immutable data everywhere
-- on function boundary
-- on module boundary
-- mutable data
+<ul class="or_list">
+<li>immutable data everywhere
+<li>on function boundary
+<li>on module boundary
+<li>mutable data
+</ul>]
 
 # In a functional program…
 
@@ -304,6 +318,9 @@ data made immutable as soon as received (HTTP request, file read)
 # In a functional program…
 
 mutable data considered a type of premature optimization
+
+
+# Immutable data in JavaScript
 
 # Quick reminder
 
@@ -319,39 +336,63 @@ Some JavaScript types are immutable, namely all simple types:
 - one-level deep, non-recursive
 - not smart about type of data passed in (object/array/value)
 - inconvenient when passing trees of data (every collection needs to be wrapped separately)
+- much more than just data (whole collection API of ClojureScript)
 
 # Ancient Oak
 
-recursive Clojure-style MVCC library for plain JavaScript data
+Clojure-style MVCC library for plain JavaScript data trees
 
 # Ancient Oak
 
 - gets whole trees of data in
-- no need to wrap everything separately
+- processes recursively
+- no need to wrap anything separately
 
 # Ancient Oak
 
 Easy in, easy out
 
-    => I({ a: 1, b: [ 2, 3 ]}).dump()
+    => I({ a: 1, b: [ 2, 3 ] }).dump()
+
     <= { a: 1, b: [ 2, 3 ] }
 
 # Ancient Oak
+
+Gets data in, returns a function (the&nbsp;getter) with various update/iterate methods
+
+# Ancient Oak
+
+    => I({ a: 1, b: [ 2, 3 ] })
+
+    <= { [Function get]
+         set:   [Function set],
+         patch: [Function patch],
+         map:   [Function map],
+         … }
+
+# Ancient Oak
+
+Every node of the tree is a tree on its own.
+
+    => I({ a: 1, b: [ 2, 3 ] })("b")
+
+    <= { [Function get]
+         … }
+
+# Ancient Oak's types
 
 1:1 mapping between native JavaScript types and immutable ones
 
 (Array, Object)
 
-# Ancient Oak types
+# Array (Ancient Oak)
 
-Array:
-
-- sorted integer keys,
+- sorted unsigned integer keys,
 - size reported in `size` property instead of `length`
 
-# Ancient Oak types
+# Object (Ancient Oak)
 
-Object: unsorted hash
+unsorted map
 
 # Ancient Oak assumptions
 
@@ -361,12 +402,7 @@ Object: unsorted hash
 # Ancient Oak
 
 - good for storing plain data
-- not good module for interfaces
-
-# Ancient Oak
-
-- Gets data in, returns a function (getter) with various update/iterate methods
-- Every node of the tree is a tree on its own.
+- and nothing else (atm)
 
 # API: get
 
@@ -379,6 +415,7 @@ Object: unsorted hash
 # API: dump
 
     var data = I({ a: 1, b: [ 2, 3 ]});
+
     data.dump() // { a: 1, b: [ 2, 3 ] }
     data.json() // '{"a":1,"b":[2,3]}'
 
@@ -386,33 +423,48 @@ Object: unsorted hash
 
     var v0 = I({ a: 1, b: [ 2, 3 ] });
     var v1 = v0.set("c", 5).set("a", 4);
-    v1.dump() // { a: 4, b: [ 2, 3 ], c: 5 }
+
     v0.dump() // { a: 1, b: [ 2, 3 ] }
+    v1.dump() // { a: 4, b: [ 2, 3 ], c: 5 }
 
 # API: rm
 
+remove an address from the tree
+
     var v0 = I({ a: 1, b: { c: 3, d: 4 } });
     var v1 = v0.rm("b", "d");
+
     v1.dump(); // { a: 1, b: { c: 3 } }
 
 # API: update
 
+apply a function on a value
+
     var v0 = I({ a: 1, b: 2 });
-    var v1 = v0.update("a", function (value) {
-      return value + 1
+    var v1 = v0.update("a", function (v) {
+      return v + 1;
     });
+
     v1.dump() // { a: 2, b: 2 }
 
 # API: patch
 
+apply a diff on the whole tree
+
     var v0 = I({ a: 1, b: [ 2, 3 ] });
-    var v1 = v0.patch({ a: 2, b: { 0: 4, 3: 5 } });
-    v1.dump(); // { a: 2, b: [ 4, 3, , 5 ] }
+    var v1 = v0.patch({
+      a: 2,
+      b: { 0: 4, 3: 5 }
+    });
+
+    <= v1.dump();
+    => { a: 2,
+         b: [ 4, 3, , 5 ] }
 
 # API: iteration
 
 - currently forEach, map and reduce
-- mostly compatibible with native JavaScript counterparts
+- mostly same as native semantics
 - only reduce is a bit incompatible (easy fix)
 
 # API: map
@@ -420,20 +472,25 @@ Object: unsorted hash
 returns the same type of collection as the original (object/array)
 
     var v0 = I({a: 1, b: 2});
-    var v1 = v0.map(function (v) { return v + 1 });
+    var v1 = v0.map(function (v) {
+      return v + 1;
+    });
+
     v1.dump() // { a: 2, b: 3 }
 
 # API: data as a function
 
-    [ "a", "b", "c"].map(I({a: 1, b: 2, c: 3}))
-    // [ 1, 2, 3]
+    => [ "a", "b", "c"
+       ].map(I({a: 1, b: 2, c: 3}))
+
+    <= [ 1, 2, 3 ]
 
 # Contributions welcome
 
 - still early stage
 - suggestions to API?
+- any ideas about dates? (possibly other stuff with getters and setters)
 - performance testing and tweaking for speed
-- how to handle dates
 
 # Why not just use ClojureScript
 

@@ -27,6 +27,10 @@
       list-style: none;
     }
 
+    li {
+      margin-bottom: 0.4em;
+    }
+
     pre {
       .capturing { color: #085; }
       .captured { color: white; background: #085; }
@@ -65,10 +69,21 @@
       color: #999;
     }
 
+    .or_list li {
+      position: relative;
+      &:before {
+        content: "or";
+        color: #BBB;
+        position: absolute;
+        .trans(translateX(-130%))
+      }
+      &:first-child:before {
+        display: none;
+      }
+    }
+
     p.math {
       font-style: normal;
-
-      sub, sup { position: static; }
       line-height: 2em;
     }
   }
