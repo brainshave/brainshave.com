@@ -1,14 +1,24 @@
 ns("szywon.szow", function () {
+  "use strict";
+
   this.fns(start);
+
+  var NEXT_CODES = [32, 34, 39, 40];
+  var PREV_CODES = [33, 37, 38];
 
   var array = use("szywon.utils.array");
 
+  var html = document.documentElement;
+  var fullscreen = html.mozRequestFullScreen || html.webkitRequestFullScreen;
+
+  var sections = [];
+
   function start () {
     var content = document.getElementById("content");
+    window.addEventListener("keydown", keyboard, false);
 
+    sections = [];
     var elements = array(content.children);
-
-    var sections = [];
 
     elements.forEach(function (element) {
       var name = element.nodeName;
@@ -36,5 +46,34 @@ ns("szywon.szow", function () {
     sections.forEach(function (section) {
       content.appendChild(section);
     });
+  }
+
+  function keyboard (event) {
+    var dir = (NEXT_CODES.indexOf(event.keyCode) > -1
+               ? 1
+               : PREV_CODES.indexOf(event.keyCode) > -1
+               ? -1
+               : 0);
+
+    if (event.keyCode === 70) { // 'f'
+      fullscreen.call(html);
+    }
+
+    if (dir) {
+      move(dir);
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
+  function move (dir) {
+    var scroll = html.scrollTop || document.body.scrollTop;
+    var height = window.innerHeight;
+
+    var i = Math.round(scroll / height) + dir;
+
+    if (sections[i]) {
+      window.scrollTo(0, sections[i].offsetTop);
+    }
   }
 });
