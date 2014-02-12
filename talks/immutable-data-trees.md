@@ -49,6 +49,8 @@ avoid side effects of one *thing* changing state of another
 - When passing data from one place to another…
 - (function, module, third-party code)
 
+# …with a convention
+
 # Send data as-is
 
 *with a convention N<sup>o</sup>1*
@@ -67,7 +69,7 @@ sender shouldn't modify
 
 *with a convention N<sup>o</sup>3*
 
-data is shared, both sender and receiver can modify <span class="parenthesis">:(</span>
+both sender and receiver can modify<br><span class="parenthesis">:(</span>
 
 # Conventions, meh
 
@@ -89,6 +91,8 @@ A newcomer will break it
 
 program computers, not people
 
+# …with Object.freeze
+
 # Object.freeze (ES5)
 
 has to be done recursively for full immutability
@@ -98,12 +102,16 @@ has to be done recursively for full immutability
 - any modification: full copy.
 - ES5 browsers only (no IE8)
 
+# …with a function
+
 # Protecting data in JavaScript
 
 secure and portable way:
-make&nbsp;it&nbsp;private to a function
 
-# And now for something completely different…
+- make it private to a function (closure)
+- function controls access to it's data
+
+# MVCC
 
 # Multi-Version Concurrency Control (MVCC)
 
@@ -133,6 +141,11 @@ MVCC
 
 # Clojure's structure sharing
 
+- collection is internally a tree instead of being flat
+- nice performance characteristics
+
+# Clojure's structure sharing
+
 - saves RAM
 - saves operations when creating new versions
 
@@ -141,7 +154,9 @@ MVCC
 - nearly constant lookups and updates
 - (log<sub>32</sub>N)
 
-# Making peace with immutability
+# How it works?
+
+(and making peace with immutability)
 
 ***
 
@@ -317,7 +332,7 @@ v1 = { 0:           <span class="vertical_line">-</span>
 
 # A case for MVC frameworks
 
-MVC frameworks need to know when to update view.
+MVC frameworks need to know when to update the view
 
 *Have my data changed?*
 
@@ -338,6 +353,12 @@ immutable:
 - MVC holds the reference to the old root
 - very memory efficient with structure sharing
 - :)
+
+# A case for MVC frameworks
+
+Using immutable data might actually speed up you MVC application.
+
+**MVC <span class="heart">❤</span> MVCC**
 
 # Choice is yours
 
