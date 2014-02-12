@@ -145,11 +145,13 @@ var APP_SOURCES = '(app|app_templates)/*.js';
 if (RELEASE) recipe({
   'in': APP_SOURCES,
   out: 'app.min.js',
-  run: flow(function (paths, callback) {
-    sort_scripts(paths);
-    callback(null, [uglify(paths).code]);
-  },
-  save('utf8'))
+  run: flow(
+    function (paths, callback) {
+      callback(null, sort_scripts(paths));
+    },
+    read("utf8"),
+    join("\n"),
+    save('utf8'))
 });
 
 var DIRVHOST_AUTO_REFRESH = '__refresh.js';
