@@ -12,17 +12,20 @@ http://szywon.pl
 
 # Where I come from?
 
-- Clojure during uni
+- uni times, Clojure times
 - GUI FTW
-
-(we were allowed to write in anything we wanted)
 
 # Clojure
 
 - functional
 - immutable data structures
 - Lisp
-- "hosted": JVM, ClojureScript
+
+# Clojure (stealing from)
+
+- functional
+- **immutable data structures**
+- Lisp
 
 # Why immutability?
 
@@ -43,6 +46,8 @@ security
 # Why immutability?
 
 avoid copying data over and over
+
+(that we maybe do to enforce security)
 
 # Different ways of sharing state
 
@@ -68,9 +73,7 @@ sender shouldn't modify
 
 *with a convention N<sup>o</sup>3*
 
-data is shared, both sender and receiver can modify
-
-<p class="parenthesis">:(</p>
+data is shared, both sender and receiver can modify <span class="parenthesis">:(</span>
 
 # Conventions, meh
 
@@ -93,19 +96,25 @@ You will break it
 
 let's program computers, not people
 
-# Object.freeze
+# Object.freeze (ES5)
 
 has to be done recursively for full immutability
 
 # Object.freeze
 
-any modification: full copy.
+- any modification: full copy.
+- ES5 browsers only (no IE8)
+
+# Protecting data in JavaScript
+
+secure and portable way:
+make&nbsp;it&nbsp;private to a function
 
 # Multi-Version Concurrency Control (MVCC)
 
 - immutable
 - versioned
-- old (databases, Clojure, Haskell, Scala)
+- old (DBs, Clojure, Haskell, Scala)
 
 # MVCC
 
@@ -135,9 +144,8 @@ MVCC
 
 # Clojure's persistent data structures
 
-nearly linear lookups and updates
-
-(log<sub>n</sub> 32)
+- nearly linear lookups and updates
+- (log<sub>32</sub>N)
 
 # Making peace with immutability
 
@@ -164,16 +172,16 @@ nearly linear lookups and updates
 
 (divide keys to 1 bit sized chunks)
 
-***
+# Store data in a tree
+
+(each chunk of the key is an address for one level of the tree)
+
 
     { 0: { 0: "a",
            1: "s" },
 
       1: { 0: "d",
            1: "f" } }
-
-(store data in a tree, where every chunk of the key is for one level)
-
 
 # Lookup performance
 
@@ -182,11 +190,11 @@ nearly linear lookups and updates
 # Lookup performance (1 bit)
 
 - we chose **1 bit** chunk size
-- each key is **2 bits** long
+- each key is **2 bits** long (size = 4 = 2<sup>2</sup>)
 - key is split to **2 chunks**
 - tree has to be **2-level** deep
 
-**2** lookups
+**2** lookups (each constant-time)
 
 # Lookup performance (1 bit)
 
@@ -230,7 +238,7 @@ size = 4096 (elements)
 
 node_size = 2<sup>chunk_size</sup> = 2<sup>5</sup> = 32
 lookups =
-log<sub>node_size</sub>size = log<sub>32</sub>32768 = 2</p>
+log<sub>node_size</sub>size = log<sub>32</sub>32768 = 3</p>
 
 # Lookup performance (5 bit)
 
@@ -243,12 +251,12 @@ log<sub>32</sub>N
         Math.log(size)
         /
         Math.log(Math.pow(2, bits))
-      );
+      )
     }
 
     lookups(5, 32768) // 3
     lookups(5, 1024)  // 2
-    lookups(1, 16)    // 1
+    lookups(1, 16)    // 4
 
 # Mutation
 
@@ -256,7 +264,8 @@ log<sub>32</sub>N
 
 # Mutation
 
-copy only nodes on the path to the updated leaf
+- copy only nodes on the path to the updated leaf
+- set new value at the leaf
 
 ***
 
@@ -270,7 +279,7 @@ v1 = { 0:           <span class="vertical_line">-</span>
        1: { 0: "z" <span class="diagonal_line">-</span>
             1: <span class="horizontal_line">-</span><span class="horizontal_line">-</span><span class="to_diagonal_line">-</span></span></code></pre>
 
-# Mutation performance
+# Mutation performance (5 bit)
 
 - **log<sub>32</sub>N** nodes have to be copied
 - each node has **32** elements
@@ -298,6 +307,7 @@ mutable data:
 immutable:
 
 - only root has to be checked
+- MVC holds the reference to the root
 - very memory efficient with structure sharing
 
 :)
@@ -317,19 +327,18 @@ data made immutable as soon as received (HTTP request, file read)
 
 # In a functional program…
 
-- profiler used to find bottlenecks
+- profiler: find bottlenecks
 - critical parts made mutable if needed
 
 # In a functional program…
 
 mutable data considered a type of premature optimization
 
-
 # Immutable data in JavaScript
 
 # Quick reminder
 
-Some JavaScript types are immutable, namely all simple types:
+Some JavaScript types are already immutable, namely all simple types:
 
 - numbers
 - strings
@@ -342,6 +351,10 @@ Some JavaScript types are immutable, namely all simple types:
 - not smart about type of data passed in (object/array/value)
 - inconvenient when passing trees of data (every collection needs to be wrapped separately)
 - much more than just data (whole collection API of ClojureScript)
+
+# Ancient Oak
+
+an experiment with interface and implementation
 
 # Ancient Oak
 
@@ -381,8 +394,9 @@ Gets data in, returns a function (the&nbsp;getter) with various update/iterate m
 
 Every node of the tree is a tree on its own.
 
-    => I({ a: 1, b: [ 2, 3 ] })("b")
+    tree = I({ a: 1, b: [ 2, 3 ] })
 
+    => tree("b")
     <= { [Function get]
          … }
 
@@ -399,7 +413,7 @@ Every node of the tree is a tree on its own.
 
 # Object (Ancient Oak)
 
-unsorted map
+unsorted map, string keys
 
 # Ancient Oak assumptions
 
@@ -413,7 +427,7 @@ unsorted map
 
 # API: get
 
-    data = I({ a: 1, b: [ 2, 3 ]});
+    data = I({ a: 1, b: [ 2, 3 ]})
     data         // function…
     data("a")    // 1
     data("b")    // function…
@@ -421,50 +435,55 @@ unsorted map
 
 # API: dump
 
-    data = I({ a: 1, b: [ 2, 3 ]});
+    data = I({ a: 1, b: [ 2, 3 ]})
 
     data.dump() // { a: 1, b: [ 2, 3 ] }
     data.json() // '{"a":1,"b":[2,3]}'
 
 # API: set
 
-    v0 = I({ a: 1, b: [ 2, 3 ] });
-    v1 = v0.set("c", 5).set("a", 4);
+    v0 = I({ a: 1, b: [ 2, 3 ] })
+    v2 = v0.set("c", 5).set("a", 4)
 
-    v0.dump() // { a: 1, b: [ 2, 3 ] }
-    v1.dump() // { a: 4, b: [ 2, 3 ], c: 5 }
+    => v0.dump()
+    <= { a: 1, b: [ 2, 3 ] }
+
+    => v2.dump()
+    <= { a: 4, b: [ 2, 3 ], c: 5 }
 
 # API: rm
 
 remove an address from the tree
 
-    v0 = I({ a: 1, b: { c: 3, d: 4 } });
-    v1 = v0.rm("b", "d");
+    v0 = I({ a: 1, b: { c: 3, d: 4 } })
+    v1 = v0.rm("b", "d")
 
-    v1.dump(); // { a: 1, b: { c: 3 } }
+    => v1.dump()
+    <= { a: 1, b: { c: 3 } }
 
 # API: update
 
 apply a function on a value
 
-    v0 = I({ a: 1, b: 2 });
+    v0 = I({ a: 1, b: 2 })
     v1 = v0.update("a", function (v) {
-      return v + 1;
-    });
+      return v + 1
+    })
 
-    v1.dump() // { a: 2, b: 2 }
+    => v1.dump()
+    <= { a: 2, b: 2 }
 
 # API: patch
 
 apply a diff on the whole tree
 
-    v0 = I({ a: 1, b: [ 2, 3 ] });
+    v0 = I({ a: 1, b: [ 2, 3 ] })
     v1 = v0.patch({
       a: 2,
       b: { 0: 4, 3: 5 }
-    });
+    })
 
-    <= v1.dump();
+    <= v1.dump()
     => { a: 2,
          b: [ 4, 3, , 5 ] }
 
@@ -478,30 +497,31 @@ apply a diff on the whole tree
 
 returns the same type of collection as the original (object/array)
 
-    v0 = I({a: 1, b: 2});
+    v0 = I({ a: 1, b: 2 })
     v1 = v0.map(function (v) {
-      return v + 1;
-    });
+      return v + 1
+    })
 
     v1.dump() // { a: 2, b: 3 }
 
 # API: data as a function
 
-    => [ "a", "b", "c"
-       ].map(I({a: 1, b: 2, c: 3}))
+    data = I({a: 1, b: 2, c: 3})
 
+    => [ "a", "b", "c"].map(data)
     <= [ 1, 2, 3 ]
 
 # Contributions welcome
 
 - still early stage
+- target is to handle JSONifiable data properly
 - suggestions to API?
 - any ideas about dates? (possibly other stuff with getters and setters)
 - performance testing and tweaking for speed
 
 # Resources
 
-- [@szywon](https://github.com/szywon), [szywon.pl](http://szywon.pl)
 - [Understanding Clojure's Persistent Vectors by Jean Niklas L'orange](http://hypirion.com/musings/understanding-persistent-vector-pt-1)
 - [Ancient Oak on GitHub](https://github.com/szywon/)
-- [Ancient Oak's docs with lib in included](http://szywon.pl/ancient-oak)
+- [Ancient Oak's docs with lib included](http://szywon.pl/ancient-oak) (to&nbsp;try&nbsp;in&nbsp;devtools)
+- [@szywon](https://github.com/szywon), [szywon.pl/talks](http://szywon.pl/talks)

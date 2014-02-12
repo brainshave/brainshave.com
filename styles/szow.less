@@ -27,6 +27,8 @@
 
 .szow {
   padding: 0;
+  @capture_color: #afc;
+
   section {
     font-size: 6vh;
     line-height: 8vh;
@@ -46,7 +48,6 @@
     }
 
     pre {
-      @capture_color: #afc;
       .capturing { color: @capture_color; }
       .captured { color: #333338; background: @capture_color; }
       .diagonal_line, .vertical_line, .to_diagonal_line, .horizontal_line {
@@ -78,13 +79,19 @@
 
     h1 {
       font-size: 1.3em;
+      color: mix(mix(#9ee, #fffff5, 70%), #333338, 90%);
+    }
+
+    strong {
+      color: @capture_color;
+      font-weight: inherit;
     }
 
     .or_list li {
       position: relative;
       &:before {
         content: "or";
-        color: #777;
+        color: #888;
         position: absolute;
         .trans(translateX(-130%))
       }
