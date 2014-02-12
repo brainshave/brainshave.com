@@ -4,11 +4,9 @@ London, 2014-02-12
 
 ***
 
-Szymon Witamborski
-
-[@szywon](https://twitter.com/szywon)
-
-http://szywon.pl
+- Szymon Witamborski
+- [@szywon](https://twitter.com/szywon)
+- http://szywon.pl
 
 # Where I come from?
 
@@ -29,9 +27,8 @@ http://szywon.pl
 
 # Why immutability?
 
-enforce separation between things
-
-(functions, modules, third-party code)
+- enforce separation between things
+- (functions, modules, third-party code)
 
 # Why immutability?
 
@@ -39,21 +36,18 @@ avoid side effects of one *thing* changing state of another
 
 # Why immutability?
 
-security
-
-(to ensure no one's messing with our data)
+- security
+- (to ensure no one's messing with our data)
 
 # Why immutability?
 
-avoid copying data over and over
-
-(that we maybe do to enforce security)
+- avoid copying data over and over
+- (that we maybe do to enforce security)
 
 # Different ways of sharing state
 
-When passing data from one place to another…
-
-(function, module or third-party code)
+- When passing data from one place to another…
+- (function, module, third-party code)
 
 # Send data as-is
 
@@ -81,9 +75,8 @@ A newcomer will break it
 
 # Conventions, meh
 
-You will break it
-
-(because you forgot or had a bad day)
+- You will break it
+- (because you forgot or had a bad day)
 
 # Conventions, meh
 
@@ -94,7 +87,7 @@ You will break it
 
 # Computer!
 
-let's program computers, not people
+program computers, not people
 
 # Object.freeze (ES5)
 
@@ -121,12 +114,11 @@ make&nbsp;it&nbsp;private to a function
 - each version is immutable
 - each *mutation* creates a new version
 
-# Original purpose of MVCC
+# MVCC in DBs
 
 - writes don't block reads
 - readers never see inconsistent state
-
-(in DBs)
+- allow rollback
 
 # Clojure's persistent data structures
 
@@ -198,18 +190,9 @@ MVCC
 
 # Lookup performance (1 bit)
 
-<p class="math">chunk_size = 1 (bit)
-size = 4 (elements)
-
-node_size = 2<sup>chunk_size</sup> = 2<sup>1</sup> = 2
-lookups = log<sub>node_size</sub>size = 2</p>
-
-# Lookup performance (1 bit)
-
-log<sub>2</sub>N
-
-- log<sub>2</sub>16 = 4
-- log<sub>2</sub>1024 = 10
+<p class="math">log<sub>2</sub>N
+log<sub>2</sub>16 = 4
+log<sub>2</sub>1024 = 10</p>
 
 # Lookup performance
 
@@ -222,27 +205,32 @@ What happens if we
 
 # Lookup performance (5 bit)
 
-- we chose **5 bit** chunk size
-- each key is **15 bits** long
+- (00000 00000 00000)
+- **15 bits** keys (log<sub>2</sub>32768 = 15)
+- **5 bit** chunk size (log<sub>2</sub>32768 / 5 = **3**)
 - key is split to **3 chunks**
 - tree has to be **3-level** deep
 
-(00000 00000 00000)
-
 **3** lookups
 
-# Lookup performance (5 bits)
+***
 
-<p class="math">chunk_size = 5 (bits)
-size = 4096 (elements)
+<p class="math">levels = &lceil;key_bits / chunk_bits&rceil;
+node_size = 2<sup>chunk_bits</sup>
+chunk_bits = log<sub>2</sub>node_size
 
-node_size = 2<sup>chunk_size</sup> = 2<sup>5</sup> = 32
-lookups =
-log<sub>node_size</sub>size = log<sub>32</sub>32768 = 3</p>
+levels = &lceil;log<sub>2</sub>size / log<sub>2</sub>node_size&rceil;
+log<sub>A</sub>B / log<sub>A</sub>C</sub> = log<sub>C</sub>B
+levels = &lceil;log<sub>node_size</sub>size&rceil;</p>
 
-# Lookup performance (5 bit)
+***
 
-log<sub>32</sub>N
+<p class="math">levels = &lceil;log<sub>node_size</sub>size&rceil;
+chunk_size = 5
+node_size = 2<sup>5</sup> = 32
+size = 32768
+
+log<sub>32</sub>32768 = 3</p>
 
 # Lookup performance
 
@@ -258,6 +246,10 @@ log<sub>32</sub>N
     lookups(5, 1024)  // 2
     lookups(1, 16)    // 4
 
+# Lookup performance (5 bit)
+
+log<sub>32</sub>N
+
 # Mutation
 
     v1 = v0.set(10, "z")
@@ -265,7 +257,7 @@ log<sub>32</sub>N
 # Mutation
 
 - copy only nodes on the path to the updated leaf
-- set new value at the leaf
+- set new value at the new copy of leaf
 
 ***
 
@@ -281,11 +273,14 @@ v1 = { 0:           <span class="vertical_line">-</span>
 
 # Mutation performance (5 bit)
 
-- **log<sub>32</sub>N** nodes have to be copied
+- tree is **log<sub>32</sub>N** levels deep
+- affected path is **log<sub>32</sub>N** nodes long
+- **log<sub>32</sub>N** new nodes created
 - each node has **32** elements
-- **32 * log<sub>32</sub>N** copies
+- \+ **32 * log<sub>32</sub>N** assignments
 
-log<sub>32</sub>N
+
+33 \* log<sub>32</sub>N ~ **log<sub>32</sub>N**
 
 # A case for MVCs
 
@@ -297,27 +292,27 @@ MVCs need to know when to update view.
 
 mutable data:
 
-- checking has to be recursive, slow
-- two full copies have to be in memory (please correct me on that)
-
-:(
+- either one recursive check or many pin-pointed checks (similar complexity)
+- recursive == slow
+- recursive == RAM hungry (two full copies)
+- :(
 
 # A case for MVCs
 
 immutable:
 
-- only root has to be checked
-- MVC holds the reference to the root
+- only root reference has to be checked
+- MVC holds the reference to the old root
 - very memory efficient with structure sharing
-
-:)
+- :)
 
 # Choice is yours
 
 <ul class="or_list">
-<li>immutable data everywhere
-<li>on function boundary
-<li>on module boundary
+<li>immutable data **everywhere**
+<li>on **function** boundary
+<li>on **module** boundary
+<li>on **you | third-party** boundary
 <li>mutable data
 </ul>
 
@@ -327,29 +322,31 @@ data made immutable as soon as received (HTTP request, file read)
 
 # In a functional program…
 
-- profiler: find bottlenecks
-- critical parts made mutable if needed
+profiler: find bottlenecks<br>
+critical parts made mutable if needed
 
 # In a functional program…
 
-mutable data considered a type of premature optimization
+mutable data considered a type of premature optimisation
 
 # Immutable data in JavaScript
 
 # Quick reminder
 
-Some JavaScript types are already immutable, namely all simple types:
+already immutable:
 
 - numbers
 - strings
 - bools
 - …
 
-# Existing libraries (mori)
+# Existing libraries (mori, …)
 
-- one-level deep, non-recursive
-- not smart about type of data passed in (object/array/value)
-- inconvenient when passing trees of data (every collection needs to be wrapped separately)
+- give it a tree, only root level is immortalised
+- non-recursive
+
+# mori
+
 - much more than just data (whole collection API of ClojureScript)
 
 # Ancient Oak
@@ -358,7 +355,7 @@ an experiment with interface and implementation
 
 # Ancient Oak
 
-Clojure-style MVCC library for plain JavaScript data trees
+Clojure-style MVCC library for plain JavaScript data **trees**
 
 (with emphasis on trees)
 
@@ -370,15 +367,17 @@ Clojure-style MVCC library for plain JavaScript data trees
 
 # Ancient Oak
 
-Easy in, easy out
-
-    => I({ a: 1, b: [ 2, 3 ] }).dump()
-
-    <= { a: 1, b: [ 2, 3 ] }
+returns a function (the getter) with various update/iterate methods
 
 # Ancient Oak
 
-Gets data in, returns a function (the&nbsp;getter) with various update/iterate methods
+Easy in, easy out
+
+    data = I({ a: 1, b: [ 2, 3 ] })
+
+    => data.dump()
+    <= { a: 1, b: [ 2, 3 ] }
+
 
 # Ancient Oak
 
@@ -409,7 +408,7 @@ Every node of the tree is a tree on its own.
 # Array (Ancient Oak)
 
 - sorted unsigned integer keys,
-- size reported in `size` property instead of `length`
+- size reported in `size` property instead of `length` (because it's a function)
 
 # Object (Ancient Oak)
 
@@ -433,22 +432,25 @@ unsorted map, string keys
     data("b")    // function…
     data("b")(1) // 3
 
-# API: dump
+# API: dump & json
 
     data = I({ a: 1, b: [ 2, 3 ]})
 
-    data.dump() // { a: 1, b: [ 2, 3 ] }
-    data.json() // '{"a":1,"b":[2,3]}'
+    => data.dump()
+    <= { a: 1, b: [ 2, 3 ] }
+
+    => data.json()
+    <= '{"a":1,"b":[2,3]}'
 
 # API: set
 
     v0 = I({ a: 1, b: [ 2, 3 ] })
-    v2 = v0.set("c", 5).set("a", 4)
+    v1 = v0.set("c", 5).set("a", 4)
 
     => v0.dump()
     <= { a: 1, b: [ 2, 3 ] }
 
-    => v2.dump()
+    => v1.dump()
     <= { a: 4, b: [ 2, 3 ], c: 5 }
 
 # API: rm
@@ -483,8 +485,8 @@ apply a diff on the whole tree
       b: { 0: 4, 3: 5 }
     })
 
-    <= v1.dump()
-    => { a: 2,
+    => v1.dump()
+    <= { a: 2,
          b: [ 4, 3, , 5 ] }
 
 # API: iteration
@@ -502,7 +504,8 @@ returns the same type of collection as the original (object/array)
       return v + 1
     })
 
-    v1.dump() // { a: 2, b: 3 }
+    => v1.dump()
+    <= { a: 2, b: 3 }
 
 # API: data as a function
 
@@ -514,14 +517,14 @@ returns the same type of collection as the original (object/array)
 # Contributions welcome
 
 - still early stage
-- target is to handle JSONifiable data properly
+- target is to handle JSONifiable data
 - suggestions to API?
-- any ideas about dates? (possibly other stuff with getters and setters)
-- performance testing and tweaking for speed
+- any ideas about storing dates?<br>(and stuff with getters and setters)
+- tweaking for speed
 
 # Resources
 
-- [Understanding Clojure's Persistent Vectors by Jean Niklas L'orange](http://hypirion.com/musings/understanding-persistent-vector-pt-1)
+- [Understanding Clojure's Persistent Vectors](http://hypirion.com/musings/understanding-persistent-vector-pt-1) by Jean Niklas L'orange
 - [Ancient Oak on GitHub](https://github.com/szywon/)
 - [Ancient Oak's docs with lib included](http://szywon.pl/ancient-oak) (to&nbsp;try&nbsp;in&nbsp;devtools)
 - [@szywon](https://github.com/szywon), [szywon.pl/talks](http://szywon.pl/talks)
