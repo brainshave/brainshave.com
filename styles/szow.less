@@ -1,3 +1,16 @@
+.trans(@value) {
+  transform: @value;
+  -webkit-transform: @value;
+}
+
+.trans_orig(@value) {
+  transform-origin: @value;
+  -o-transform-origin: @value;
+  -ms-transform-origin: @value;
+  -moz-transform-origin: @value;
+  -webkit-transform-origin: @value;
+}
+
 .szow {
   section {
     font-size: 5vh;
@@ -6,15 +19,42 @@
     height: 100vh;
     border-bottom: 1px solid #999;
 
+    ul, li {
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    pre {
+      .capturing { color: #085; }
+      .captured { color: white; background: #085; }
+      .diagonal_line, .vertical_line, .to_diagonal_line, .horizontal_line {
+        display: inline-block;
+      }
+      .diagonal_line {
+        .trans(rotate(-45deg) scaleX(4));
+      }
+      .vertical_line {
+        .trans(rotate(90deg) scaleX(3));
+      }
+      .horizontal_line {
+        .trans(scaleX(1.4));
+      }
+      .to_diagonal_line {
+        .trans_orig(0 100%);
+        .trans(rotate(-30deg) scaleX(2.8));
+      }
+    }
+
     .wrap {
-      @trans: translateY(-50%) translateX(-50%);
       position: absolute;
       max-width: 120vh;
       min-width: 80vh;
       top: 50%;
       left: 50%;
-      transform: @trans;
-      -webkit-transform: @trans;
+      .trans(translateY(-50%) translateX(-50%));
     }
 
     h1 {
@@ -23,6 +63,13 @@
 
     .parenthesis {
       color: #999;
+    }
+
+    p.math {
+      font-style: normal;
+
+      sub, sup { position: static; }
+      line-height: 2em;
     }
   }
 }
