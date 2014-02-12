@@ -103,6 +103,8 @@ has to be done recursively for full immutability
 secure and portable way:
 make&nbsp;it&nbsp;private to a function
 
+# And now for something completely different…
+
 # Multi-Version Concurrency Control (MVCC)
 
 - immutable
@@ -136,7 +138,7 @@ MVCC
 
 # Clojure's persistent data structures
 
-- nearly linear lookups and updates
+- nearly constant lookups and updates
 - (log<sub>32</sub>N)
 
 # Making peace with immutability
@@ -145,8 +147,9 @@ MVCC
 
     v0 = ["a", "s", "d", "f"]
 
-***
+# Let's make a binary tree
 
+***
 
     { 00: "a"
       01: "s"
@@ -157,17 +160,16 @@ MVCC
 
 ***
 
-    0 | 0
-    0 | 1
-    1 | 0
-    1 | 1
+    0 | 0 "a"
+    0 | 1 "s"
+    1 | 0 "d"
+    1 | 1 "f"
 
 (divide keys to 1 bit sized chunks)
 
-# Store data in a tree
+# Store data in a binary tree
 
 (each chunk of the key is an address for one level of the tree)
-
 
     { 0: { 0: "a",
            1: "s" },
@@ -177,22 +179,51 @@ MVCC
 
 # Lookup performance
 
-2
+2 (4 elements, log<sub>2</sub>4 = **2**)
 
-# Lookup performance (1 bit)
+***
 
-- we chose **1 bit** chunk size
-- each key is **2 bits** long (size = 4 = 2<sup>2</sup>)
+    { 0: { 0: { 0: "a",
+                1: "s" },
+
+           1: { 0: "d",
+                1: "f" } },
+
+      1: { 0: { 0: "g",
+                1: "h" }
+
+           1: { 0: "j",
+                1: "k" } } }
+
+# Lookup performance
+
+3 (8 elements, log<sub>2</sub>8 = **3**)
+
+***
+
+    { 00: { 00: "a",    10: { 00: "q",
+            01: "s",          01: "w",
+            10: "d",          10: "e",
+            11: "f" },        11: "r" },
+
+      01: { 00: "g",    11: { 00: "t",
+            01: "h",          01: "y",
+            10: "j",          10: "u",
+            11: "k" },        11: "i" } }
+
+# Lookup performance
+
+2 (16 elements, log<sub>4</sub>16 = **2**)
+
+# Lookup performance
+
+- we chose **2 bit** chunk size
+- each key is **4 bits** long
+- (size = 16 = 2<sup>4</sup>, log<sub>2</sub>16 = 4)
 - key is split to **2 chunks**
 - tree has to be **2-level** deep
 
-**2** lookups (each constant-time)
-
-# Lookup performance (1 bit)
-
-<p class="math">log<sub>2</sub>N
-log<sub>2</sub>16 = 4
-log<sub>2</sub>1024 = 10</p>
+**2** lookups
 
 # Lookup performance
 
@@ -215,22 +246,22 @@ What happens if we
 
 ***
 
-<p class="math">levels = &lceil;key_bits / chunk_bits&rceil;
+<p class="math">depth = &lceil;key_bits / chunk_bits&rceil;
 node_size = 2<sup>chunk_bits</sup>
 chunk_bits = log<sub>2</sub>node_size
 
-levels = &lceil;log<sub>2</sub>size / log<sub>2</sub>node_size&rceil;
+depth = &lceil;log<sub>2</sub>size / log<sub>2</sub>node_size&rceil;
 log<sub>A</sub>B / log<sub>A</sub>C</sub> = log<sub>C</sub>B
-levels = &lceil;log<sub>node_size</sub>size&rceil;</p>
+depth = &lceil;log<sub>node_size</sub>size&rceil;</p>
 
 ***
 
-<p class="math">levels = &lceil;log<sub>node_size</sub>size&rceil;
+<p class="math">depth = &lceil;log<sub>node_size</sub>size&rceil;
 chunk_size = 5
 node_size = 2<sup>5</sup> = 32
 size = 32768
 
-log<sub>32</sub>32768 = 3</p>
+depth = &lceil;log<sub>32</sub>32768&rceil; = 3</p>
 
 # Lookup performance
 
@@ -261,6 +292,8 @@ log<sub>32</sub>N
 
 ***
 
+    v1 = v0.set(10, "z")
+
 <pre><code>v0 = { 0:     <span class="captured">{ 0: "a", </span>
             <span class="diagonal_line capturing">-</span> <span class="captured">  1: "s" }</span>,
            <span class="vertical_line capturing">-</span>
@@ -282,13 +315,13 @@ v1 = { 0:           <span class="vertical_line">-</span>
 
 33 \* log<sub>32</sub>N ~ **log<sub>32</sub>N**
 
-# A case for MVCs
+# A case for MVC frameworks
 
-MVCs need to know when to update view.
+MVC frameworks need to know when to update view.
 
 *Have my data changed?*
 
-# A case for MVCs
+# A case for MVC frameworks
 
 mutable data:
 
@@ -297,7 +330,7 @@ mutable data:
 - recursive == RAM hungry (two full copies)
 - :(
 
-# A case for MVCs
+# A case for MVC frameworks
 
 immutable:
 
@@ -371,16 +404,6 @@ returns a function (the getter) with various update/iterate methods
 
 # Ancient Oak
 
-Easy in, easy out
-
-    data = I({ a: 1, b: [ 2, 3 ] })
-
-    => data.dump()
-    <= { a: 1, b: [ 2, 3 ] }
-
-
-# Ancient Oak
-
     => I({ a: 1, b: [ 2, 3 ] })
 
     <= { [Function get]
@@ -388,6 +411,15 @@ Easy in, easy out
          patch: [Function patch],
          map:   [Function map],
          … }
+
+# Ancient Oak
+
+Easy in, easy out
+
+    data = I({ a: 1, b: [ 2, 3 ] })
+
+    => data.dump()
+    <= { a: 1, b: [ 2, 3 ] }
 
 # Ancient Oak
 
@@ -416,7 +448,7 @@ unsorted map, string keys
 
 # Ancient Oak assumptions
 
-- functions and simple types treated as immutable
+- functions and primitive types treated as immutable
 - functions are assumed to be interfaces to data (getters)
 
 # Ancient Oak
@@ -518,9 +550,9 @@ returns the same type of collection as the original (object/array)
 
 - still early stage
 - target is to handle JSONifiable data
+- tweaking for speed
 - suggestions to API?
 - any ideas about storing dates?<br>(and stuff with getters and setters)
-- tweaking for speed
 
 # Resources
 
