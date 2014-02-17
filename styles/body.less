@@ -6,13 +6,19 @@ html {
   padding: 0;
 }
 
+@standard_fonts: 'Source Sans Pro', 'Segoe UI', 'Roboto', Ubuntu, Arial, sans-serif;
+
 body {
-  font-family: 'Source Sans Pro', 'Segoe UI', 'Roboto', Ubuntu, Arial, sans-serif;
+  font-family: @standard_fonts;
   margin:      0;
   padding:     8px 0 0 0;
   font-size:   20px;
   font-weight: 400;
   .transition("color 0.5s, background-color 0.7s");
+}
+
+.date {
+  font-family: 'Michroma', @standard_fonts;
 }
 
 #content {
