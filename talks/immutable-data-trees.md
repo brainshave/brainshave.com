@@ -2,6 +2,8 @@
 
 London, 2014-02-12
 
+(The talk was recorded: [video](http://vimeo.com/86694423))
+
 ***
 
 - Szymon Witamborski

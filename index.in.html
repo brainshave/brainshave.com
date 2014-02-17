@@ -56,6 +56,10 @@
     <dl id="github">
       {{
         it.list = [{
+          name: 'Ancient Oak',
+          href: 'http://szywon.pl/ancient-oak',
+          desc: 'Immutable data trees in JavaScript'
+        }, {
           name: 'Health Analytics',
           href: 'http://analytics.howareyou.com',
           desc: 'Part of <a href="http://howareyou.com">How are you?</a>, designed by <a href="http://dribbble.com/andyisonline">Andrew Lucas</a>'
@@ -67,10 +71,6 @@
           name: '0desk',
           href: 'https://github.com/szywon/0desk',
           desc: 'Zero Desktop Environment Survivor Kit for Linux'
-        }, {
-          name: 'GUI FTW!',
-          href: 'https://github.com/szywon/GUIFTW',
-          desc: 'Declarative GUI framework for Clojure, on top Swing or SWT'
         }];
       }}
 
@@ -100,34 +100,30 @@
     </ul>
 
     <div class="meta">
-      <a class="icon archive" href="/blog/index.html">full list</a>
+      <a class="icon archive" href="/blog">full list</a>
       <a class="icon rss" href="/blog/index.xml">feed</a>
     </div>
   </section>
 
   <section>
-    <h1>Silly things</h1>
+    <h1>Talks</h1>
+    <ul class="archive right">
+      {{~ it.json('talks/index').slice(0, 5) :file}}
+      <li>
+        {{ file.d = new Date(file.date); }}
+        <a href="{{= '/' + file.href }}">{{! file.title }}</a>
+        <div class="date">
+          {{= file.d.getUTCDate() }}/{{= file.d.getUTCMonth() + 1 }}
+          <span class="year">{{= file.d.getUTCFullYear() }}</span>
+        </div>
+      </li>
+      {{~}}
+    </ul>
 
-    <dl id="demos">
-      {{
-        it.list = [{
-          name: 'Robots',
-          href: '/demo/robots',
-          desc: 'WebGLOL',
-          hide: true
-        }, {
-          name: 'Clock',
-          href: '/demo/clock.html',
-          desc: 'I thought this logo needed some action…'
-        }];
-      }}
-
-      {{# def.dtddlist }}
-    </dl>
-
-    <p class="small">
-      …space intentionally left blank…
-    </p>
+    <div class="meta">
+      <a class="icon archive" href="/talks">full list</a>
+      <a class="icon rss" href="/talks/index.xml">feed</a>
+    </div>
   </section>
 
   {{# def.include('templates/footer') }}
