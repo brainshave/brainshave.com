@@ -7,6 +7,7 @@
     "dot": "*",
     "uglify-js": "*",
     "less": "*",
-    "csso": "*"
+    "csso": "*",
+    "cherry": "*"
   }
 }
