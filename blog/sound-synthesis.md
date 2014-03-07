@@ -1,7 +1,7 @@
 # Sound Synthesis from Scratch (w/Clojure)
 
 <p class="sidenote">
-This post used to be hosted [here](http://longstandingbug.com/sound-synthesis.html).
+This post used to be hosted [here](http://longstandingbug.com/sound-synthesis-images.html).
 </p>
 
 Lublin, 2011-06-20
@@ -57,7 +57,7 @@ possible. It's also the outcome of universally known *sin* function.
 
 <!-- (save (function-plot #(sin (* 2 % Math/PI)) 0 1 :step-size 0.005
 :y-label "" :x-label "" ) "sin-plain.png" :width 600 :height 160) -->
-![@](/blog/sound-synthesis/sin-plain.png)
+![@](/blog/sound-synthesis-images/sin-plain.png)
 
 If we want to get a more complicated sound wave, we would play couple
 of different sines together.
@@ -77,7 +77,7 @@ frequency have 0.5 s period and so on.
 0.005 :y-label "" :x-label "Time [s]" :legend true :series-label "f =
 1 Hz") (add-function #(sin (* 4 % Math/PI)) 0 1 :series-label "f = 2
 Hz")) "sin-two.png" :width 600 :height 200) -->
-![@](/blog/sound-synthesis/sin-two.png)
+![@](/blog/sound-synthesis-images/sin-two.png)
 
 We will generate data only for one pass of
 a sine and play it in a loop.

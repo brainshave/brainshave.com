@@ -107,6 +107,6 @@ Do arkusza styli dodamy obsługę zdarzenia:
                        (fn [event]
                         (JOptionPane/showMessageDialog nil "GUI FTW!"))]))
 
-![Prosty przykład podpięcia akcji pod przycisk](zdarzenia-guiftw/gui-ftw-pierwsza-akcja.png)
+![Prosty przykład podpięcia akcji pod przycisk](zdarzenia-guiftw-images/gui-ftw-pierwsza-akcja.png)
 
 Pełny kod tego przykładu znajduje się [tutaj](https://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples/swing/basic.clj).

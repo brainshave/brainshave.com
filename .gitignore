@@ -10,6 +10,7 @@
 !blog/*/
 !blog/*/*.png
 !blog/*/*.svg
+!blog/*/*.jpg
 !demo
 !demo/*
 !demo/*/*

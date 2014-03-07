@@ -99,7 +99,7 @@ wyglądało tak:
 
     (window nil sheet)
 
-![Pierwsze okno](niech-sie-stanie-gui-ftw/gui-ftw-pierwsze-okno.png)
+![Pierwsze okno](niech-sie-stanie-gui-ftw-images/gui-ftw-pierwsze-okno.png)
 
 Arkuszy może być więcej, możemy także podać inny komplet. Możemy też
 utworzyć wiele okien wywołując powtórnie tę funkcję. Zwrócony zostanie
