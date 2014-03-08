@@ -12,6 +12,11 @@
     background-size: @w @h;
     padding-left: (@w + 4px);
     min-height: @h;
+
+    .ie78 & {
+      min-height: none;
+      padding-left: 20px;
+    }
   }
 }
 

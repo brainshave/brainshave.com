@@ -6,7 +6,13 @@
   margin:  0 auto;
 
   .wide & {
-    max-width: @wide_width;
+    max-width: @reading_width;
+
+    // This is here so that only browsers that support media queries
+    // will stretch the view more.
+    @media (min-width: @reading_width) {
+      max-width: @wide_width;
+    }
   }
 
   .reading & {

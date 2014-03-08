@@ -15,7 +15,10 @@ ns("szywon.szow", function () {
 
   function start () {
     var content = document.getElementById("content");
-    window.addEventListener("keydown", keyboard, false);
+
+    if (window.addEventListener) {
+      window.addEventListener("keydown", keyboard, false);
+    }
 
     sections = [];
     var elements = array(content.children);

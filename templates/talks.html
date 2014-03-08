@@ -17,6 +17,12 @@
   <body id="content" class="szow dark" data-extra-scripts="szywon.szow">
   {{= it.html }}
 
+  <!--[if lte IE 8]>
+  <script>document.documentElement.className += " ie78";</script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.1.0/es5-shim.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/sizzle/1.10.9/sizzle.js"></script>
+  <![endif]-->
+
   {{~ it.json('/sources_list') :script}}
   <script type="text/javascript" src="/{{= script }}"></script>
   {{~}}

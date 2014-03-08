@@ -14,7 +14,11 @@ ns('szywon.utils', function () {
   }
 
   function array (list) {
-    return slice.call(list);
+    var result = [];
+    for (var i = 0; i < list.length; ++i) {
+      result[i] = list[i];
+    }
+    return result;
   }
 
   function unescape (str) {
