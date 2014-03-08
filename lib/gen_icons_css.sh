@@ -39,7 +39,7 @@ function css {
   data_svg="$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]);' "$(cat icons/$name.svg)")"
 
   echo ".icon.${name} {"
-  echo "  background-image: url(/icons/$name.gif);"
+  echo "  .no_svg & { background-image: url(/icons/$name.gif); }"
   echo "  background-image: url(data:image/svg+xml;charset=UTF-8,$data_svg);"
   echo "}"
   echo

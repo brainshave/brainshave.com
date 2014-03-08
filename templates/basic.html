@@ -18,6 +18,15 @@
 
   {{# def.head || '' }}
 
+  <script>
+    if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Shape", "1.1")) {
+    document.documentElement.className += " no_svg";
+    }
+    (function () {
+    var elements = ["article", "section", "footer"];
+    for (var i = 0; i < elements.length; ++i) document.createElement(elements[i]);
+    })();
+  </script>
 </head>
 <body class="{{= it.classes }}">
   <div id="top">
