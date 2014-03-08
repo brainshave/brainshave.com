@@ -36,6 +36,27 @@
     color: mix(@back, @front, 30%);
   }
 
+  .icon {
+    @svg_filter: ~'<svg xmlns="http://www.w3.org/2000/svg"><defs>'
+    ~'<filter id="colorize">'
+    ~'<feColorMatrix values="'
+    ~'0 0 0 0' (red(@front) / 255)
+    ~'0 0 0 0' (green(@front) / 255)
+    ~'0 0 0 0' (blue(@front) / 255)
+    ~'0 0 0 1 0"/>'
+    ~'</filter></defs></svg>';
+    @escaped: escape("@{svg_filter}");
+
+    filter: url(~"data:image/svg+xml;utf8,@{escaped}#colorize");
+
+    -webkit-filter:
+    invert(1)
+    sepia(1)
+    saturate(100)
+    hue-rotate(unit(hsvhue(@front) - 60, deg))
+    saturate(hsvsaturation(@front))
+    brightness(hsvvalue(@front))
+  }
 }
 
 .dark {
