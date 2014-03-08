@@ -14,6 +14,10 @@
 
   .a(@anchor, @hover, 0 0 1em @shadow);
 
+  h1 {
+    .a(@front, mix(@front, @hover), 0 0 0.5em mix(@front, @shadow, 0.7));
+  }
+
   footer, .small, .parenthesis, .date {
     color: mix(@front, @back, 50%);
     .a(mix(@anchor, @back, 60%), mix(@hover, @back, 70%), none);

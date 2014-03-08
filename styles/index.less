@@ -1,30 +1,19 @@
 #sections {
-
-  .meta a {
-    margin: 0 0.5em 16px 0;
+  > .wrapper {
+    margin: 0 -16px;
   }
 
   section {
     width: 100%;
+    padding: 0 16px;
+    float: left;
 
-    @media (min-width: 700px) {
-      float: left;
-      width: 50%;
+    -moz-box-sizing: border-box;
+    box-sizing:      border-box;
 
-      -moz-box-sizing: border-box;
-      box-sizing:      border-box;
-      padding-right:   48px;
-
-      @media (max-width: 960px) {
-        &:nth-child(2n + 1) {
-          clear: left;
-        }
-      }
-    }
-
-    @media (min-width: 960px) {
-      width: 25%;
-    }
+    width: 100%;
+    @media (min-width: 700px) { width: 50%; }
+    @media (min-width: 960px) { width: 25%; }
   }
 
   ul.flat, .flat li {
@@ -32,6 +21,10 @@
     list-style: none;
     margin:     0;
     padding:    0;
+  }
+
+  .meta a {
+    margin: 0 0.5em 16px 0;
   }
 
   footer {

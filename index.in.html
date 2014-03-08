@@ -26,7 +26,7 @@
 {{## def.content:
 
 <div id="sections">
-
+  <div class="wrapper">
   <section>
     <h1>Hi!</h1>
 
@@ -85,7 +85,7 @@
   </section>
 
   <section>
-    <h1>Blog</h1>
+    <h1><a href="/blog/">Blog</a></h1>
     <ul class="archive right">
       {{~ it.json('blog/index').slice(0, 5) :file}}
       <li>
@@ -106,7 +106,7 @@
   </section>
 
   <section>
-    <h1>Talks</h1>
+    <h1><a href="/talks/">Talks</a></h1>
     <ul class="archive right">
       {{~ it.json('talks/index').slice(0, 5) :file}}
       <li>
@@ -125,6 +125,7 @@
       <a class="icon rss" href="/talks/index.xml">feed</a>
     </div>
   </section>
+  </div> <!-- end of wrapper -->
 
   {{# def.include('templates/footer') }}
 
