@@ -68,6 +68,17 @@ sup {
   top:            -0.25em;
 }
 
+article ul {
+  padding: 0;
+
+  li {
+    @svg: escape('<svg width="8" height="8" xmlns="http://www.w3.org/2000/svg" version="1.1"><rect width="100%" height="100%" style="fill:#999" /></svg>');
+    background: ~"url(data:image/svg+xml;charset=UTF-8,@{svg})" 0 0.6em no-repeat;
+    padding-left: 16px;
+    list-style: none;
+  }
+}
+
 #disqus_thread {
   margin-top: 3em;
 }
