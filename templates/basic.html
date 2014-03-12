@@ -18,6 +18,14 @@
 
   {{# def.head || '' }}
 
+  <!--[if lte IE 7]>
+      <script>document.documentElement.className += " ie7";</script>
+      <![endif]-->
+
+  <!--[if lte IE 8]>
+      <script>document.documentElement.className += " ie78";</script>
+      <![endif]-->
+
   <script>
     if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Shape", "1.1")) {
     document.documentElement.className += " no_svg";
@@ -58,7 +66,6 @@
   <span id="extra-scripts"></span>
 
   <!--[if lte IE 8]>
-  <script>document.documentElement.className += " ie78";</script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.1.0/es5-shim.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/sizzle/1.10.9/sizzle.js"></script>
   <![endif]-->

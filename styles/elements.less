@@ -70,12 +70,52 @@ sup {
 
 article ul {
   padding: 0;
+  margin-left: 0;
 
   li {
-    @svg: escape('<svg width="8" height="8" xmlns="http://www.w3.org/2000/svg" version="1.1"><rect width="100%" height="100%" style="fill:#999" /></svg>');
-    background: ~"url(data:image/svg+xml;charset=UTF-8,@{svg})" 0 0.6em no-repeat;
     padding-left: 16px;
     list-style: none;
+    position: relative;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 8px;
+      height: 8px;
+      background: #999;
+    }
+  }
+}
+
+article ol {
+  padding: 0;
+  margin-left: 0;
+  counter-reset: ol_counter;
+
+  li {
+    counter-increment: ol_counter;
+    list-style: none;
+    position: relative;
+    margin-left: 24px;
+
+    &:before {
+      content: counter(ol_counter);
+      font-family: @number_fonts;
+      display: block;
+      position: absolute;
+      color: #999;
+      font-size: 0.55em;
+      top: 0.95em;
+      line-height: 1em;
+      padding: 1px 3px 3px 3px;
+      right: 100%;
+      margin-right: 8px;
+      border-right: 2px solid #999;
+      border-radius: 5px;
+    }
   }
 }
 
