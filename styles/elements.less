@@ -104,17 +104,18 @@ article ol {
     &:before {
       content: counter(ol_counter);
       font-family: @number_fonts;
-      display: block;
-      position: absolute;
       color: #999;
       font-size: 0.5em;
-      top: 1.2em;
       line-height: 1em;
-      padding: 0.15em 3px 0px 3px;
-      right: 100%;
-      margin-right: 8px;
+      padding: 3px 1px 2px 0;
+      margin-right: 6px;
       border-right: 2px solid #999;
       border-radius: 0 5px 0 0;
+      width: 18px;
+      box-sizing: border-box;
+      display: inline-block;
+      text-align: center;
+      margin-left: -24px;
     }
   }
 }
