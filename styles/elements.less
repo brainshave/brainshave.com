@@ -73,16 +73,18 @@ article ul {
   margin-left: 0;
 
   li {
-    padding-left: 12px;
+    margin-left: 12px;
     list-style: none;
     position: relative;
+
+    .ie7 & { list-style: square; }
 
     &:before {
       content: "";
       display: block;
       position: absolute;
       top: 0.77em;
-      left: 0;
+      left: -12px;
       width: 4px;
       height: 4px;
       background: #999;
@@ -100,6 +102,8 @@ article ol {
     list-style: none;
     position: relative;
     margin-left: 24px;
+
+    .ie7 & { list-style: decimal; }
 
     &:before {
       content: counter(ol_counter);
