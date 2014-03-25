@@ -8,6 +8,11 @@
     "uglify-js": "*",
     "less": "*",
     "csso": "*",
-    "cherry": "*"
+    "cherry": "*",
+    "broccoli": "0.4",
+    "broccoli-cli": "*",
+    "broccoli-stencil": "*",
+    "broccoli-less": "0.1",
+    "broccoli-concat": "0"
   }
 }

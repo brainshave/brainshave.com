@@ -1,29 +1,19 @@
-{{
-  it.title   = 'S/W';
-  it.classes = 'light wide';
-}}
+{
+  "title":    "S/W",
+  "classes":  "light wide",
+  "template": "basic"
+}
 
-{{## def.head:
-
-<link rel="alternate" type="application/atom+xml"
+<!--
+    <link rel="alternate" type="application/atom+xml"
       title="S/W Blog" href="blog/index.xml">
+    -->
 
-#}}
 
 {{## def.dtddlist:
 
-{{~ it.list :item }}
-{{? !item.hide }}
-
-<dt><a href="{{= item.href }}">{{! item.name }}</a></dt>
-<dd>{{= item.desc }}</dd>
-
-{{?}}
-{{~}}
 
 #}}
-
-{{## def.content:
 
 <div id="sections">
   <div class="wrapper">
@@ -54,27 +44,7 @@
     <h1>Projects</h1>
 
     <dl id="github">
-      {{
-        it.list = [{
-          name: 'Ancient Oak',
-          href: 'http://szywon.pl/ancient-oak',
-          desc: 'Immutable data trees in JavaScript'
-        }, {
-          name: 'Health Analytics',
-          href: 'http://analytics.howareyou.com',
-          desc: 'Part of <a href="http://howareyou.com">How are you?</a>, designed by <a href="http://dribbble.com/andyisonline">Andrew Lucas</a>'
-        }, {
-          name: 'grunt-stencil',
-          href: 'https://github.com/cambridge-healthcare/grunt-stencil',
-          desc: 'HTML generation with templates and partials for grunt'
-        }, {
-          name: '0desk',
-          href: 'https://github.com/szywon/0desk',
-          desc: 'Zero Desktop Environment Survivor Kit for Linux'
-        }];
-      }}
-
-      {{# def.dtddlist }}
+      {{= it.include("project_list") }}
     </dl>
 
     <div class="meta">
@@ -87,7 +57,7 @@
   <section>
     <h1><a href="/blog/">Blog</a></h1>
     <ul class="archive right">
-      {{~ it.json('blog/index').slice(0, 5) :file}}
+      {{~ [] :file}}
       <li>
         {{ file.d = new Date(file.date); }}
         <a href="{{= '/' + file.href }}">{{! file.title }}</a>
@@ -108,7 +78,7 @@
   <section>
     <h1><a href="/talks/">Talks</a></h1>
     <ul class="archive right">
-      {{~ it.json('talks/index').slice(0, 5) :file}}
+      {{~ [] :file}}
       <li>
         {{ file.d = new Date(file.date); }}
         <a href="{{= '/' + file.href }}">{{! file.title }}</a>
@@ -127,10 +97,5 @@
   </section>
   </div> <!-- end of wrapper -->
 
-  {{# def.include('templates/footer') }}
-
+  {{= it.include("footer") }}
 </div>
-
-#}}
-
-{{# def.include('templates/basic') }}

@@ -1,6 +1,6 @@
-{{ it.classes = 'reading light'; }}
-
-{{## def.content:
+{
+  "classes": "reading light"
+}
 
 <article>
   <h1>{{! it.title }}</h1>
@@ -18,9 +18,5 @@
     {{~}}
   </ul>
 
-  {{# def.include('footer') }}
+  {{= it.include("footer") }}
 </article>
-
-#}}
-
-{{# def.include('basic') }}

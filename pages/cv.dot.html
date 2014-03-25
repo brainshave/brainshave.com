@@ -1,17 +1,8 @@
-{{
-  it.title   = 'C/V — S/W';
-  it.classes = 'cv light';
-}}
-
-{{## def.footer_extra:
-
-<p>
-  Hint: this page is printer friendly <span class="emot">:)</span>
-</p>
-
-#}}
-
-{{## def.content:
+{
+  "title":    "C/V — S/W",
+  "classes":  "cv light",
+  "template": "basic"
+}
 
 <div id="cv">
   <table class="right">
@@ -307,9 +298,9 @@
     </tbody>
   </table>
 
-  {{# def.include('templates/footer') }}
+  <p>
+    Hint: this page is printer friendly <span class="emot">:)</span>
+  </p>
+
+  {{= it.include("footer") }}
 </div>
-
-#}}
-
-{{# def.include('templates/basic') }}

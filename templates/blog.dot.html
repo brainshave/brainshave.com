@@ -1,9 +1,10 @@
-{{ it.classes = 'reading light'; }}
-
-{{## def.content:
+{
+  "classes": "reading light",
+  "template": "basic"
+}
 
 <article data-extra-scripts="szywon.disqus">
-  {{= it.html }}
+  {{= it.document }}
 
   <div id="disqus_thread"></div>
 
@@ -11,9 +12,5 @@
 
   <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
-  {{# def.include('footer') }}
+  {{= it.include("footer") }}
 </article>
-
-#}}
-
-{{# def.include('basic') }}
