@@ -22,5 +22,11 @@ module.exports = function (broccoli) {
     outputFile: "/all.css"
   });
 
-  return [css, pages];
+  var js = concat(broccoli.makeTree("app"), {
+    // Make sure ns.js is first
+    inputFiles: ["ns.js", "*.js"],
+    outputFile: "/all.js"
+  });
+
+  return [css, js, pages];
 };
