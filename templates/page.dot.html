@@ -1,7 +1,9 @@
-{{= it.include("html", { classes: "show dark", modules: "szywon.show" }) }}
+{{= it.include("html", it.document) }}
 {{= it.include("head", it.document) }}
 
 <body>
+  {{= it.include("top_nav") }}
+
   {{= it.document }}
 
   {{= it.include("scripts") }}

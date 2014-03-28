@@ -3,7 +3,7 @@ ns("szywon.extra_modules", function () {
 
   this.start = start;
 
-  var ATTR_EXTRA_SCRIPTS = "data-extra-scripts";
+  var ATTR_EXTRA_SCRIPTS = "data-load-modules";
   var EXTRA_SCRIPTS_SELECTOR = "[" + ATTR_EXTRA_SCRIPTS + "]";
   var array = use("szywon.utils.array");
 

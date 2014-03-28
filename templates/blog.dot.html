@@ -1,16 +1,15 @@
-{
-  "classes": "reading light",
-  "template": "basic"
-}
+{{= it.include("html", { classes: "reading light", modules: "szywon.disqus" }) }}
+{{= it.include("head", it.document) }}
 
-<article data-extra-scripts="szywon.disqus">
-  {{= it.document }}
+<body>
+  {{= it.include("top_nav") }}
 
-  <div id="disqus_thread"></div>
+  <article>
+    {{= it.document }}
 
-  <noscript><p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p></noscript>
+    {{= it.include("disqus") }}
+    {{= it.include("footer") }}
+  </article>
 
-  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
-  {{= it.include("footer") }}
-</article>
+  {{= it.include("scripts") }}
+</body>
