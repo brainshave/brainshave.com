@@ -1,22 +1,26 @@
-{
-  "classes": "reading light"
-}
+{{= it.include("html", { classes: "reading light" }) }}
+{{= it.include("head", it.document) }}
 
-<article>
-  <h1>{{! it.title }}</h1>
+<body>
+  {{= it.include("top_nav") }}
 
-  <ul class="archive">
-    {{~ it.list :file}}
-    <li>
-      {{ file.d = new Date(file.date); }}
-      <a href="{{= '/' + file.href }}">{{! file.title }}</a>
-      <div class="date">
-        {{= file.d.getUTCDate() }}/{{= file.d.getUTCMonth() + 1 }}
-        <span class="year">{{= file.d.getUTCFullYear() }}</span>
-      </div>
-    </li>
-    {{~}}
-  </ul>
+  <article>
+    <h1>{{! it.document.title }}</h1>
 
-  {{= it.include("footer") }}
-</article>
+    <ul class="archive">
+      {{~ it.document.files :file}}
+      <li>
+        {{ file.d = new Date(file.date); }}
+        <a href="{{= file.href }}">{{! file.title }}</a>
+        <div class="date">
+          {{= file.d.getUTCDate() }}/{{= file.d.getUTCMonth() + 1 }}
+          <span class="year">{{= file.d.getUTCFullYear() }}</span>
+        </div>
+      </li>
+      {{~}}
+    </ul>
+
+    {{= it.include("scripts") }}
+    {{= it.include("footer") }}
+  </article>
+</body>
