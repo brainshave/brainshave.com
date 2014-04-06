@@ -18,7 +18,9 @@ ns("szywon.extra_modules", function () {
 
     var names = nodes.reduce(function (agg, node) {
       return agg.concat(node.getAttribute(ATTR_EXTRA_SCRIPTS).split(/\s+/));
-    }, []);
+    }, []).filter(function (name) {
+      return name;
+    });
 
     names.forEach(function (name) {
       ns(name).start();
