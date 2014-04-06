@@ -52,7 +52,7 @@ Wróciłem do Stack Overflow jak mój parser zaczął nawalać...
 ## Pyparsing
 
 > Have you tried using an XML parser instead?<br />
-> -- [Will](http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454)
+> --- [Will](http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454)
 
 
 Wow. To mi dało myślenia. Oczywiście nie chodziło o użycie parsera XML-a
