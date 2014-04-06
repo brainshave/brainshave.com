@@ -17,6 +17,7 @@
     "broccoli-filter": "0.1",
     "walk-sync": "0.1",
     "quick-temp": "0.1",
-    "mkdirp": "0.3"
+    "mkdirp": "0.3",
+    "cheerio": "0.14"
   }
 }
