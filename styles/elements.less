@@ -68,6 +68,10 @@ sup {
   top:            -0.25em;
 }
 
+p, ul, li, pre {
+  margin: 1em 0;
+}
+
 article ul {
   padding: 0;
   margin-left: 0;
@@ -121,6 +125,13 @@ article ol {
       text-align: center;
       margin-left: -24px;
     }
+
+    > p, > ul, > pre {
+      &:first-child {
+        margin-top: -1.6em;
+      }
+    }
+
   }
 }
 
