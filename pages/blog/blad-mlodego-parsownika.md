@@ -2,7 +2,7 @@
 
 Lublin, 2010-09-03.
 
-**Parsownik** -- *osoba pisząca parsery.<br />
+**Parsownik** --- *osoba pisząca parsery.<br />
 (Termin zawdzięczam mojemu bratu.)*
 
 Od pierwszego wpisu tutaj minęły 2 tygodnie. Najlepsze jest to, że

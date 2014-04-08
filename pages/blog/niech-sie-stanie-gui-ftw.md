@@ -46,7 +46,7 @@ użyć. Polecam poeksperymentować z przykładami w katalogu
 [src/guiftw/examples](http://github.com/santamon/GUIFTW/blob/master/src/guiftw/examples),
 które są również mocno obkomentowane w formie tutoriala.
 
-GUI FTW! nie jest kolejnym toolkitem obok SWT i Swinga -- jest
+GUI FTW! nie jest kolejnym toolkitem obok SWT i Swinga --- jest
 deklaratywną nakładką na nie. Tzn. GUI FTW! można używać do tworzenia
 interfejsów używając jednego albo drugiego pod spodem. Do tego zostało
 napisane na tyle abstrakcyjnie, że można łatwo dopisać obsługę
