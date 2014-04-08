@@ -8,6 +8,7 @@ var stencil = require("broccoli-stencil");
 var less = require("broccoli-less");
 var concat = require("broccoli-concat");
 var merge = require("broccoli-merge-trees");
+var copy = require("broccoli-static-compiler");
 
 module.exports = function (broccoli) {
   // Add headers to md files
@@ -31,6 +32,11 @@ module.exports = function (broccoli) {
     templates: "templates"
   }));
 
+  var images = copy("pages", {
+    srcDir: "/", destDir: "/",
+    files: ["**/*.png", "**/*.jpg", "**/*.svg"]
+  });
+
   var css = concat(less("styles", {
     paths: "./styles"
   }), {
@@ -44,5 +50,5 @@ module.exports = function (broccoli) {
     outputFile: "/all.js"
   });
 
-  return merge([css, js, pages]);
+  return merge([css, js, pages, images]);
 };

@@ -12,6 +12,7 @@
     "broccoli-concat": "0",
     "broccoli-filter": "0.1",
     "broccoli-merge-trees": "0.1",
+    "broccoli-static-compiler": "0.1",
     "walk-sync": "0.1",
     "quick-temp": "0.1",
     "mkdirp": "0.3",
