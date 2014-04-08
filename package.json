@@ -2,13 +2,9 @@
   "name": "szywon.pl",
   "version": "1.0.0-beta",
   "dependencies": {
-    "marked": "*",
     "underscore": "*",
-    "dot": "*",
     "uglify-js": "*",
     "less": "*",
-    "csso": "*",
-    "cherry": "*",
     "broccoli": "0.4",
     "broccoli-cli": "*",
     "broccoli-stencil": "*",
