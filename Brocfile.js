@@ -3,6 +3,7 @@
 var mds_w_headers = require("./lib/mds_w_headers");
 var indexes = require("./lib/indexes");
 var beauty = require("./lib/beauty");
+var atom = require("./lib/atom");
 
 var stencil = require("broccoli-stencil");
 var less = require("broccoli-less");
@@ -10,14 +11,10 @@ var concat = require("broccoli-concat");
 var merge = require("broccoli-merge-trees");
 var copy = require("broccoli-static-compiler");
 
-// Add headers to md files
 var input_pages_w_headers = mds_w_headers("pages");
+var indexes = indexes(input_pages_w_headers, { template: "list" });
 
-var input_pages = merge([
-  input_pages_w_headers,
-  // Create indexes for folders (like "blog" and "talks")
-  indexes(input_pages_w_headers, { template: "list" })
-]);
+var input_pages = merge([indexes, input_pages_w_headers]);
 
 // Allow to use pages as partials
 var partials = merge([
@@ -30,6 +27,8 @@ var pages = beauty(stencil({
   partials:  partials,
   templates: "templates"
 }));
+
+var atoms = atom({ indexes: indexes, pages: pages });
 
 var images = copy("pages", {
   srcDir: "/", destDir: "/",
@@ -49,4 +48,4 @@ var js = concat("app", {
   outputFile: "/all.js"
 });
 
-module.exports = merge([css, js, pages, images]);
+module.exports = merge([css, js, pages, atoms, images]);

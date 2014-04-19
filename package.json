@@ -9,13 +9,15 @@
     "broccoli-cli": "*",
     "broccoli-stencil": "*",
     "broccoli-less": "0.2",
-    "broccoli-concat": "0",
+    "broccoli-concat": "0.0",
     "broccoli-filter": "0.1",
     "broccoli-merge-trees": "0.1",
     "broccoli-static-compiler": "0.1",
     "walk-sync": "0.1",
     "quick-temp": "0.1",
     "mkdirp": "0.3",
-    "cheerio": "0.14"
+    "cheerio": "0.15",
+    "xml": "0.0",
+    "promise-map-series": "0.2"
   }
 }
