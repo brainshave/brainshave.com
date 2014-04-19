@@ -35,6 +35,11 @@ var images = copy("pages", {
   files: ["**/*.png", "**/*.jpg", "**/*.svg"]
 });
 
+var icons = copy("icons", {
+  srcDir: "/", destDir: "/icons",
+  files: ["**/*.gif"]
+});
+
 var css = concat(less("styles", {
   paths: "./styles"
 }), {
@@ -53,4 +58,4 @@ var js = concat("app", {
   outputFile: "/all.js"
 });
 
-module.exports = merge([css, js, pages, atoms, images, demos]);
+module.exports = merge([css, js, pages, atoms, images, icons, demos]);
