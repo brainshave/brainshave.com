@@ -14,7 +14,7 @@ ns("szywon.szow", function () {
   var sections = [];
 
   function start () {
-    var content = document.body;
+    var content = document.body.querySelector("article");
 
     if (window.addEventListener) {
       window.addEventListener("keydown", keyboard, false);
