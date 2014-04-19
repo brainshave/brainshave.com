@@ -42,10 +42,15 @@ var css = concat(less("styles", {
   outputFile: "/all.css"
 });
 
+var demos = copy("demo", {
+  srcDir: "/", destDir: "/demo",
+  files: ["**/*.*"]
+});
+
 var js = concat("app", {
   // Make sure ns.js is first
   inputFiles: ["ns.js", "*.js"],
   outputFile: "/all.js"
 });
 
-module.exports = merge([css, js, pages, atoms, images]);
+module.exports = merge([css, js, pages, atoms, images, demos]);
