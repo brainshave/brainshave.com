@@ -10,7 +10,7 @@ body {
   font-family: @standard_fonts;
   margin:      0;
   padding:     8px 0 0 0;
-  font-size:   20px;
+  font-size:   18px;
   font-weight: 400;
   .transition("color 0.5s, background-color 0.7s");
 }
@@ -24,14 +24,15 @@ body {
 }
 
 code, .tldr, .emot {
-  font-family: 'Source Code Pro', monospace;
+  font-family: @code_fonts;
 }
 
-footer, .small, .thin, .date {
+.small, .thin, .date {
   font-size: 0.6em;
 }
 
 footer {
+  font-size: 0.7em;
   clear: both;
   margin-top: 2em;
   margin-bottom: 2em;

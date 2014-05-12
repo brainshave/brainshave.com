@@ -2,6 +2,7 @@
 
 h1, h2, h3, h4 {
   font-weight: 400;
+  font-family: @head_fonts;
 }
 
 h2, h3, h4 {
@@ -9,7 +10,7 @@ h2, h3, h4 {
   margin-bottom: 0;
 }
 
-h1 { font-size: 1.5em; margin: 0.8em 0;}
+h1 { font-size: 1.8em; margin: 1em 0 0.8em 0;}
 h2 { font-size: 1.2em; }
 h3, h4 { font-size: 1em; }
 
@@ -23,7 +24,7 @@ p, ul, ol, pre {
 
 article {
   clear: both;
-  line-height: 1.6em;
+  line-height: 1.85em;
 }
 
 blockquote {
@@ -35,7 +36,6 @@ blockquote {
 }
 
 pre {
-  font-size:   0.85em;
   line-height: 1.25em;
   margin-left: -@margin;
   margin-right: -@margin;
@@ -61,12 +61,18 @@ a {
   .transition("color 0.3s, text-shadow 1s");
 }
 
+.meta {
+  font-family: @code_fonts;
+  text-transform: uppercase;
+}
+
 dd, .meta {
   font-size: 0.8em;
 }
 
 dd {
   margin: 0 0 @margin 0;
+  line-height: 1.5em;
 }
 
 sup {
@@ -76,66 +82,46 @@ sup {
   top:            -0.25em;
 }
 
-article ul {
-  padding: 0;
-  margin-left: 0;
+article {
+  ul, ol {
+    padding: 0;
+    margin-left: 0;
 
-  li {
-    margin-left: 12px;
-    list-style: none;
-    position: relative;
+    li {
+      list-style: none;
+      position: relative;
+      margin-left: 24px;
 
-    .ie7 & { list-style: square; }
-
-    &:before {
-      content: "";
-      display: block;
-      position: absolute;
-      top: 0.77em;
-      left: -12px;
-      width: 4px;
-      height: 4px;
-      background: #999;
-    }
-  }
-}
-
-article ol {
-  padding: 0;
-  margin-left: 0;
-  counter-reset: ol_counter;
-
-  li {
-    counter-increment: ol_counter;
-    list-style: none;
-    position: relative;
-    margin-left: 24px;
-
-    .ie7 & { list-style: decimal; }
-
-    &:before {
-      content: counter(ol_counter);
-      font-family: @number_fonts;
-      color: #999;
-      font-size: 0.5em;
-      line-height: 1em;
-      padding: 3px 1px 2px 0;
-      margin-right: 6px;
-      border-right: 2px solid #999;
-      border-radius: 0 5px 0 0;
-      width: 18px;
-      box-sizing: border-box;
-      display: inline-block;
-      text-align: center;
-      margin-left: -24px;
-    }
-
-    > p, > ul, > pre {
-      &:first-child {
-        margin-top: -1.6em;
+      &:before {
+        position: absolute;
+        top: 0;
+        right: 100%;
+        white-space: pre;
+        color: #999;
+        display: block;
+        text-align: right;
       }
     }
+  }
 
+  ol {
+    counter-reset: ol_counter;
+
+    li {
+      counter-increment: ol_counter;
+
+      .ie7 & { list-style: decimal; }
+
+      &:before {
+        content: counter(ol_counter) + ") ";
+      }
+    }
+  }
+
+  ul li {
+    .ie7 & { list-style: decimal; }
+
+    &:before { content: "❖ "; }
   }
 }
 
@@ -159,9 +145,10 @@ article ol {
 }
 
 .key {
+  font-family: @code_fonts;
   display: inline-block;
   border: 1px solid transparent;
-  font-size: 0.8em;
+  font-size: 0.9em;
   line-height: 1em;
   padding: 0.2em 0.3em;
   border-radius: 0.15em;

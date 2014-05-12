@@ -16,6 +16,8 @@ ns("szywon.extra_modules", function () {
       nodes = Sizzle(EXTRA_SCRIPTS_SELECTOR);
     }
 
+    if (!nodes || !nodes.reduce) return;
+
     var names = nodes.reduce(function (agg, node) {
       return agg.concat(node.getAttribute(ATTR_EXTRA_SCRIPTS).split(/\s+/));
     }, []).filter(function (name) {

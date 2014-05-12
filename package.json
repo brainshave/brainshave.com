@@ -2,7 +2,7 @@
   "name": "szywon.pl",
   "version": "1.0.0-beta",
   "scripts": {
-    "start": "broccoli serve"
+    "start": "broccoli serve --host '0.0.0.0'"
   },
   "dependencies": {
     "underscore": "*",

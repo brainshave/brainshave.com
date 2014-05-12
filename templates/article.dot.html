@@ -1,0 +1,12 @@
+{{= it.include("html", it.document) }}
+{{= it.include("head", it.document) }}
+
+<body>
+  {{= it.include("top_nav") }}
+
+  <article>
+    {{= it.document }}
+  </article>
+
+  {{= it.include("scripts") }}
+</body>

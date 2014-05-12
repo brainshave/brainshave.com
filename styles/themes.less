@@ -12,7 +12,13 @@
   color: @front;
   background: @back;
 
-  .a(@anchor, @hover, 0 0 1em @shadow);
+  @a_shadow: 0 0 1em @shadow;
+
+  .a(@anchor, @hover, @a_shadow);
+
+  .meta {
+    .a(@front, @hover, @a_shadow);
+  }
 
   h1 {
     .a(@front, mix(@front, @hover), 0 0 0.5em mix(@front, @shadow, 0.7));
@@ -36,9 +42,10 @@
   }
 
   .key {
-    background: mix(@back, @front, 90%);
     color: mix(@back, @front, 30%);
+    background: mix(@back, @front, 90%);
   }
+
 }
 
 .dark {

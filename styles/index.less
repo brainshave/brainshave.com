@@ -1,6 +1,8 @@
 @import "defs";
 
 #sections {
+  line-height: 1.5em;
+
   > .wrapper {
     margin: 0 -@margin;
   }
@@ -14,7 +16,10 @@
 
     width: 100%;
     @media (min-width: 700px) { width: 50%; }
-    @media (min-width: 960px) { width: 25%; }
+
+    .meta {
+      margin-bottom: @margin;
+    }
   }
 
   .ie78 & {
@@ -29,10 +34,6 @@
     list-style: none;
     margin:     0;
     padding:    0;
-  }
-
-  .meta a {
-    margin: 0 0.5em @margin 0;
   }
 
   footer {

@@ -1,6 +1,6 @@
 # OSX: It's Emacsen all the way down
 
-London, 2014-03-22. %[%]% %[]]%
+London, 2014-03-22.
 
 Coming from a long time Linux/Windows experience, OSX's keyboard
 mapping might seem weird and confusing. Main contributor to this is
@@ -41,7 +41,7 @@ user. (muscle memory yada yada yada). But if you're not, you might still
 want to use them from time to time:
 
 1. you might be too lazy and refuse to use arrow buttons (or you want to keep your hands in a little more ergonomic position)
-2. some things like killing lines (%[Ctrl]% %[K]%) or swapping letters (%[Ctrl]% %[T]%) are not available otherwise. %[Ctrl]% %[T]% is quite useful for correcting typos. (My hands insist on typing "transf**ro**m" instead of "transf**or**m" all the time…)
+2. some things like killing lines (%[Ctrl]% %[K]%) or swapping letters (%[Ctrl]% %[T]%) are not available otherwise. %[Ctrl]% %[T]% is quite useful for correcting typos. (My hands insist on typing "transf*ro*m" instead of "transf*or*m" all the time…)
 3. %[Home]% and %[End]% have different meaning on a Mac than they have on a PC (scrolling to the begging and end of the document instead of jumping on the current line). Instead of %[Ctrl]% %[A]% and %[Ctrl]% %[E]% you can use %[⌘]% %[←]% and %[⌘]% %[→]% or %[⌥]% %[↑]% and %[⌥]% %[↓]%.
 
 Using those shortcuts makes even more sense if you map your %[Caps Lock]% to %[Ctrl]% (which
