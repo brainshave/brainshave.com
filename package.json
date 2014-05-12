@@ -1,6 +1,9 @@
 {
   "name": "szywon.pl",
   "version": "1.0.0-beta",
+  "scripts": {
+    "start": "broccoli serve"
+  },
   "dependencies": {
     "underscore": "*",
     "uglify-js": "*",
