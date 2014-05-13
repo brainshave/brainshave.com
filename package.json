@@ -8,7 +8,7 @@
     "underscore": "*",
     "uglify-js": "*",
     "less": "*",
-    "broccoli": "0.9",
+    "broccoli": "0.12",
     "broccoli-cli": "*",
     "broccoli-stencil": "*",
     "broccoli-less": "0.2",
