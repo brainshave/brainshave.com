@@ -110,20 +110,14 @@
     }
 
     li:before {
-      top: 0;
-      left: auto;
-      width: auto;
-      height: auto;
-      background: transparent;
+      display: none;
     }
 
     .or_list li {
       position: relative;
       &:before {
-        content: "or";
-        color: #888;
-        position: absolute;
-        .trans(translateX(-130%))
+        display: block;
+        content: "or ";
       }
       &:first-child:before {
         display: none;

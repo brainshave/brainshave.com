@@ -1,0 +1,8 @@
+<div class="date">
+  {{=
+  it.include("pad_zero", { num: it.date.getUTCDate() })
+  }}/{{=
+  it.include("pad_zero", { num: it.date.getUTCMonth() + 1 })
+  }}
+  <span class="year">{{= it.date.getUTCFullYear() }}</span>
+</div>

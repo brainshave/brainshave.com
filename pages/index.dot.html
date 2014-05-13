@@ -1,73 +1,74 @@
 {
-  "title":    "S/W",
-  "classes":  "light wide",
-  "template": "page"
+"title":    "S/W",
+"classes":  "light wide",
+"template": "page"
 }
 
 <div id="sections">
   <div class="wrapper">
-  <section>
-    <h1>Hi!</h1>
+    <section>
+      <h1>Hi!</h1>
 
-    <p>
-      I'm <b>Szymon Witamborski</b>. I'm a
-      programmer from Lublin <span class="parenthesis">PL</span>,
-      living in London <span class="parenthesis">UK</span>.
-    </p>
+      <p>
+        I'm <b>Szymon Witamborski</b>. I'm a
+        programmer from Lublin <span class="parenthesis">PL</span>,
+        living in London <span class="parenthesis">UK</span>.
+      </p>
 
-    <p>
-      You can reach me under <a href="mailto:szywon@szywon.pl">szywon@szywon.pl</a> or here otherwise:
-    </p>
+      <p>
+        You can reach me under <a href="mailto:szywon@szywon.pl">szywon@szywon.pl</a> or here otherwise:
+      </p>
 
-    <ul class="flat">
-      <li><a class="icon twitter"
-             href="https://twitter.com/szywon">twitter</a></li>
-      <li><a class="icon github"
-             href="https://github.com/szywon">github</a></li>
-      <li><a class="icon npm"
-             href="https://npmjs.org/~szywon">npm</a></li>
-      <li><a class="icon photos"
-             href="http://500px.com/szywon">500px</a></li>
-    </ul>
-  </section>
+      <ul class="flat">
+        <li><a class="icon twitter"
+               href="https://twitter.com/szywon">Twitter</a></li>
+        <li><a class="icon github"
+               href="https://github.com/szywon">GitHub</a></li>
+        <li><a class="icon npm"
+               href="https://npmjs.org/~szywon">NPM</a></li>
+        <li><a class="icon photos"
+               href="http://500px.com/szywon">500px</a></li>
+      </ul>
+    </section>
 
-  <section>
-    <h1>Projects</h1>
+    <section>
+      <h1>Projects</h1>
 
-    <dl id="github">
-      {{= it.include("project_list") }}
-    </dl>
+      <dl id="github">
+        {{= it.include("project_list") }}
+      </dl>
 
-    <div class="meta">
-      <a class="icon github" href="https://github.com/szywon">
-        all
-      </a>
-    </div>
-  </section>
+      <div class="meta">
+        <a class="icon github" href="https://github.com/szywon">
+          all
+        </a>
+      </div>
+    </section>
 
-  <section>
-    <h1><a href="/blog/">Blog</a></h1>
-    <ul class="archive right">
-      {{= it.include("short_archive", it.include("blog/index")) }}
-    </ul>
+    <section>
+      <h1><a href="/blog/">Blog</a></h1>
+      <ul class="archive right">
+        {{= it.include("short_archive", it.include("blog/index")) }}
+      </ul>
 
-    <div class="meta">
-      <a class="icon archive" href="/blog/">all</a>
-      <a class="icon rss" href="/blog/index.xml">feed</a>
-    </div>
-  </section>
+      <div class="meta">
+        <a class="icon archive" href="/blog/">all</a>
+        <a class="icon rss" href="/blog/index.xml">feed</a>
+      </div>
+    </section>
 
-  <section>
-    <h1><a href="/talks/">Talks</a></h1>
-    <ul class="archive right">
-      {{= it.include("short_archive", it.include("talks/index")) }}
-    </ul>
+    <section>
+      <h1><a href="/talks/">Talks</a></h1>
+      <ul class="archive right">
+        {{= it.include("short_archive", it.include("talks/index")) }}
+      </ul>
 
-    <div class="meta">
-      <a class="icon archive" href="/talks/">all</a>
-      <a class="icon rss" href="/talks/index.xml">feed</a>
-    </div>
-  </section>
+      <div class="meta">
+        <a class="icon archive" href="/talks/">all</a>
+        <a class="icon rss" href="/talks/index.xml">feed</a>
+      </div>
+    </section>
+    <div class="clear"></div>
   </div> <!-- end of wrapper -->
 
   {{= it.include("footer") }}

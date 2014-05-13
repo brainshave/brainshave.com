@@ -12,10 +12,7 @@
       <li>
         {{ file.d = new Date(file.date); }}
         <a href="{{= file.href }}">{{! file.title }}</a>
-        <div class="date">
-          {{= file.d.getUTCDate() }}/{{= file.d.getUTCMonth() + 1 }}
-          <span class="year">{{= file.d.getUTCFullYear() }}</span>
-        </div>
+        {{= it.include("list_date", { date: file.d }) }}
       </li>
       {{~}}
     </ul>

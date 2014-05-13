@@ -1,3 +1,5 @@
+@import "defs";
+
 .archive {
   &, & li {
     &, .ie7 & { list-style: none; }
@@ -7,8 +9,8 @@
 
   li {
     line-height: 1.25em;
-    margin-bottom: 0.8em;
-    padding-left: 3.1em;
+    margin-bottom: @margin;
+    padding-left: 2.7em;
     display: block;
     position: relative;
     &:before { display: none; }
@@ -19,8 +21,8 @@
     top: 0;
     left: 0;
     line-height: 1em;
-    text-align: right;
-    width: 4em;
+
+    font-size: 0.75em;
 
     .year {
       display: block;
@@ -30,12 +32,13 @@
   &.right {
     li {
       padding-left: 0;
-      padding-right: 2.7em;
+      padding-right: 2.2em;
     }
 
     .date {
       left: auto;
       right: 0;
+      text-align: right;
     }
   }
 }

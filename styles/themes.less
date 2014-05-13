@@ -1,11 +1,14 @@
-.a (@anchor, @hover, @shadow_text) {
-  a, a:visited {
-    color: @anchor;
-  }
-  a:hover, a:active {
+.b (@anchor, @hover, @shadow_text) {
+  &, &:visited { color: @anchor; }
+
+  &:hover, &:active {
     color: @hover;
     text-shadow: @shadow_text;
   }
+}
+
+.a (@anchor, @hover, @shadow_text) {
+  a { .b(@anchor, @hover, @shadow_text); }
 }
 
 .theme(@back, @front, @anchor, @hover, @shadow) {
@@ -16,8 +19,8 @@
 
   .a(@anchor, @hover, @a_shadow);
 
-  .meta {
-    .a(@front, @hover, @a_shadow);
+  a.icon {
+    .b(@front, @hover, @a_shadow);
   }
 
   h1 {
@@ -27,6 +30,10 @@
   footer, .small, .parenthesis, .date {
     color: mix(@front, @back, 50%);
     .a(mix(@anchor, @back, 60%), mix(@hover, @back, 70%), none);
+  }
+
+  blockquote:before {
+    color: mix(@front, @back, 10%);
   }
 
   #top { .a(@front, @hover, none); }

@@ -18,7 +18,7 @@ article, section, footer {
   display: block;
 }
 
-p, ul, ol, pre {
+p, ul, ol, pre, dl {
   margin: 1em 0;
 }
 
@@ -29,9 +29,26 @@ article {
 
 blockquote {
   font-style: italic;
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 24px;
 
   i, em {
     font-style: normal;
+  }
+
+  &:before {
+    display: block;
+    position: absolute;
+    font-style: normal;
+    font-size: 3em;
+    line-height: 1em;
+  }
+
+  &:before {
+    content: "“";
+    top: 0;
+    left: 0;
   }
 }
 
@@ -58,11 +75,14 @@ img {
 a {
   outline:         none;
   text-decoration: none;
-  .transition("color 0.3s, text-shadow 1s");
+  .transition("color 0.25s, text-shadow 1s");
+}
+
+a.icon {
+  font-family: @code_fonts;
 }
 
 .meta {
-  font-family: @code_fonts;
   text-transform: uppercase;
 }
 
@@ -140,8 +160,9 @@ article {
 }
 
 .emot {
+  font-family: @code_fonts;
   display: inline-block;
-  .transform(rotate(90deg) scale(0.85) translate(0.16em, 0));
+  .transform(rotate(90deg));
 }
 
 .key {
