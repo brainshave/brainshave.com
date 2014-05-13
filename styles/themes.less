@@ -36,6 +36,14 @@
     color: mix(@front, @back, 10%);
   }
 
+  pre:before {
+    background: linear-gradient(to left, fade(@back, 0), @back);
+  }
+
+  pre:after {
+    background: linear-gradient(to right, fade(@back, 0), @back);
+  }
+
   #top { .a(@front, @hover, none); }
 
   #logo {

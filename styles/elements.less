@@ -56,13 +56,28 @@ pre {
   line-height: 1.25em;
   margin-left: -@margin;
   margin-right: -@margin;
-  padding-left: @margin;
-  padding-right: @margin;
 
-  overflow-x: visible;
-  @media (max-width: 700px) {
-    overflow-x: scroll;
+  position: relative;
+
+  code {
+    display: block;
+    overflow-x: auto;
+    padding-left: @margin;
+    padding-right: @margin;
   }
+
+  &:before, &:after {
+    pointer-events: none;
+    content: "";
+    display: block;
+    width: @margin;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+
+  &:before { left: 0; }
+  &:after { right: 0; }
 }
 
 img {
@@ -153,8 +168,7 @@ article {
 .tldr {
   display:        inline-block;
   text-transform: uppercase;
-  font-weight:    bold;
-  font-size:      0.45em;
+  font-size:      0.65em;
   line-height:    0.8em;
   width:          1.2em;
 }
