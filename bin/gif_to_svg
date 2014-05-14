@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+var fs = require("fs");
+var GifReader = require("omggif").GifReader;
+var xml = require("xml");
+
+var img = new GifReader(fs.readFileSync(process.argv[2]));
+
+console.log(svg(img));
+
+function svg (img) {
+  var w = img.width, h = img.height;
+
+  var data = new Uint8Array(w * h * 4);
+  img.decodeAndBlitFrameRGBA(0, data);
+
+  var pixels = [];
+
+  for (var y = 0; y < h; ++y) {
+    for (var x = 0; x < w; ++x) {
+      if (data[(y * w + x) * 4 + 3] > 0) {
+        pixels.push({
+          rect: { _attr: { x: x, y: y, width: 1, height: 1 } }
+        });
+      }
+    }
+  }
+
+  return xml({
+    svg: [{
+      _attr: {
+        width: w,
+        height: h,
+        xmlns: "http://www.w3.org/2000/svg",
+        version: "1.1"
+      }
+    }].concat(pixels)
+  }, {
+  });
+}

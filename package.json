@@ -21,6 +21,7 @@
     "mkdirp": "0.3",
     "cheerio": "0.15",
     "xml": "0.0",
+    "omggif": "1",
     "promise-map-series": "0.2"
   }
 }
