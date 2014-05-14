@@ -3,29 +3,13 @@
 #sections {
   line-height: 1.5em;
 
-  > .wrapper {
-    margin: 0 -@margin;
-  }
-
   section {
-    padding: 0 @margin;
-    float: left;
-
+    position: relative;
     -moz-box-sizing: border-box;
     box-sizing:      border-box;
 
-    width: 100%;
-    @media (min-width: 700px) { width: 50%; }
-
     .meta {
       margin-bottom: @margin;
-    }
-  }
-
-  .ie78 & {
-    section {
-      float: none;
-      width: auto;
     }
   }
 
@@ -34,18 +18,31 @@
     margin:     0;
     padding:    0;
 
+    &:before {
+      display: none;
+    }
+
     a.icon {
       padding-left: 22px;
     }
   }
 
   footer {
-    margin-top: 1em;
     padding-left: 0;
     padding-right: 0;
+  }
 
-    @media (min-width: 700px) {
-      text-align: center;
+  @media (min-width: 500px) {
+    section {
+      margin-top: 2.2em;
+      padding-left: 6em;
+
+      h1 {
+        position: absolute;
+        left: 0;
+        top: -0.22em;
+        margin-top: 0;
+      }
     }
   }
 }

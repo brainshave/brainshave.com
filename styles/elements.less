@@ -156,7 +156,11 @@ article {
   ul li {
     .ie7 & { list-style: decimal; }
 
-    &:before { content: "❖ "; }
+    &:before {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      content: "❖ ";
+    }
   }
 }
 
