@@ -32,6 +32,8 @@
 
   article { padding: 0; }
 
+  h1 { line-height: 1.2em; }
+
   @media (orientation: landscape) {
     section {
       font-size: 5vh;
@@ -125,10 +127,15 @@
     }
 
     p.math {
-      font-family: serif;
       font-style: normal;
       line-height: 2em;
     }
+
+    pre {
+      line-height: inherit;
+      &:before, &:after { display: none; }
+    }
+
     .heart {
       color: #f67;
     }
