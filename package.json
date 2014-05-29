@@ -11,7 +11,7 @@
     "broccoli": "0.12",
     "broccoli-cli": "*",
     "broccoli-stencil": "*",
-    "broccoli-less": "0.2",
+    "broccoli-more": "0.1",
     "broccoli-concat": "0.0",
     "broccoli-filter": "0.1",
     "broccoli-merge-trees": "0.1",

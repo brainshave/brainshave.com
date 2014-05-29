@@ -6,7 +6,7 @@ var beauty = require("./lib/beauty");
 var atom = require("./lib/atom");
 
 var stencil = require("broccoli-stencil");
-var less = require("broccoli-less");
+var less = require("broccoli-more");
 var concat = require("broccoli-concat");
 var merge = require("broccoli-merge-trees");
 var copy = require("broccoli-static-compiler");
