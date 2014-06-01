@@ -46,7 +46,7 @@ var cname = copy("resources", {
 });
 
 var css = concat(less("styles", {
-  paths: "./styles"
+  paths: ["./styles"]
 }), {
   inputFiles: ["*.css"],
   outputFile: "/all.css"
