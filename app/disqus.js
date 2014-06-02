@@ -18,7 +18,6 @@ ns('szywon.disqus', function () {
 
     window.disqus_shortname  = disqus_shortname;
     window.disqus_url        = "http://www.brainshave.com";
-    window.disqus_identifier = location.pathname;
 
     add_script('http://' + disqus_shortname + '.disqus.com/embed.js');
   }
