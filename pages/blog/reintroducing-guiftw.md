@@ -159,5 +159,5 @@ sheet in `guiftw.swing`. I also consider using this style sheet by
 default in Swing. If you know any **other cases** that should be
 included, *please* let me know, either by
 [creating an issue](https://github.com/brainshave/GUIFTW/issues),
-[mailing me](mailto:szywon@szywon.pl) or throwing a brick
+[mailing me](mailto:simon@brainshave.com) or throwing a brick
 at my window. [3]

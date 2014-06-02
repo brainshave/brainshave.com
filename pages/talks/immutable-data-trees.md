@@ -7,8 +7,8 @@ London, 2014-02-12
 ***
 
 - Szymon Witamborski
-- [@szywon](https://twitter.com/szywon)
-- http://szywon.pl
+- [@brainshave](https://twitter.com/brainshave)
+- http://brainshave.com
 
 # Where I come from?
 
@@ -580,6 +580,5 @@ returns the same type of collection as the original (object/array)
 # Resources
 
 - [Understanding Clojure's Persistent Vectors](http://hypirion.com/musings/understanding-persistent-vector-pt-1) by Jean Niklas L'orange
-- [Ancient Oak on GitHub](https://github.com/szywon/)
-- [Ancient Oak's docs with lib included](http://szywon.pl/ancient-oak) (to&nbsp;try&nbsp;in&nbsp;devtools)
-- [@szywon](https://github.com/szywon), [szywon.pl/talks](http://szywon.pl/talks)
+- [Ancient Oak on GitHub](https://github.com/brainshave/ancient-oak)
+- [@brainshave](https://github.com/brainshave), [brainshave.com/talks](http://brainshave.com/talks)
