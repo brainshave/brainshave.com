@@ -15,3 +15,5 @@ rmdir dist
 
 git add -A .
 git commit -m "Build."
+git push origin gh-pages
+git checkout master
