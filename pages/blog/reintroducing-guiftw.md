@@ -6,7 +6,7 @@ I meant this post to be a simple translation of
 [this](niech-sie-stanie-gui-ftw.html) but some things changed that are
 worth mentioning.
 
-[GUI FTW](https://github.com/szywon/GUIFTW) is a *declarative* GUI
+[GUI FTW](https://github.com/brainshave/GUIFTW) is a *declarative* GUI
 library. It's kind of little internal DSL for GUI's. You'll stop
 manually creating boring repetitive code like:
 
@@ -45,7 +45,7 @@ doesn't have those fancy selectors yet.
 <p>[1] Well, for toolkits that follow the same pattern
 that SWT and Swing do.</p>
 <p>[2] Notice that
-[swt](https://github.com/szywon/GUIFTW/blob/master/src/guiftw/swt.clj#L13-22)
+[swt](https://github.com/brainshave/GUIFTW/blob/master/src/guiftw/swt.clj#L13-22)
 is just a wrapper around `parse-gui` and `swt-create`.</p>
 </div>
 
@@ -54,7 +54,7 @@ toolkit-specific are strictly separated from the core. Neither Swing
 nor SWT stuff are hard-coded and GUI FTW needs only one function to be
 implemented to support another toolkit. [1] And those functions can be
 as simple as
-[swt-create](https://github.com/szywon/GUIFTW/blob/master/src/guiftw/swt.clj#L8-11). [2]
+[swt-create](https://github.com/brainshave/GUIFTW/blob/master/src/guiftw/swt.clj#L8-11). [2]
 
 ## Reusability
 
@@ -73,10 +73,10 @@ run-time reusability.
 I've setup a wiki on GitHub and even wrote a tutorial for GUI
 FTW. Here's a couple of links you'd likely be interested in:
 
-- [Project Page](https://github.com/szywon/GUIFTW)
-- [Wiki](https://github.com/szywon/GUIFTW/wiki)
-- [Overview](https://github.com/szywon/GUIFTW/wiki/Overview)
-- [One **Tutorial** For All](https://github.com/szywon/GUIFTW/wiki/One-Tutorial-For-All) (including Swing *and* SWT)
+- [Project Page](https://github.com/brainshave/GUIFTW)
+- [Wiki](https://github.com/brainshave/GUIFTW/wiki)
+- [Overview](https://github.com/brainshave/GUIFTW/wiki/Overview)
+- [One **Tutorial** For All](https://github.com/brainshave/GUIFTW/wiki/One-Tutorial-For-All) (including Swing *and* SWT)
 - [Online Docs](http://longstandingbug.com/GUIFTW)
 
 ## What's New?
@@ -85,7 +85,7 @@ Since the
 [original announcement in Polish](niech-sie-stanie-gui-ftw.html) I've
 added couple of things, most important runtime state handling, support
 for custom "special properties" and for custom
-"[adders](https://github.com/szywon/GUIFTW/issues/1)" (Swing only).
+"[adders](https://github.com/brainshave/GUIFTW/issues/1)" (Swing only).
 
 ### State in Sane Manner
 
@@ -104,13 +104,13 @@ is created for you. You can also decide which parts of window share
 state and which doesn't.
 
 For more info check out last part of
-[Overview](https://github.com/szywon/GUIFTW/wiki/Overview) on wiki.
+[Overview](https://github.com/brainshave/GUIFTW/wiki/Overview) on wiki.
 
 ### Custom "Adders"
 
 I knew that the day will come that I get hit by some Swing or SWT
 -specific quirk. So I got an
-[issue](https://github.com/szywon/GUIFTW/issues/1) :) (Thanks to the
+[issue](https://github.com/brainshave/GUIFTW/issues/1) :) (Thanks to the
 Reporter, by the way).
 
 Everything is sweet and honey in Swing when you can use method `add`
@@ -144,7 +144,7 @@ instead of
 which breaks flow of the tree (and you can't use other goodness of GUI
 FTW for the text area object like styles or grouping).
 
-There's a [fancy example](https://github.com/szywon/GUIFTW/blob/master/src/guiftw/examples/swing/custom_adders.clj) using those two.
+There's a [fancy example](https://github.com/brainshave/GUIFTW/blob/master/src/guiftw/examples/swing/custom_adders.clj) using those two.
 
 ## Why Bother the Programmer?
 
@@ -153,11 +153,11 @@ There's a [fancy example](https://github.com/szywon/GUIFTW/blob/master/src/guift
 </p>
 
 If you look at my
-[TODO](https://github.com/szywon/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/TODO.md)
+[TODO](https://github.com/brainshave/GUIFTW/blob/9febcf9559cade88394e9fc66a91d0a9bffdb499/TODO.md)
 list you will see that I plan to put those quirks in special style
 sheet in `guiftw.swing`. I also consider using this style sheet by
 default in Swing. If you know any **other cases** that should be
 included, *please* let me know, either by
-[creating an issue](https://github.com/szywon/GUIFTW/issues),
+[creating an issue](https://github.com/brainshave/GUIFTW/issues),
 [mailing me](mailto:szywon@szywon.pl) or throwing a brick
 at my window. [3]

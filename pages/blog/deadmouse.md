@@ -27,8 +27,8 @@ The right button is not used for anything at the moment.
 ## Installation
 
 Dependencies are: Python 2.x, PyGTK, dbus (for putting to sleep) and alsa-utils (for volume control).
-The code lives at the moment as a part of the [0desk](https://github.com/szywon/0desk) project and can be obtained from here:
-[source view](https://github.com/szywon/0desk/blob/master/bin/deadmouse), [raw link](https://raw.github.com/szywon/0desk/master/bin/deadmouse).
+The code lives at the moment as a part of the [0desk](https://github.com/brainshave/0desk) project and can be obtained from here:
+[source view](https://github.com/brainshave/0desk/blob/master/bin/deadmouse), [raw link](https://raw.github.com/brainshave/0desk/master/bin/deadmouse).
 To use the script without passing the whole path to it put it somewhere under your `$PATH` (like `/usr/local/bin` or `/usr/bin`).
 
 ## Customization
