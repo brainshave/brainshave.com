@@ -14,10 +14,10 @@ ns('szywon.disqus', function () {
       return;
     }
 
-    var disqus_shortname  = 'szywon';
+    var disqus_shortname  = 'longstandingbug';
 
     window.disqus_shortname  = disqus_shortname;
-    window.disqus_url        = "http://szywon.pl";
+    window.disqus_url        = "http://www.brainshave.com";
     window.disqus_identifier = location.pathname;
 
     add_script('http://' + disqus_shortname + '.disqus.com/embed.js');
