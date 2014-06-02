@@ -7,7 +7,7 @@ fi
 
 rm -rf dist
 node_modules/.bin/broccoli build dist
-git checkout master
+git checkout gh-pages
 ls | grep -vE "^(dist|CNAME|node_modules|favicon\.ico)$" | xargs rm -r
 
 mv dist/* .
