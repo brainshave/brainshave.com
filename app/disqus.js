@@ -16,10 +16,7 @@ ns('szywon.disqus', function () {
 
     var disqus_shortname  = 'longstandingbug';
 
-    window.disqus_shortname  = disqus_shortname;
-    window.disqus_url        = "http://www.brainshave.com";
-
-    add_script('http://' + disqus_shortname + '.disqus.com/embed.js');
+    add_script('//' + disqus_shortname + '.disqus.com/embed.js');
   }
 
   function cleanup () {
