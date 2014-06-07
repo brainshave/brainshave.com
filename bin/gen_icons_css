@@ -3,17 +3,14 @@
 mkdir -p icons
 convert resources/icons.gif -crop 16x15 +repage icons/%d.gif
 
-mv icons/{0,head}.gif
-mv icons/{1,bug}.gif
-mv icons/{2,archive}.gif
-mv icons/{3,rss}.gif
-mv icons/{4,photos}.gif
-mv icons/{5,twitter}.gif
-mv icons/{6,github}.gif
-mv icons/{7,npm}.gif
-mv icons/{8,mail}.gif
+list="head bug archive rss photos twitter github npm mail brainshave"
 
-rm icons/{9,10,11}.gif
+rm icons/{10,11}.gif
+
+i=0
+for name in $list; do
+  mv icons/$(( i++ )).gif icons/$name.gif
+done
 
 function css {
   name=$1
@@ -28,7 +25,7 @@ function css {
   echo
 }
 
-for name in head bug archive rss photos twitter github npm mail; do
+for name in $list; do
   bin/gif_to_svg icons/$name.gif > icons/$name.svg
   css $name
 done > styles/icons_files.less
