@@ -1,6 +1,6 @@
 # Designing with functions
 
-2014-06-27, London.
+London, 2014-06-27.
 
 > Coming from OOP, I've found functional *programming* quite easy to learn, but finding functional *library API design* surprisingly difficult
 
