@@ -38,7 +38,7 @@ This is what I meant by saying "central". In this model we basically have *one* 
 
 The "old" PHP model is an extreme example but definitely illustrates how far we can go with having as little mutable state in an application as possible. This model worked for years and we actually still use it in some form, even if we're writing Ruby or Node code now. Point is, anything beyond the database in this model can easily be immutable and there's no good reason why it shouldn't.
 
-An example for this model on the client-side already exists. It's called [Om] [om] and it has only one global state. Yes. Side effect of this approach is that the whole UI of the application at any moment is a function of this state (same way a PHP page is a function of the state in a database). This is an interesting (and definitely radical!) approach. I encourage you to [check out Om's concepts] [om_intro] even if not a ClojureScript fan.
+An example for this model on the client-side already exists. It's called [Om] [om] and it has one global state. Side effect of this approach is that the whole UI of the application at any moment is a function of this state (same way a PHP page is a function of the state in a database). This is an interesting (and definitely radical!) approach. I encourage you to [check out Om's concepts] [om_intro] even if not a ClojureScript fan.
 
 ## Processes
 
