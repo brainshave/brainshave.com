@@ -10,7 +10,7 @@
     "less": "*",
     "broccoli": "0.12",
     "broccoli-cli": "*",
-    "broccoli-more": "0.1",
+    "broccoli-more": "^0.3.0",
     "broccoli-concat": "0.0",
     "broccoli-stencil": "^0.3.0",
     "broccoli-dep-filter": "^0.3.0",
