@@ -19,6 +19,7 @@ var root_pages = merge(["pages"], {
     return /^[^\/]+$/.test(path);
   }
 });
+
 var input_pages = merge([root_pages, indexes, input_pages_w_headers]);
 
 module.exports = input_pages;
@@ -28,11 +29,12 @@ var partials = merge([
   input_pages
 ]);
 
-var pages = beauty(stencil({
+var pages = beauty([stencil({
   pages:     input_pages,
   partials:  partials,
   templates: "templates"
-}));
+})]);
+
 
 var atoms = atom({ indexes: indexes, pages: pages });
 
