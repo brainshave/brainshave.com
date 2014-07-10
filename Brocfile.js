@@ -9,7 +9,6 @@ var merge = require("./lib/copy");
 var stencil = require("broccoli-stencil");
 var less = require("broccoli-more");
 var concat = require("broccoli-concat");
-var copy = require("broccoli-static-compiler");
 
 var input_pages_w_headers = mds_w_headers("pages");
 var indexes = indexes(input_pages_w_headers, { template: "list" });
@@ -22,7 +21,6 @@ var root_pages = merge(["pages"], {
 
 var input_pages = merge([root_pages, indexes, input_pages_w_headers]);
 
-module.exports = input_pages;
 // Allow to use pages as partials
 var partials = merge([
   "partials",

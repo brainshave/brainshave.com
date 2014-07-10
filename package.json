@@ -1,5 +1,5 @@
 {
-  "name": "szywon.pl",
+  "name": "brainshave.com",
   "version": "1.1.0",
   "scripts": {
     "start": "broccoli serve --host '0.0.0.0'"
@@ -12,11 +12,8 @@
     "broccoli-cli": "*",
     "broccoli-more": "0.1",
     "broccoli-concat": "0.0",
-    "broccoli-filter": "0.1",
-    "broccoli-stencil": "^0.1.0",
-    "broccoli-dep-filter": "0.2",
-    "broccoli-merge-trees": "0.1",
-    "broccoli-static-compiler": "0.1",
+    "broccoli-stencil": "^0.3.0",
+    "broccoli-dep-filter": "^0.3.0",
     "walk-sync": "0.1",
     "quick-temp": "0.1",
     "mkdirp": "0.3",
