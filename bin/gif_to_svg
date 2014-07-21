@@ -33,7 +33,17 @@ function svg (img) {
   var pixmap = pixels(img);
   var orients = orientations(pixmap);
 
-  var path = trace(orients, w, h);
+  var coverage = new Array(h);
+  for (var i = 0; i < h; ++i) {
+    coverage[i] = new Array(w);
+  }
+
+  var paths = [];
+
+  do {
+    var path = trace(orients, coverage, w, h);
+    if (path) paths.push(path);
+  } while (path);
 
   return xml({
     svg: [{
@@ -43,25 +53,29 @@ function svg (img) {
         xmlns: "http://www.w3.org/2000/svg",
         version: "1.1"
       }
-    }, {
-      path: [{
-        _attr: {
-          d: path,
-          fill: "black"
-        }
-      }]
-    }]
+    }].concat(paths.map(function (path) {
+      return {
+        path: [{
+          _attr: {
+            d: path,
+            fill: "black"
+          }
+        }]
+      }
+    }))
   });
 }
 
-function trace (orients, w, h) {
+function trace (orients, coverage, w, h) {
   // find first point
   outer_loop:
   for (var y = 0; y < h; ++y) {
     for (var x = 0; x < w; ++x) {
-      if (orients[y][x]) break outer_loop;
+      if (orients[y][x] && !coverage[y][x]) break outer_loop;
     }
   }
+
+  if (x === w && y === h) return null;
 
   var start_x = x;
   var start_y = y;
@@ -71,6 +85,7 @@ function trace (orients, w, h) {
   var moves = [{ x: x, y: y }];
 
   do {
+    coverage[y][x] = true;
     var move = orients[y][x];
 
     // special case where we have to move leftwise from current
