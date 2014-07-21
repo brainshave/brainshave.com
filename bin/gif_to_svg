@@ -141,23 +141,12 @@ function clone (object) {
   return copy;
 }
 
-function sig (n) {
-  //console.log(n);
-  return n / Math.abs(n);
-}
-
 function orientations (pixels) {
   return pixels.map(function (row, y) {
     return row.map(function (_, x) {
       var code = orientation_code(pixels, x, y);
       return (ORIENTATIONS[code]);
     });
-  });
-}
-
-function inverse_code (code) {
-  return code.replace(/./g, function (c) {
-    return c === "1" ? "0" : "1";
   });
 }
 
