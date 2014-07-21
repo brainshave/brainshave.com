@@ -53,21 +53,19 @@ function svg (img) {
         xmlns: "http://www.w3.org/2000/svg",
         version: "1.1"
       }
-    }].concat(paths.map(function (path) {
-      return {
-        path: [{
-          _attr: {
-            d: path,
-            fill: "black"
-          }
-        }]
-      }
-    }))
+    },{
+      path: [{
+        _attr: {
+          d: paths.join(""),
+          fill: "black"
+        }
+      }]
+    }]
   });
 }
 
 function trace (orients, coverage, w, h) {
-  // find first point
+  // find starting point that hasn't been covered yet.
   outer_loop:
   for (var y = 0; y < h; ++y) {
     for (var x = 0; x < w; ++x) {
@@ -79,8 +77,6 @@ function trace (orients, coverage, w, h) {
 
   var start_x = x;
   var start_y = y;
-  var prev_x = x;
-  var prev_y = y;
 
   var moves = [{ x: x, y: y }];
 
@@ -96,8 +92,6 @@ function trace (orients, coverage, w, h) {
 
     moves.push(move);
 
-    prev_x = x;
-    prev_y = y;
     x += move.h || 0;
     y += move.v || 0;
 
