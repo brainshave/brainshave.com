@@ -88,7 +88,7 @@ function trace (orients, w, h) {
 
   } while (x !== start_x || y !== start_y);
 
-  return path(moves.slice(0, -1));
+  return path(optimize(moves.slice(0, -1)));
 }
 
 function next_move_ccw (move, dir) {
@@ -101,14 +101,49 @@ function next_move_ccw (move, dir) {
           : { v: -1 });
 }
 
+function optimize (moves) {
+  return moves.reduce(function (agg, move) {
+    move = clone(move);
+    var last = agg[agg.length - 1];
+    if (!last) {
+      agg.push(move);
+    } else if (last.v > 0 && move.v === 1) {
+      ++last.v;
+    } else if (last.v < 0 && move.v === -1) {
+      --last.v;
+    } else if (last.h > 0 && move.h === 1) {
+      ++last.h;
+    } else if (last.h < 0 && move.h === -1) {
+      --last.h;
+    } else {
+      agg.push(move);
+    }
+
+    return agg;
+  }, []);
+}
+
 function path (moves) {
   return moves.map(function (move) {
-    return (move.h
+    return ("h" in move
             ? "h" + move.h
-            : move.v
+            : "v" in move
             ? "v" + move.v
             : "M" + move.x + "," + move.y);
   }).join("") + "z";
+}
+
+function clone (object) {
+  var copy = {};
+  for (var name in object) {
+    copy[name] = object[name];
+  }
+  return copy;
+}
+
+function sig (n) {
+  //console.log(n);
+  return n / Math.abs(n);
 }
 
 function orientations (pixels) {
