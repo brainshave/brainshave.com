@@ -1,8 +1,27 @@
 #!/usr/bin/env node
 
+"use strict";
+
 var fs = require("fs");
 var GifReader = require("omggif").GifReader;
 var xml = require("xml");
+
+var ORIENTATIONS = {
+  "1000": { h: -1 },
+  "0100": { v: -1 },
+  "0010": { v:  1 },
+  "0001": { h:  1 },
+  "0111": { v: -1 },
+  "1011": { h:  1 },
+  "1101": { h: -1 },
+  "1110": { v:  1 },
+  "0011": { h:  1 },
+  "1100": { h: -1 },
+  "1010": { v:  1 },
+  "0101": { v: -1 },
+  "1001": { next: true },
+  "0110": { next: true }
+}
 
 var img = new GifReader(fs.readFileSync(process.argv[2]));
 
@@ -11,20 +30,10 @@ console.log(svg(img));
 function svg (img) {
   var w = img.width, h = img.height;
 
-  var data = new Uint8Array(w * h * 4);
-  img.decodeAndBlitFrameRGBA(0, data);
+  var pixmap = pixels(img);
+  var orients = orientations(pixmap);
 
-  var pixels = [];
-
-  for (var y = 0; y < h; ++y) {
-    for (var x = 0; x < w; ++x) {
-      if (data[(y * w + x) * 4 + 3] > 0) {
-        pixels.push({
-          rect: { _attr: { x: x, y: y, width: 1, height: 1 } }
-        });
-      }
-    }
-  }
+  var path = trace(orients, w, h);
 
   return xml({
     svg: [{
@@ -34,7 +43,110 @@ function svg (img) {
         xmlns: "http://www.w3.org/2000/svg",
         version: "1.1"
       }
-    }].concat(pixels)
-  }, {
+    }, {
+      path: [{
+        _attr: {
+          d: path,
+          fill: "black"
+        }
+      }]
+    }]
   });
+}
+
+function trace (orients, w, h) {
+  // find first point
+  outer_loop:
+  for (var y = 0; y < h; ++y) {
+    for (var x = 0; x < w; ++x) {
+      if (orients[y][x]) break outer_loop;
+    }
+  }
+
+  var start_x = x;
+  var start_y = y;
+  var prev_x = x;
+  var prev_y = y;
+
+  var moves = [{ x: x, y: y }];
+
+  do {
+    var move = orients[y][x];
+
+    // special case where we have to move leftwise from current
+    // direction.
+    if (move.next) {
+      move = next_move_ccw(moves[moves.length - 1]);
+    }
+
+    moves.push(move);
+
+    prev_x = x;
+    prev_y = y;
+    x += move.h || 0;
+    y += move.v || 0;
+
+  } while (x !== start_x || y !== start_y);
+
+  return path(moves.slice(0, -1));
+}
+
+function next_move_ccw (move, dir) {
+  return (move.v === -1
+          ? { h: -1 }
+          : move.h === -1
+          ? { v: 1 }
+          : move.v === 1
+          ? { h: 1 }
+          : { v: -1 });
+}
+
+function path (moves) {
+  return moves.map(function (move) {
+    return (move.h
+            ? "h" + move.h
+            : move.v
+            ? "v" + move.v
+            : "M" + move.x + "," + move.y);
+  }).join("") + "z";
+}
+
+function orientations (pixels) {
+  return pixels.map(function (row, y) {
+    return row.map(function (_, x) {
+      var code = orientation_code(pixels, x, y);
+      return (ORIENTATIONS[code]);
+    });
+  });
+}
+
+function inverse_code (code) {
+  return code.replace(/./g, function (c) {
+    return c === "1" ? "0" : "1";
+  });
+}
+
+function orientation_code (pixels, x, y) {
+  return [((pixels[y-1] || [])[x-1] || 0),
+          ((pixels[y-1] || [])[x] || 0),
+          ((pixels[y] || [])[x-1] || 0),
+          ((pixels[y] || [])[x] || 0)].join("");
+}
+
+function pixels (img) {
+  var w = img.width, h = img.height;
+
+  var data = new Uint8Array(w * h * 4);
+  img.decodeAndBlitFrameRGBA(0, data);
+
+  var pixmap = new Array(h);
+
+  for (var y = 0; y < h; ++y) {
+    pixmap[y] = new Array(w);
+    for (var x = 0; x < w; ++x) {
+      pixmap[y][x] = (data[(y * w + x) * 4 + 3] > 0) ? 1 : 0;
+    }
+  }
+
+  return pixmap;
 }
