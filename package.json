@@ -21,6 +21,6 @@
     "xml": "0.0",
     "omggif": "1",
     "promise-map-series": "0.2",
-    "sharpvg": "^0.1.0"
+    "sharpvg": "^0.2.0"
   }
 }
