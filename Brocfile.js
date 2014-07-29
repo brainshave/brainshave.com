@@ -6,7 +6,7 @@ var beauty = require("./lib/beauty");
 var atom = require("./lib/atom");
 var merge = require("./lib/copy");
 
-var stencil = require("broccoli-stencil");
+var zetzer = require("broccoli-zetzer");
 var less = require("broccoli-more");
 var concat = require("broccoli-concat");
 
@@ -27,7 +27,7 @@ var partials = merge([
   input_pages
 ]);
 
-var pages = beauty([stencil({
+var pages = beauty([zetzer({
   pages:     input_pages,
   partials:  partials,
   templates: "templates"
