@@ -26,6 +26,6 @@ function css {
 }
 
 for name in $list; do
-  node_modules/.bin/sharpvg icons/$name.gif > icons/$name.svg
+  node_modules/.bin/sharpvg icons/$name.gif | node_modules/.bin/svgo -i - -o - > icons/$name.svg
   css $name
 done > styles/icons_files.less
