@@ -175,6 +175,21 @@ article {
       content: "❖ ";
     }
   }
+
+  .flat, .flat li {
+    list-style: none;
+    margin:     0;
+    padding:    0;
+
+    &:before {
+      display: none;
+    }
+
+    a.icon {
+      padding-left: 22px;
+    }
+  }
+
 }
 
 .comments {
