@@ -1,35 +1,32 @@
-.b (@anchor, @hover, @shadow_text) {
+.b (@anchor, @hover) {
   &, &:visited { color: @anchor; }
 
   &:hover, &:active {
     color: @hover;
-    text-shadow: @shadow_text;
   }
 }
 
-.a (@anchor, @hover, @shadow_text) {
-  a { .b(@anchor, @hover, @shadow_text); }
+.a (@anchor, @hover) {
+  a { .b(@anchor, @hover); }
 }
 
-.theme(@back, @front, @anchor, @hover, @shadow) {
+.theme(@back, @front, @anchor, @hover) {
   color: @front;
   background: @back;
 
-  @a_shadow: 0 0 1em @shadow;
-
-  .a(@anchor, @hover, @a_shadow);
+  .a(@anchor, @hover);
 
   a.icon {
-    .b(@front, @hover, @a_shadow);
+    .b(@front, @hover);
   }
 
   h1 {
-    .a(@front, mix(@front, @hover), 0 0 0.5em mix(@front, @shadow, 0.7));
+    .a(@front, mix(@front, @hover));
   }
 
   footer, .small, .parenthesis, .date {
     color: mix(@front, @back, 50%);
-    .a(mix(@anchor, @back, 60%), mix(@hover, @back, 70%), none);
+    .a(mix(@anchor, @back, 60%), mix(@hover, @back, 70%));
   }
 
   blockquote:before {
@@ -44,7 +41,7 @@
     background: linear-gradient(to right, fade(@back, 0), @back);
   }
 
-  #top { .a(@front, @hover, none); }
+  #top { .a(@front, @hover); }
 
   #logo {
     & > div {
@@ -64,17 +61,17 @@
 }
 
 .dark {
-  .theme(#333338, #fffff5, #9ee, #0ff, #fff);
+  .theme(#333338, #fffff5, #9ee, #0ff);
 }
 
 .black {
-  .theme(#000, #aaa, #9aa, #0ff, #fff);
+  .theme(#000, #aaa, #9aa, #0ff);
 }
 
 .light {
-  .theme(#fff, #000, #088, #0cc, #0ff);
+  .theme(#fff, #000, #ff0219, #ff7302);
 }
 
 .red {
-  .theme(#422, #fda, #ffa, #fff, #ff0);
+  .theme(#422, #fda, #ffa, #fff);
 }
