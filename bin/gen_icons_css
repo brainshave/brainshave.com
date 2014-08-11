@@ -3,9 +3,9 @@
 mkdir -p icons
 convert resources/icons.gif -crop 16x15 +repage icons/%d.gif
 
-list="head bug archive rss photos twitter github npm mail brainshave"
+list="head bug archive rss photos twitter github npm mail brainshave linkedin"
 
-rm icons/{10,11}.gif
+rm icons/11.gif
 
 i=0
 for name in $list; do
