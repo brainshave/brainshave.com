@@ -23,7 +23,7 @@ article, section, footer {
   display: block;
 }
 
-p, ul, ol, pre, dl {
+p, ul, ol, pre, dl, figure {
   margin: 18px 0;
 }
 
@@ -106,7 +106,7 @@ a {
   .transition("color 0.25s, text-shadow 1s");
 }
 
-a.icon {
+a.icon, label.meta, figcaption {
   font-family: @code_fonts;
 }
 
@@ -114,7 +114,7 @@ a.icon {
   text-transform: uppercase;
 }
 
-dd, .meta {
+dd, .meta, figcaption {
   font-size: 14px;
 }
 
@@ -128,6 +128,10 @@ sup {
   position:       relative;
   font-size:      15px;
   top:            4px;
+}
+
+figure {
+  text-align: center;
 }
 
 article {
