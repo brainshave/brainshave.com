@@ -1,4 +1,4 @@
-# Pixel tracing
+# Tracing pixels
 
 London, 2014-08-20.
 
@@ -21,8 +21,8 @@ my uni) was to, for every dot between four pixels (a corner), find all
 possible situations ([fig. 1](#fig1)) and decide where the path will follow.
 
 <figure id="fig1">
-  <object data="pixel-tracing-images/moves.svg" type="image/svg+xml">
-    <img src="pixel-tracing-images/moves.png">
+  <object data="tracing-pixels-images/moves.svg" type="image/svg+xml">
+    <img src="tracing-pixels-images/moves.png">
   </object>
   <figcaption>
     fig. 1: Possible moves
@@ -54,8 +54,8 @@ form ([fig. 2](#fig2)).
 
 <figure id="fig2">
   <object id="pixel_tracing_example"
-          data="pixel-tracing-images/n.svg" type="image/svg+xml">
-    <img src="pixel-tracing-images/n.png">
+          data="tracing-pixels-images/n.svg" type="image/svg+xml">
+    <img src="tracing-pixels-images/n.png">
   </object>
 
   <figcaption>
@@ -68,15 +68,15 @@ Now if we try to apply the moves to the letter "n" we'll get what's on
 
 <figure id="fig3">
   <object id="pixel_tracing_example"
-          data="pixel-tracing-images/steps.svg"
+          data="tracing-pixels-images/steps.svg"
           type="image/svg+xml"
           style="position: absolute; z-index: 1;">
-    <img src="pixel-tracing-images/steps.png">
+    <img src="tracing-pixels-images/steps.png">
   </object>
   <object id="pixel_tracing_example"
-          data="pixel-tracing-images/n.svg"
+          data="tracing-pixels-images/n.svg"
           type="image/svg+xml">
-    <img src="pixel-tracing-images/n.png">
+    <img src="tracing-pixels-images/n.png">
   </object>
 
   <figcaption>
