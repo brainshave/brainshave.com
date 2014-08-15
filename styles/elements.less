@@ -106,21 +106,21 @@ a {
   .transition("color 0.25s, text-shadow 1s");
 }
 
-a.icon, label.meta, figcaption {
+.icon, .meta, figcaption {
   font-family: @code_fonts;
 }
 
-.meta {
+.icon.meta, .meta .icon {
   text-transform: uppercase;
 }
 
 dd, .meta, figcaption {
   font-size: 14px;
+  line-height: 21px;
 }
 
 dd {
   margin: 0 0 @margin 0;
-  line-height: 21px;
 }
 
 sup {
@@ -130,12 +130,8 @@ sup {
   top:            4px;
 }
 
-figure {
+.center, figcaption {
   text-align: center;
-}
-
-figcaption {
-  line-height: 20px;
 }
 
 article {

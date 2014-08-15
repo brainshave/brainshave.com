@@ -1,24 +1,21 @@
 <svg width="216" height="216" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-  <g class="steps">
-    <use width="54" height="54" xlink:href="moves.svg#one" transform="rotate(180, 27, 27)"/>
-    <use width="54" height="54" xlink:href="moves.svg#wall" transform="translate(54)"/>
-    <use width="54" height="54" xlink:href="moves.svg#one" transform="translate(108) rotate(270, 27, 27)"/>
 
-    <use width="54" height="54" xlink:href="moves.svg#turn" transform="translate(108, 54)"/>
-    <use width="54" height="54" xlink:href="moves.svg#one" transform="translate(162, 54) rotate(270, 27, 27)"/>
-    <use width="54" height="54" xlink:href="moves.svg#wall" transform="translate(162, 108) rotate(90, 27, 27)"/>
+  <use xlink:href="n-big.svg#pixels" width="216" height="216" y="0" x="0"/>
 
-    <use width="54" height="54" xlink:href="moves.svg#one" transform="translate(162, 162)"/>
-    <use width="54" height="54" xlink:href="moves.svg#one" transform="translate(108, 162) rotate(90, 27, 27)"/>
-
-    <use width="54" height="54" xlink:href="moves.svg#wall" transform="translate(108, 108) rotate(270, 27, 27)"/>
-
-    <use width="54" height="54" xlink:href="moves.svg#three" transform="translate(54, 54) rotate(180, 27, 27)"/>
-    <use width="54" height="54" xlink:href="moves.svg#wall" transform="translate(54, 108) rotate(90, 27, 27)"/>
-    <use width="54" height="54" xlink:href="moves.svg#one" transform="translate(54, 162)"/>
-    <use width="54" height="54" xlink:href="moves.svg#one" transform="translate(0, 162) rotate(90, 27, 27)"/>
-    <use width="54" height="54" xlink:href="moves.svg#wall" transform="translate(0, 108) rotate(270, 27, 27)"/>
-    <use width="54" height="54" xlink:href="moves.svg#wall" transform="translate(0, 54) rotate(270, 27, 27)"/>
-  </g>
-
+  <use xlink:href="moves.svg#move0001" width="54" height="54" y="0" x="0"/>
+  <use xlink:href="moves.svg#move0011" width="54" height="54" y="0" x="54"/>
+  <use xlink:href="moves.svg#move0010" width="54" height="54" y="0" x="108"/>
+  <use xlink:href="moves.svg#move1001" width="54" height="54" y="54" x="108"/>
+  <use xlink:href="moves.svg#move0010" width="54" height="54" y="54" x="162"/>
+  <use xlink:href="moves.svg#move1010" width="54" height="54" y="108" x="162"/>
+  <use xlink:href="moves.svg#move1000" width="54" height="54" y="162" x="162"/>
+  <use xlink:href="moves.svg#move0100" width="54" height="54" y="162" x="108"/>
+  <use xlink:href="moves.svg#move0101" width="54" height="54" y="108" x="108"/>
+  <!-- reusing the move1001 -->
+  <use xlink:href="moves.svg#move1110" width="54" height="54" y="54" x="54"/>
+  <use xlink:href="moves.svg#move1010" width="54" height="54" y="108" x="54"/>
+  <use xlink:href="moves.svg#move1000" width="54" height="54" y="162" x="54"/>
+  <use xlink:href="moves.svg#move0100" width="54" height="54" y="162" x="0"/>
+  <use xlink:href="moves.svg#move0101" width="54" height="54" y="108" x="0"/>
+  <use xlink:href="moves.svg#move0101" width="54" height="54" y="54" x="0"/>
 </svg>

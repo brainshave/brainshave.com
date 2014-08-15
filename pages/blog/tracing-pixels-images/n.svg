@@ -1,16 +1,1 @@
-<svg width="216" height="216" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
-  <defs>
-    <symbol id="pixel" viewBox="0 0 27 27">
-      <rect x="1" y="1" width="25" height="25" fill="#888888" />
-    </symbol>
-  </defs>
-
-  <g class="pixels">
-    <use x="27" y="27" width="54" height="54" xlink:href="#pixel" />
-    <use x="81" y="27" width="54" height="54" xlink:href="#pixel" />
-    <use x="135" y="81" width="54" height="54" xlink:href="#pixel" />
-    <use x="135" y="135" width="54" height="54" xlink:href="#pixel" />
-    <use x="27" y="81" width="54" height="54" xlink:href="#pixel" />
-    <use x="27" y="135" width="54" height="54" xlink:href="#pixel" />
-  </g>
-</svg>
+<svg width="3" height="3" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h2v1h1v2h-1v-2h-1v2h-1z" fill="#777777"/></svg>

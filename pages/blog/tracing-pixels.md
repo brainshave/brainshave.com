@@ -10,174 +10,150 @@ out it might be also the best way to serve pixel art. Why?  Because
 all other options require either `<canvas>`+JavaScript hacks or don't
 work in all browsers (CSS solutions).
 
-This post describes a simple algorithm that [SharpVG] [sharpvg] uses to trace
-pixel shapes.
+This post describes a simple algorithm that [SharpVG] [sharpvg] uses
+to trace pixel shapes.
 
-## The idea
+## Intuition
 
-The key thing which came from intuition (which came
-probably from some earlier experience with path-finding algorithms at
-my uni) was to, for every dot between four pixels (a corner), find all
-possible situations ([fig. 1](#fig1)) and decide where the path will follow.
+Lets start with a simple shape. A pixelated letter "n". Then, we'll
+trace it using our, well, intuition. [Figure 1](#fig1) is showing the
+very simple pixelated representation of the letter. If we start from left top corner `0,0` and start moving clockwise, the trace will look like on the [figure 2](#fig2).
 
-<figure id="fig1">
+<figure id="fig1" class="center">
+  <object data="tracing-pixels-images/n-big.svg" type="image/svg+xml">
+    <img src="tracing-pixels-images/n-big.png">
+  </object>
+
+  <figcaption>
+    fig. 1: Our hero: pixelated letter "n".
+  </figcaption>
+</figure>
+
+<figure id="fig2" class="center">
+  <object data="tracing-pixels-images/steps.svg"
+          type="image/svg+xml">
+    <img src="tracing-pixels-images/steps.png">
+  </object>
+
+  <figcaption>
+    fig. 2: Steps of going around the letter "n".
+  </figcaption>
+</figure>
+
+Lets now list the steps and encode them with the moves they represent
+([fig. 3](#fig3)). Horizontal moves will be represented with letter
+`h` and vertical with `v`. Each move is one step in either direction
+so it will have value either 1 or -1. Given that `0,0` is in the top
+left corner, `h1` means right, `h-1` is left, `v1` means down and
+`v-1` is up.
+
+<figure id="fig3" class="center">
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move0001wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move0011wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move0010wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move1001wl_right" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move0010wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move1010wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move1000wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move0100wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move0101wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move1001wl_left" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move1110wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move1010wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move1000wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move0100wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move0101wl" />
+  </svg>
+  <svg width="27" height="40">
+    <use xlink:href="tracing-pixels-images/moves.svg#move0101wl" />
+  </svg>
+
+  <figcaption>
+    fig. 3: "n" traced, sorted
+  </figcaption>
+</figure>
+
+This is exactly how we'd describe a path in SVG, using relative
+movements (think [LOGO] [logo] but without rotation). We mark the
+starting point with absolute "move there" command, in this case to
+point `0,0` so in SVG it'll be `M 0 0`.
+
+The full path looks like on [figure 4](#fig4).
+
+<figure id="fig4">
+  <code>M 0 0 h1 h1 v1 h1 v1 v1 h-1 v-1 v-1 h-1 v1 v1 h-1 v-1 v-1 v-1</code>
+
+  <figcaption>
+    fig. 4: The full uncompressed path for the letter "n".
+  </figcaption>
+</figure>
+
+Path syntax is a little mini-language that's meant to live inside the
+`d` attribute of `<path>` elements. So full SVG's source looks
+like on [figure 5](#fig5) and the image itself is the [figure 6](#fig6).
+
+<figure id="fig5">
+  <pre><code>&lt;svg width="3" height="3"
+     xmlns="ht<span>tp://</span>www.w3.org/2000/svg"&gt;
+  &lt;path d="M0 0h2v1h1v2h-1v-2h-1v2h-1z" fill="#777777"/&gt;
+&lt;/svg&gt;</code></pre>
+
+  <figcaption>
+    fig. 5: Full SVG source.
+  </figcaption>
+</figure>
+
+<figure id="fig6" class="center">
+  <img src="tracing-pixels-images/n.svg" width="186" height="186">
+
+  <figcaption>
+    fig. 6: The resulting SVG image (scaled up).
+  </figcaption>
+</figure>
+
+You might notice that the path in the SVG image is a bit
+different. [SharpVG] [sharpvg] is compressing the output by combining
+neighbouring moves if they're the same, for example `h1 h1` will
+become `h2` in the output.
+
+<figure id="figx" class="center">
   <object data="tracing-pixels-images/moves.svg" type="image/svg+xml">
     <img src="tracing-pixels-images/moves.png">
   </object>
-  <figcaption>
-    fig. 1: Possible moves
-  </figcaption>
-</figure>
-
-My first attempt was actually a bit different: each arrow was
-double-ended and before the decision where to go next I was basically
-picking any move that wasn't going immediately going back. That didn't
-help because in some cases I got into infinite loops anyway. We would
-need to check *all* previous moves.
-
-So my second approach was to have only one possible move for every
-situation with two exceptions which I'll mention in a second. I've
-assumed clockwise direction when going around an object. That
-simplified the whole thing because we don't need to consider all
-previous moves any more.
-
-The two exceptions are the last two moves from the
-[fig. 1](#fig1). Instead of telling exactly which way to go
-they basically say "turn left" so for these we calculate the move from
-the previous one.
-
-The algorithm finds the first corner that has any of the known
-situations and follows the shape around to the beginning.
-
-As an example, lets trace the letter "n" in it's simplest pixelated
-form ([fig. 2](#fig2)).
-
-<figure id="fig2">
-  <object id="pixel_tracing_example"
-          data="tracing-pixels-images/n.svg" type="image/svg+xml">
-    <img src="tracing-pixels-images/n.png">
-  </object>
 
   <figcaption>
-    fig. 2: Our hero: pixelated letter "n".
+    fig. X: Possible moves
   </figcaption>
 </figure>
-
-Now if we try to apply the moves to the letter "n" we'll get what's on
-[fig. 3](#fig3).
-
-<figure id="fig3">
-  <object id="pixel_tracing_example"
-          data="tracing-pixels-images/steps.svg"
-          type="image/svg+xml"
-          style="position: absolute; z-index: 1;">
-    <img src="tracing-pixels-images/steps.png">
-  </object>
-  <object id="pixel_tracing_example"
-          data="tracing-pixels-images/n.svg"
-          type="image/svg+xml">
-    <img src="tracing-pixels-images/n.png">
-  </object>
-
-  <figcaption>
-    fig. 3: Steps of going around the letter "n".
-  </figcaption>
-</figure>
-
-The tracing ends once we get back to the starting point, i.e. we
-"close the loop".
-
-## Algorithm outline
-
-One path is not enough. Almost any picture has more than one shapes
-that need to be traced. We know what happens once we found a starting
-point for a path but we need to find them all.
-
-One the higher level, the algorithm looks like this:
-
-1. Scan the image, start with point `0,0`, going through every
-row. Once a corner is found, start tracing.
-
-2. Trace the shape, marking every point we go through as *visited*.
-
-3. Continue scanning until we find another corner that was not yet
-*visited* or until we reach end of the image.
-
-   1. If an unvisited corner is found, trace the new shape. (goto 2)
-   2. If we reach end of the image, finish.
-
-Marking as *visited* is necessary so that we never trace the same
-shape twice (from a different starting point, for example).
-
-## Colour
-
-Until now, we've been dealing with 1-bit images. Colour is actually
-easy. We just need treat each colour as a separate image. For that,
-SharpVG is actually splitting them to 1-bit images for each colour and
-then pushing through the algorithm. (This might change in the future
-as it's quite memory-hungry but the concept will remain: treat each
-colour as a separate image.)
-
-## Shapes with holes in them
-
-Some shapes, like letter "o", will be detected as two separate shapes
-(one for the external circle, one for the internal one). Normally that
-would result in the internal shape being overlapped by the external
-one. But if we put them as one path in SVG we can leverage the
-`nonzero` fill rule. More on this in the [SVG documentation on fill
-properties] [fill_props].
-
-## To SVG paths
-
-Paths in SVG are represented by (surprise!) the `<path>` element. Two
-attributes we're interested in are `d` and `fill`. `d` is the *data*
-of the path, basically the path's shape definition. It's a
-mini-language on its own right and it describes the directions where
-to go to paint every point of the path. (If you know LOGO and you're
-thinking turtles now, you're not very far from what `d` is.)
-
-Each shape (one per colour) will be reflected in the final SVG by one
-path. Each starting point of the shape will be represented as `Mx y`
-where x and y pair is the position of the starting point. SVG already
-has notion of relative moves (lowercase `h` and `v` in the path
-definition). That's makes it easy, once we have a path encoded as
-series of moves, to convert to SVG path.
-
-For example a simple square from point `3,5` will look like this:
-
-    M3 5h1v1h-1v-1
-
-Each `<path>` element will consist of all shapes for the given colour
-of the image. (So it will have multiple `M` starting points.)
-
-Last part is compression of the path. For example if we have a
-straight line many-pixels long, we'll have something like:
-
-    …h1h1h1h1v-1v-1v-1…
-
-Instead it's better to have:
-
-    …h4v-3…
-
-Right? It has another advantage: sometimes our input will be already
-scaled up version of the image. This way we don't need to scale it
-down to one-pixel per square size to have a sane file size on the
-resulting SVG.
-
-## Wrapping up
-
-Illustrations for this article started as hand-pixelled GIFs in
-GIMP. I figured out that I can just draw four different moves, convert
-them to SVG and then compose with rotations (by hand, it's not that
-scary actually). This is how [fig. 1](#fig1) was created (check out
-its source). Each row is the same shape replicated four times. I
-recommend these articles by [Sara Soueidan] [sara] on the [reusing
-shapes] [use] and on [transformations] [trans].
-
-All described steps are coded in the SharpVG.
 
 [sharpvg]: https://github.com/brainshave/sharpvg
-[fill_props]: http://www.w3.org/TR/SVG/painting.html#FillProperties
-[sara]: http://sarasoueidan.com/
-[use]: http://sarasoueidan.com/blog/structuring-grouping-referencing-in-svg/
-[trans]: http://sarasoueidan.com/blog/svg-transformations/
+[logo]: http://en.wikipedia.org/wiki/Logo_(programming_language)
