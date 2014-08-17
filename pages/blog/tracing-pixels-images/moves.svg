@@ -115,15 +115,15 @@
     </symbol>
   </defs>
 
-  <use xlink:href="#move1000" width="54" height="54" y="0" x="0"/>
-  <use xlink:href="#move0100" width="54" height="54" y="0" x="54"/>
-  <use xlink:href="#move0010" width="54" height="54" y="0" x="108"/>
-  <use xlink:href="#move0001" width="54" height="54" y="0" x="162"/>
+  <use xlink:href="#move0001" width="54" height="54" y="0" x="0"/>
+  <use xlink:href="#move0010" width="54" height="54" y="0" x="54"/>
+  <use xlink:href="#move1000" width="54" height="54" y="0" x="108"/>
+  <use xlink:href="#move0100" width="54" height="54" y="0" x="168"/>
 
-  <use xlink:href="#move0111" width="54" height="54" y="54" x="0"/>
-  <use xlink:href="#move1011" width="54" height="54" y="54" x="54"/>
-  <use xlink:href="#move1101" width="54" height="54" y="54" x="108"/>
-  <use xlink:href="#move1110" width="54" height="54" y="54" x="162"/>
+  <use xlink:href="#move1110" width="54" height="54" y="54" x="0"/>
+  <use xlink:href="#move1101" width="54" height="54" y="54" x="54"/>
+  <use xlink:href="#move0111" width="54" height="54" y="54" x="108"/>
+  <use xlink:href="#move1011" width="54" height="54" y="54" x="164"/>
 
   <use xlink:href="#move0011" width="54" height="54" y="108" x="0"/>
   <use xlink:href="#move1100" width="54" height="54" y="108" x="54"/>
