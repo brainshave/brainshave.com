@@ -11,7 +11,7 @@ all other options require either `<canvas>`+JavaScript hacks or don't
 work in all browsers (CSS solutions).
 
 This post describes a simple algorithm that [SharpVG] [sharpvg] uses
-to trace pixel shapes. Accidentally, at the same time we're explaining
+to trace pixel shapes. At the same time, accidentally, we're explaining
 a bit of the SVG's path syntax and cutting holes in shapes with the
 `nonzero` fill rule.
 
@@ -49,7 +49,7 @@ so it will have value either 1 or -1. Given that `0,0` is in the top
 left corner, `h1` means right, `h-1` is left, `v1` means down and
 `v-1` is up. (Think [LOGO] [logo] but without rotation.)
 
-<figure id="fig3" class="center">
+<figure id="fig3">
   <svg width="27" height="40">
     <use xlink:href="tracing-pixels-images/moves.svg#move0001wl" />
   </svg>
@@ -217,7 +217,7 @@ the [SVG docs on fill properties] [fill].
 Notice that, the inside of the letter "n" runs counter-clockwise while
 the outside of "n" runs clockwise ([fig 2.](#fig2)). If we close the
 "n", we'll get an "o" as on [figure 8](#fig8) and now it's even more
-apparent in which way things go.
+apparent which ways things go.
 
 <figure id="fig8" class="center">
   <object data="tracing-pixels-images/hole.svg" type="image/svg+xml">
@@ -230,10 +230,10 @@ apparent in which way things go.
 </figure>
 
 Actually, I've discovered this by accident. I wasn't thinking yet
-about how to cut the holes but while trying to compress the output a
-bit by combining paths into one `<path>` element it "magically" all
-came into place. Then I've started researching why it's doing this
-much rightful thing :-)
+about hole-cutting but while trying to compress the output a bit by
+combining paths into one `<path>` element, it "magically" all came into
+place. Then I've started researching why it's doing this much rightful
+thing :-)
 
 ## Colour
 
