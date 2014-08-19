@@ -15,6 +15,8 @@ to trace pixel shapes. At the same time, accidentally, we're explaining
 a bit of the SVG's path syntax and cutting holes in shapes with the
 `nonzero` fill rule.
 
+<div style="display: none;" data-load-modules="szywon.fix_svg_pos"></div>
+
 <!-- SVG assets library for this article -->
 <svg width="0" height="0" version="1.1"
      style="display: none;"
@@ -140,7 +142,6 @@ a bit of the SVG's path syntax and cutting holes in shapes with the
     </symbol>
   </defs>
 </svg>
-
 <!-- end of the SVG asset library -->
 
 ## Intuition
@@ -148,8 +149,6 @@ a bit of the SVG's path syntax and cutting holes in shapes with the
 Lets start with a simple shape. A pixelated letter "n". Then, we'll
 trace it using our, well, intuition. [Figure 1](#fig1) is showing the
 very simple pixelated representation of the letter. If we start from left top corner `0,0` and start moving clockwise, the trace will look like on the [figure 2](#fig2).
-
-
 
 <figure id="fig1" class="center">
   <svg width="216" height="216" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
