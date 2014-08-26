@@ -1,19 +1,21 @@
 # Tracing pixels
 
-London, 2014-08-20.
+London, 2014-08-26.
 
 There are many reasons to use SVG: for sprites, fonts, vector
 graphics, etc. Currently developers are not giving it enough credit
-(we're catching up). The reason we'll be focusing here is somewhat
-different. After reading some [research] [state] and experimentation
-it turns out it might be also the best way to serve pixel art. Why?
-Because all other options require either `<canvas>`+JavaScript hacks
-or don't work in all browsers (CSS solutions).
+(we're catching up). The use case we'll be focusing here is somewhat
+different. After checking some [research] [state] and own
+experimentation it turns out it might be also the best way to serve
+pixel art. Why? Because all other options require either
+`<canvas>`+JavaScript hacks or don't work in all browsers (CSS
+solutions, which are still [not supported by Chrome and IE]
+[image-rendering]).
 
-This post describes a simple algorithm that [SharpVG] [sharpvg] uses
-to trace pixel shapes. At the same time, accidentally, we're explaining
-a bit of the SVG's path syntax and cutting holes in shapes with the
-`nonzero` fill rule.
+TLDR: This post describes a simple algorithm that [SharpVG] [sharpvg]
+uses to trace pixel shapes. Accidentally, at the same time we're
+explaining a bit of the SVG's path syntax and how to cut holes in
+shapes with the `nonzero` fill rule.
 
 <div style="display: none;" data-load-modules="szywon.fix_svg_pos"></div>
 
@@ -146,9 +148,10 @@ a bit of the SVG's path syntax and cutting holes in shapes with the
 
 ## Intuition
 
-Lets start with a simple shape. A pixelated letter "n". Then, we'll
-trace it using our, well, intuition. [Figure 1](#fig1) is showing the
-very simple pixelated representation of the letter. If we start from left top corner `0,0` and start moving clockwise, the trace will look like on the [figure 2](#fig2).
+Lets start with a simple shape and trace it intuitively. A pixelated
+letter "n" will do, shown on the [figure 1](#fig1). If we start from
+top left corner `0,0` and begin moving clockwise, the trace will look
+like on the [figure 2](#fig2).
 
 <figure id="fig1" class="center">
   <svg width="216" height="216" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
@@ -163,7 +166,9 @@ very simple pixelated representation of the letter. If we start from left top co
   </svg>
 
   <figcaption>
-    fig. 1: Our hero: pixelated letter "n".
+    fig. 1: Our hero: pixels of the letter "n"<br>
+
+    (spaces between them are just for illustration purposes)
   </figcaption>
 </figure>
 
@@ -191,16 +196,16 @@ very simple pixelated representation of the letter. If we start from left top co
   </svg>
 
   <figcaption>
-    fig. 2: Steps of going around the letter "n".
+    fig. 2: Steps of going around the letter "n"
   </figcaption>
 </figure>
 
 Lets now list the steps and encode them with the moves they represent
-([fig. 3](#fig3)). Horizontal moves will be represented with letter
-`h` and vertical with `v`. Each move is one step in either direction
-so it will have value either 1 or -1. Given that `0,0` is in the top
-left corner, `h1` means right, `h-1` is left, `v1` means down and
-`v-1` is up. (Think [LOGO] [logo] but without rotation.)
+as in SVG paths ([fig. 3](#fig3)). Horizontal moves are represented
+with letter `h`, vertical with `v`. Each time we move one pixel so it
+will have value either 1 or -1. Given that `0,0` is in the top left corner,
+ `h1` means right, `h-1` is left, `v1` means down and `v-1` is
+up. (Think [LOGO] [logo] but without rotation.)
 
 <figure id="fig3">
   <svg width="27" height="40">
@@ -253,26 +258,26 @@ left corner, `h1` means right, `h-1` is left, `v1` means down and
   </svg>
 
   <figcaption>
-    fig. 3: "n" steps with SVG directions.
+    fig. 3: "n" steps with SVG directions
   </figcaption>
 </figure>
 
 We can notice that <svg width="27" height="27"><use xlink:href="#move1001"></use></svg>
-is first `h1` and then `h-1`. The direction in which we'll go depends
-from where we're coming. It basically says "turn left".
+is first `h1` and then `h-1`. The direction in which we'll go depends on
+where we're coming from. It basically says "turn left".
 If we come from above, we go right (`h1`).
-If we come from under we go left (`h-1`).
-Same goes for <svg width="27" height="27"><use xlink:href="#move0110"></use></svg>
-where we're also turning left, but we go `v1` or `v-1`.
-These are the only instances where we need to base next move on the
-previous one because we can get ourselves in to these situations from two
-directions. Other situations are free from this ambiguity.
+If we come from below, we go left (`h-1`).
+The same logic goes for <svg width="27" height="27"><use
+xlink:href="#move0110"></use></svg> where we're also turning left, but
+we go `v1` or `v-1`.  These are the only two instances where we need to
+base next move on the previous one because we can get ourselves in to
+these situations from two directions. Other situations are free from
+this ambiguity.
 
-I've used this notation because it's exactly the path syntax in SVG,
-using relative movements. We mark the starting point with absolute
-"move to" command, in this case to point `0,0` so in SVG it'll be `M 0
-0`. Because the last move is ending at the starting point, we might as
-well replace it with `z` to close the path.
+We mark the starting point with absolute "move to" command, in this
+case to point `0,0` so in SVG it'll be `M 0 0`. Because the last move
+is ending at the starting point, we might as well replace it with `z`
+to close the path.
 
 The full path looks like on [figure 4](#fig4).
 
@@ -280,12 +285,12 @@ The full path looks like on [figure 4](#fig4).
   <code>M 0 0 h1 h1 v1 h1 v1 v1 h-1 v-1 v-1 h-1 v1 v1 h-1 v-1 v-1 z</code>
 
   <figcaption>
-    fig. 4: The full uncompressed path for the letter "n".
+    fig. 4: The full uncompressed path for the letter "n"
   </figcaption>
 </figure>
 
 Path syntax is a little mini-language that's meant to live inside the
-`d` (data) attribute of `<path>` elements. So full source of the image
+`d` (data) attribute of `<path>` elements. Full source of the image
 looks like on [figure 5](#fig5) and the image itself is the [figure
 6](#fig6).
 
@@ -296,7 +301,7 @@ looks like on [figure 5](#fig5) and the image itself is the [figure
 &lt;/svg&gt;</code></pre>
 
   <figcaption>
-    fig. 5: Full SVG source.
+    fig. 5: Full SVG source
   </figcaption>
 </figure>
 
@@ -306,7 +311,7 @@ looks like on [figure 5](#fig5) and the image itself is the [figure
   </svg>
 
   <figcaption>
-    fig. 6: The resulting SVG image (scaled up &times;54).
+    fig. 6: The resulting SVG image (scaled up &times;54)
   </figcaption>
 </figure>
 
@@ -425,11 +430,11 @@ apparent which ways things go.
   </figcaption>
 </figure>
 
-Actually, I've discovered this by accident. I wasn't thinking yet
-about hole-cutting but while trying to compress the output a bit by
-combining paths into one `<path>` element, it "magically" all came into
-place. Then I've started researching why it's doing this much rightful
-thing :-)
+Actually, I've discovered the effects of `nonzero` by accident. I
+wasn't thinking yet about hole-cutting but while trying to compress
+the output a bit by combining paths into one `<path>` element, it
+"magically" all came into place. Then I've started researching why
+it's doing this much rightful thing :-)
 
 ## Colour
 
@@ -442,18 +447,31 @@ path per colour.
 
 For me, converting pixelated graphics to SVGs and then manipulating
 them is perfect because it's quick and fun to create a small pixelated
-image and it disguises my lack of proper drawing talent.
+image and it disguises my lack of proper drawing talent. Most of the
+examples in this article started as tiny images, drawn pixel-by-pixel,
+and then converted to SVG for further manipulation (like rotating
+similar cases).
 
 SVG is currently quite underused by web developers. During writing
 this article I was very pleased with what you can do with it. The ease
 of reusing elements from different images is one shiny example: in any
-SVG image, we can take anything from another one provided we gave it
-an `id` attribute. I makes for a very good solution for creating
-resource libraries (sprites). I highly recommend this good read about
-the [`<use>` element on Sara Soueidan's blog] [use].
+SVG image, we can take anything from another one provided it has an
+`id` attribute (so we can reference it). I makes for a very good
+solution for creating resource libraries (sprites). I highly recommend
+a very good article on [use of the `<use>` element on Sara Soueidan's
+blog] [use].
 
-[state]: http://vaughnroyko.com/state-of-nearest-neighbor-interpolation-in-canvas/
+## Further reading
+
+- [State of Nearest-neighbor Interpolation in Canvas] [state]
+- [image-rendering CSS property] [image-rendering]
+- [SVG Fill Properties] [fill]
+- [Structuring, Grouping, and Referencing in SVG – The `<g>`, `<use>`, `<defs>` and `<symbol>` Elements] [use]
+- [SharpVG] [sharpvg]
+
+[State]: http://vaughnroyko.com/state-of-nearest-neighbor-interpolation-in-canvas/
 [sharpvg]: https://github.com/brainshave/sharpvg
 [logo]: http://en.wikipedia.org/wiki/Logo_(programming_language)
 [fill]: http://www.w3.org/TR/SVG/painting.html#FillProperties
 [use]: http://sarasoueidan.com/blog/structuring-grouping-referencing-in-svg/
+[image-rendering]: https://developer.mozilla.org/en/docs/Web/CSS/image-rendering#Browser_compatibility
