@@ -13,7 +13,7 @@ solutions, which are still [not supported by Chrome and IE]
 [image-rendering]).
 
 TLDR: This post describes a simple algorithm that [SharpVG] [sharpvg]
-uses to trace pixel shapes. Accidentally, at the same time we're
+uses to trace pixelated shapes. Accidentally, at the same time we're
 explaining a bit of the SVG's path syntax and how to cut holes in
 shapes with the `nonzero` fill rule.
 
