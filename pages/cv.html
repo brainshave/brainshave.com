@@ -1,14 +1,102 @@
 {
-  "title":    "CV was here",
-  "classes":  "reading light",
-  "template": "article"
+  "title":    "Szymon Witamborski CV",
+  "classes":  "light cv",
+  "template": "article",
+  "history": [{
+    "title": "Cambridge Healthcare",
+    "city": "London, UK",
+    "from": "2013-01-17",
+    "to": "2014-09-13",
+    "desc": "Front-End Development for all devices, testing &amp; debugging services, aiding the design and UX process.",
+    "projects": [{
+      "name": "Personal Health Record",
+      "href": "https://demo.howareyou.com"
+    }, {
+      "name": "How are you? Platform",
+      "href": "https://api.howareyou.com"
+    }],
+    "tools": [
+      "JavaScript", "AngularJS", "NodeJS", "Ruby", "SVG", "Photoshop"
+    ]
+  }, {
+    "title": "DDKF",
+    "city": "Lublin, PL",
+    "from": "2011-12-01",
+    "to": "2012-03-31",
+    "desc": "PHP and Front-End Development",
+    "tools": [
+      "PHP", "Drupal", "JavaScript", "jQuery", "GIMP", "MySQL"
+    ]
+  }, {
+    "title": "eLeader",
+    "city": "Lublin, PL",
+    "from": "2011-09-01",
+    "to": "2011-11-30",
+    "desc": "Android and JEE develpoment",
+    "tools": [
+      "Java", "JSF", "Android", "Glassfish"
+    ]
+  }, {
+    "title": "Master's degree",
+    "city": "UMCS, Lublin, PL"
+  }, {
+    "title": "Bachelor's degree",
+    "city": "UMCS, Lublin, PL"
+  }]
 }
 
-<h1>CV moved</h1>
 
-<p>
-  I maintain my CV
-  at <a href="https://linkedin.com/in/szymonwitamborski">LinkedIn</a>. Various
-  contact info, lists of current projects and blog posts are
-  on <a href="/">my homepage</a>.
-</p>
+<div class="flex">
+  <div class="left">
+    <h1>Szymon Witamborski</h1>
+
+    <p>
+      Summary here
+    </p>
+  </div>
+
+  <figure class="contact meta double">
+    <figcaption>Contact</figcaption>
+
+    {{= it.include("contact", { verbose: true }) }}
+  </figure>
+</div>
+
+{{~it.history :story}}
+
+<h2>
+  {{= story.title }} ({{= story.city }})
+</h2>
+
+<div class="flex">
+  <div class="left">
+    <p class="meta timespan">{{= story.from }} &dash; {{= story.to }}</p>
+
+    <p>{{= story.desc }}</p>
+  </div>
+
+  {{? story.projects && story.projects.length }}
+  <figure class="meta">
+    <figcaption>Projects</figcaption>
+    <ul>
+      {{~story.projects :project }}
+      <li><a href="{{= project.href }}">{{= project.name }}</a></li>
+      {{~}}
+    </ul>
+  </figure>
+  {{?}}
+
+  {{? story.tools && story.tools.length }}
+  <figure class="meta">
+    <figcaption>Tools</figcaption>
+    <ul>
+      {{~story.tools :tool }}
+      <li>{{= tool }}</li>
+      {{~}}
+    </ul>
+  </figure>
+  {{?}}
+
+</div>
+
+{{~}}
