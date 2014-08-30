@@ -1,14 +1,47 @@
+{
+  "items": [{
+    "icon": "brainshave",
+    "title": "Website",
+    "href": "http://brainshave.com",
+    "hide": true
+  }, {
+    "icon": "twitter",
+    "title": "Twitter",
+    "href": "https://twitter.com/brainshave"
+  }, {
+    "icon": "github",
+    "title": "Github",
+    "href": "https://github.com/brainshave"
+  }, {
+    "icon": "npm",
+    "title": "NPM",
+    "href": "https://npmjs.org/~brainshave"
+  }, {
+    "icon": "linkedin",
+    "title": "LinkedIn",
+    "href": "https://linkedin.com/in/szymonwitamborski"
+  }, {
+    "icon": "photos",
+    "title": "500px",
+    "href": "http://500px.com/brainshave"
+  }]
+}
+
+
 <ul class="flat">
   <li><a class="icon mail"
          href="mailto:simon@brainshave.com">simon@brainshave.com</a></li>
-  <li><a class="icon twitter"
-         href="https://twitter.com/brainshave">Twitter</a></li>
-  <li><a class="icon github"
-         href="https://github.com/brainshave">GitHub</a></li>
-  <li><a class="icon npm"
-         href="https://npmjs.org/~brainshave">NPM</a></li>
-  <li><a class="icon linkedin"
-         href="https://linkedin.com/in/szymonwitamborski">LinkedIn</a></li>
-  <li><a class="icon photos"
-         href="http://500px.com/brainshave">500px</a></li>
+  {{~it.items :item}}
+  {{? it.verbose || !item.hide }}
+  <li>
+    <a class="icon {{= item.icon }}" href="{{= item.href }}">
+      {{? it.verbose }}
+      {{= item.href.replace(/https?:\/\//, "") }}
+      {{??}}
+      {{= item.title}}
+      {{?}}
+    </a>
+  </li>
+  {{?}}
+  {{~}}
 </ul>
