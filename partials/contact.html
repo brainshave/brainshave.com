@@ -40,7 +40,7 @@
   <li>
     <a class="icon {{= item.icon }}" href="{{= item.href }}">
       {{? it.verbose }}
-      {{= item.href.replace(/https?:\/\//, "") }}
+      {{= item.href.replace(/https?:\/\//, "").replace(/([^\/]+)\/(.*)/, "$1<span class=\"parenthesis\">/$2</span>") }}
       {{??}}
       {{= item.title}}
       {{?}}

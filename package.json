@@ -8,11 +8,11 @@
     "underscore": "*",
     "uglify-js": "*",
     "less": "*",
-    "broccoli": "0.12",
+    "broccoli": "0.13",
     "broccoli-cli": "*",
     "broccoli-more": "^0.3.0",
     "broccoli-concat": "0.0",
-    "broccoli-zetzer": "^2.0.0",
+    "broccoli-zetzer": "2.0.0",
     "broccoli-dep-filter": "^0.3.0",
     "walk-sync": "0.1",
     "quick-temp": "0.1",
@@ -22,6 +22,7 @@
     "omggif": "1",
     "promise-map-series": "0.2",
     "sharpvg": "^0.5.0",
-    "svgo": "^0.4.5"
+    "svgo": "^0.4.5",
+    "moment": "^2.8.3"
   }
 }
