@@ -12,7 +12,7 @@ h2, h3, h4 {
 h1 {
   font-size: 1.78em;
   line-height: 1.2em;
-  margin: 1em 0 1.23em 0;
+  margin: 1em 0 0.7em 0;
 }
 
 h2 {
@@ -33,6 +33,10 @@ p, ul, ol, pre, dl, figure {
   margin: @font_size 0;
 
   figure & { margin-bottom: 0; }
+}
+
+dt a {
+  font-family: @head_fonts;
 }
 
 p, ul, ol, dl {
@@ -62,7 +66,7 @@ blockquote {
     display: block;
     position: absolute;
     font-style: normal;
-    font-size: 3em;
+    font-size: 2.5em;
     line-height: 1em;
   }
 
@@ -123,10 +127,14 @@ a {
 }
 
 dd, .meta, figcaption {
-  font-size: 0.78em;
+  font-size: 0.68em;
   line-height: 1.5em;
 
   @media print { font-size: 1em; }
+}
+
+.meta figcaption {
+  font-size: inherit;
 }
 
 dd {

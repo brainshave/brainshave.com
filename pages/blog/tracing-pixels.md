@@ -91,52 +91,52 @@ shapes with the `nonzero` fill rule.
 
     <symbol id="move0001wl" viewBox="0 0 27 40">
       <use xlink:href="#move0001" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">h1</text>
+      <text x="4" y="40" class="meta">h1</text>
     </symbol>
 
     <symbol id="move0011wl" viewBox="0 0 27 40">
       <use xlink:href="#move0011" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">h1</text>
+      <text x="4" y="40" class="meta">h1</text>
     </symbol>
 
     <symbol id="move0010wl" viewBox="0 0 27 40">
       <use xlink:href="#move0010" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">v1</text>
+      <text x="4" y="40" class="meta">v1</text>
     </symbol>
 
     <symbol id="move1001wl_right" viewBox="0 0 27 40">
       <use xlink:href="#move1001" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">h1</text>
+      <text x="4" y="40" class="meta">h1</text>
     </symbol>
 
     <symbol id="move1001wl_left" viewBox="0 0 27 40">
       <use xlink:href="#move1001" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">h-1</text>
+      <text x="4" y="40" class="meta">h-1</text>
     </symbol>
 
     <symbol id="move1010wl" viewBox="0 0 27 40">
       <use xlink:href="#move1010" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">v1</text>
+      <text x="4" y="40" class="meta">v1</text>
     </symbol>
 
     <symbol id="move1000wl" viewBox="0 0 27 40">
       <use xlink:href="#move1000" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">h-1</text>
+      <text x="4" y="40" class="meta">h-1</text>
     </symbol>
 
     <symbol id="move0100wl" viewBox="0 0 27 40">
       <use xlink:href="#move0100" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">v-1</text>
+      <text x="4" y="40" class="meta">v-1</text>
     </symbol>
 
     <symbol id="move0101wl" viewBox="0 0 27 40">
       <use xlink:href="#move0101" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">v-1</text>
+      <text x="4" y="40" class="meta">v-1</text>
     </symbol>
 
     <symbol id="move1110wl" viewBox="0 0 27 40">
       <use xlink:href="#move1110" width="27" height="27" y="0" x="0"/>
-      <text x="7" y="40" class="meta">v1</text>
+      <text x="4" y="40" class="meta">v1</text>
     </symbol>
 
     <symbol id="pixel" viewBox="0 0 27 27">
