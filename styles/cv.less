@@ -1,20 +1,28 @@
 @import "defs";
 
 .cv {
+  @threshold: 600px;
+
   p, h1, h2, ul, ol, figure, figcaption {
     margin-top: 0;
     margin-bottom: 0;
   }
 
-  .top {
-    margin-top: 44px;
+  h1 {
+    margin-top: 1em;
+    margin-bottom: 1.2em;
+  }
+
+  h2 {
+    margin-top: 0.5em;
+    margin-bottom: 0.3em;
   }
 
   .summary {
-    margin-top: 0.5em;
+    padding-right: 2em;
   }
 
-  .description, .summary {
+  .description {
     padding-right: 1em;
   }
 
@@ -26,34 +34,45 @@
     text-align: left;
   }
 
-  h2 {
-    margin-bottom: 0.3em;
-  }
-
   .timespan, figcaption {
     margin-bottom: 0.3em;
   }
 
-  .flex {
-    display: flex;
-    display: -webkit-flex;
-  }
-
-  .left {
-    flex-grow: 1;
-    -webkit-flex-grow: 1;
-    padding-bottom: 2em;
-  }
-
   figure.meta {
     .icon { text-transform: none; }
+  }
 
-    min-width: 20%;
-    max-width: 20%;
+  @media (max-width: @threshold) {
+    figure.meta {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  }
 
-    &.double {
-      min-width: 40%;
-      max-width: 40%;
+  @media (min-width: @threshold), print {
+    .flex {
+      display: flex;
+      display: -webkit-flex;
+    }
+
+    .left {
+      flex-grow: 1;
+      -webkit-flex-grow: 1;
+      padding-bottom: 2em;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    figure.meta {
+      min-width: 20%;
+      max-width: 20%;
+
+      &.double {
+        min-width: 40%;
+        max-width: 40%;
+      }
     }
   }
 }

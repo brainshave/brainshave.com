@@ -5,6 +5,10 @@
     "href": "http://brainshave.com",
     "hide": true
   }, {
+    "icon": "mail",
+    "title": "simon@brainshave.com",
+    "href": "mailto:simon@brainshave.com"
+  }, {
     "icon": "twitter",
     "title": "Twitter",
     "href": "https://twitter.com/brainshave"
@@ -33,14 +37,12 @@
 
 
 <ul class="flat">
-  <li><a class="icon mail"
-         href="mailto:simon@brainshave.com">simon@brainshave.com</a></li>
   {{~it.items :item}}
   {{? it.verbose || !item.hide }}
   <li>
     <a class="icon {{= item.icon }}" href="{{= item.href }}">
       {{? it.verbose }}
-      {{= item.href.replace(/https?:\/\//, "").replace(/([^\/]+)\/(.*)/, "$1<span class=\"parenthesis\">/$2</span>") }}
+      {{= item.href.replace(/^https?:\/\//, "").replace(/^mailto:/, "").replace(/([^\/]+)\/(.*)/, "$1<span class=\"parenthesis\">/$2</span>") }}
       {{??}}
       {{= item.title}}
       {{?}}

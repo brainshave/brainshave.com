@@ -4,7 +4,6 @@
   "template": "article",
   "history": [{
     "title": "Open Source",
-    "desc": "My active projects:",
     "projects_promo": [{
       "name": "Ancient Oak",
       "desc": "immutable data trees for JavaScript",
@@ -48,8 +47,12 @@
     "to": "2012-03-31",
     "desc": "PHP and Front-End development",
     "tools": [
-      "Drupal", "GIMP", "MySQL"
-    ]
+      "Drupal", "GIMP", "MySQL", "jQuery"
+    ],
+    "projects": [{
+      "name": "SoundBay",
+      "href": "http://soundbay.pl"
+    }]
   }, {
     "title": "eLeader",
     "city": "Lublin, PL",
@@ -88,11 +91,10 @@
   }]
 }
 
+<h1>Szymon Witamborski</h1>
 
 <div class="flex top">
   <div class="left">
-    <h1>Szymon Witamborski</h1>
-
     <p class="summary">
       Programmer living in London, enjoying low-level and functional programming, in free time a bass in a choir
     </p>
@@ -120,7 +122,9 @@
       {{= it.include("cv_date", { date: story.to }) }}</p>
     {{?}}
 
+    {{? story.desc }}
     <p class="description">{{= story.desc }}</p>
+    {{?}}
 
     {{? story.projects_promo }}
     <ul>

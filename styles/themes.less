@@ -1,8 +1,14 @@
 .b (@anchor, @hover) {
-  &, &:visited { color: @anchor; }
+  &, &:visited {
+    color: @anchor;
+  }
 
   &:hover, &:active {
     color: @hover;
+
+    &.parenthesis, & .parenthesis {
+      color: inherit;
+    }
   }
 }
 
