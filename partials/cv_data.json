@@ -8,7 +8,7 @@
       "href": "https://github.com/brainshave/zetzer"
     }, {
       "name": "Ancient Oak",
-      "desc": "immutable data trees for JavaScript",
+      "desc": "immutable data trees library for JavaScript",
       "href": "https://github.com/brainshave/ancient-oak"
     }, {
       "name": "SharpVG",
@@ -32,7 +32,7 @@
       "name": "Personal Health Record",
       "href": "https://demo.howareyou.com"
     }, {
-      "name": "Developer API",
+      "name": "Developer's API",
       "href": "https://api.howareyou.com"
     }, {
       "name": "Home Page",
@@ -46,7 +46,7 @@
     "city": "Lublin, PL",
     "from": "2011-12-01",
     "to": "2012-03-31",
-    "desc": "PHP and Front-End development of client web sites, adapting Drupal to client's needs",
+    "desc": "Front-End and Back-End development of client web sites, extending Drupal's native capabilities",
     "tools": [
       "Drupal", "GIMP", "MySQL", "jQuery"
     ]
@@ -64,13 +64,13 @@
     "city": "UMCS, Lublin, PL",
     "from": "2010-10-10",
     "to": "2012-06-30",
-    "desc": "Computer Graphics specialisation, dissertation: <em>Dynamic Heterogeneous Cluster</em> with OpenCL and NodeJS",
+    "desc": "Computer Graphics &amp; Multimedia specialisation, dissertation: <em>Dynamic Heterogeneous Cluster</em> with OpenCL and NodeJS",
     "tools": [
       "OpenCL", "NodeJS", "C++"
     ],
     "projects": [{
       "name": "V8CL",
-      "desc": "V8 bindings for OpenCL",
+      "desc": "OpenCL for V8 JavaScript engine",
       "href": "https://github.com/brainshave/v8cl"
     }]
   }, {
@@ -84,7 +84,7 @@
     ],
     "projects": [{
       "name": "GUIFTW",
-      "desc": "declararive GUI framework for Clojure (with Swing and SWT)",
+      "desc": "declarative GUI framework for Clojure with Swing and SWT",
       "href": "https://github.com/brainshave/GUIFTW"
     }]
   }]

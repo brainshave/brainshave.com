@@ -136,6 +136,10 @@ dd, .meta, figcaption {
   @media print { font-size: 1em; }
 }
 
+.meta figcaption {
+  font-size: inherit;
+}
+
 dd {
   margin: 0 0 @margin 0;
 }
@@ -160,6 +164,7 @@ article {
       list-style: none;
       position: relative;
       margin-left: 24px;
+      @media print { margin-left: 15px; }
 
       &:before {
         position: absolute;
@@ -167,6 +172,7 @@ article {
         right: 100%;
         white-space: pre;
         color: #999;
+        @media print { color: black; }
         display: block;
         text-align: right;
       }

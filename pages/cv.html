@@ -43,13 +43,13 @@
     {{?}}
 
     {{? story.projects }}
-    <ul class="projects {{? !story.big_projects }} meta{{?}}">
+    <ul class="projects {{? !story.big_projects }}{{?}}">
       {{~story.projects :project}}
       <li>
         <a href="{{= project.href}}">{{= project.name }}</a>{{? project.desc }},
         {{= project.desc }}{{?}}
-<span class="in_print meta">{{? story.big_projects }}<br>{{??}},{{?}}
-          <a href="{{= project.href }}">
+<span class="in_print">{{? story.big_projects }}<br>{{??}},{{?}}
+          <a class="meta" href="{{= project.href }}">
             {{= project.href.replace(/https?:\/\//, "") }}
           </a>
         </span>
