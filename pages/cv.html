@@ -1,94 +1,7 @@
 {
   "title":    "Szymon Witamborski CV",
   "classes":  "light cv",
-  "template": "article",
-  "history": [{
-    "title": "Open Source",
-    "projects_promo": [{
-      "name": "Ancient Oak",
-      "desc": "immutable data trees for JavaScript",
-      "href": "https://github.com/brainshave/ancient-oak"
-    }, {
-      "name": "Zetzer",
-      "desc": "HTML templating with doT and Markdown for Grunt and Broccoli",
-      "href": "https://github.com/brainshave/zetzer"
-    }, {
-      "name": "SharpVG",
-      "desc": "converts bitmaps to beautifully pixelated SVGs",
-      "href": "https://github.com/brainshave/sharpvg"
-    }, {
-      "name": "broccoli-dep-filter",
-      "desc": "batch file processing with multifile dependency tracking for Broccoli",
-      "href": "https://github.com/brainshave/broccoli-dep-filter"
-    }],
-    "tools": [
-      "NodeJS", "SVG", "Broccoli", "Grunt"
-    ]
-  }, {
-    "title": "Cambridge Healthcare",
-    "city": "London, UK",
-    "from": "2013-01-17",
-    "to": "2014-09-13",
-    "desc": "Front-End Development for all devices, testing &amp; debugging services, aiding design and UX",
-    "projects": [{
-      "name": "Personal Health Record",
-      "href": "https://demo.howareyou.com"
-    }, {
-      "name": "How are you? Platform",
-      "href": "https://api.howareyou.com"
-    }],
-    "tools": [
-      "AngularJS", "NodeJS", "Ruby", "SVG", "Photoshop", "Grunt"
-    ]
-  }, {
-    "title": "DDKF",
-    "city": "Lublin, PL",
-    "from": "2011-12-01",
-    "to": "2012-03-31",
-    "desc": "PHP and Front-End development",
-    "tools": [
-      "Drupal", "GIMP", "MySQL", "jQuery"
-    ],
-    "projects": [{
-      "name": "SoundBay",
-      "href": "http://soundbay.pl"
-    }]
-  }, {
-    "title": "eLeader",
-    "city": "Lublin, PL",
-    "from": "2011-09-01",
-    "to": "2011-11-30",
-    "desc": "Android and JEE development",
-    "tools": [
-      "JSF", "Android", "Glassfish"
-    ]
-  }, {
-    "title": "Master's degree",
-    "city": "UMCS, Lublin, PL",
-    "from": "2010-10-10",
-    "to": "2012-06-30",
-    "desc": "Created V8 bindings for OpenCL as a part of the dissertation (NodeJS/OpenCL computational cluster), Computer Graphics specialisation",
-    "tools": [
-      "OpenCL", "NodeJS", "C++"
-    ],
-    "projects": [{
-      "name": "V8CL",
-      "href": "https://github.com/brainshave/v8cl"
-    }]
-  }, {
-    "title": "Bachelor's degree",
-    "city": "UMCS, Lublin, PL",
-    "from": "2007-10-01",
-    "to": "2010-06-30",
-    "desc": "Dissertation included a declarative GUI framework for Clojure (with Swing & SWT)",
-    "tools": [
-      "Clojure", "Swing", "SWT"
-    ],
-    "projects": [{
-      "name": "GUIFTW",
-      "href": "https://github.com/brainshave/GUIFTW"
-    }]
-  }]
+  "template": "article"
 }
 
 <h1>Szymon Witamborski</h1>
@@ -96,7 +9,10 @@
 <div class="flex top">
   <div class="left">
     <p class="summary">
-      Programmer living in London, enjoying low-level and functional programming, in free time a bass in a choir
+      Programmer living in London, enjoying low-level and functional
+      programming, helping building useful stuff on the Web. In spare
+      time bass in a choir and photographer. Fluent in Polish and
+      English.
     </p>
   </div>
 
@@ -107,7 +23,7 @@
   </figure>
 </div>
 
-{{~it.history :story}}
+{{~it.include("cv_data").history :story}}
 
 <h2>
   {{= story.title }} {{? story.city }}({{= story.city }}){{?}}
@@ -126,21 +42,34 @@
     <p class="description">{{= story.desc }}</p>
     {{?}}
 
-    {{? story.projects_promo }}
-    <ul>
-      {{~story.projects_promo :project}}
-      <li><a href="{{= project.href}}">{{= project.name }}</a>, {{= project.desc }}</li>
+    {{? story.projects }}
+    <ul class="projects {{? !story.big_projects }} meta{{?}}">
+      {{~story.projects :project}}
+      <li>
+        <a href="{{= project.href}}">{{= project.name }}</a>{{? project.desc }},
+        {{= project.desc }}{{?}}
+<span class="in_print meta">{{? story.big_projects }}<br>{{??}},{{?}}
+          <a href="{{= project.href }}">
+            {{= project.href.replace(/https?:\/\//, "") }}
+          </a>
+        </span>
+      </li>
       {{~}}
     </ul>
     {{?}}
   </div>
 
-  {{? story.projects && story.projects.length }}
+  {{? false && story.projects && story.projects.length }}
   <figure class="meta">
     <figcaption>projects</figcaption>
     <ul>
       {{~story.projects :project }}
-      <li><a href="{{= project.href }}">{{= project.name }}</a></li>
+      <li>
+        <a href="{{= project.href }}">
+          {{= project.name }}
+          <span class="in_print"><br>{{= project.href.replace(/https?:\/\//, "") }}</span>
+        </a>
+      </li>
       {{~}}
     </ul>
   </figure>
