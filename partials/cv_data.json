@@ -36,7 +36,7 @@
       "href": "https://api.howareyou.com"
     }, {
       "name": "Home Page",
-      "href": "https://en-gb.howareyou.com"
+      "href": "https://www.howareyou.com"
     }],
     "tools": [
       "AngularJS", "NodeJS", "Ruby", "SVG", "Photoshop", "Grunt"
