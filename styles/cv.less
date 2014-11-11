@@ -16,9 +16,13 @@
     }
   }
 
+  .story {
+    position: relative;
+  }
+
   h2 {
-    margin-top: 0.5em;
-    margin-bottom: 0.3em;
+    margin-top: 0.45em;
+    margin-bottom: 0.25em;
   }
 
   .summary {
@@ -39,7 +43,7 @@
   }
 
   .timespan, figcaption {
-    margin-bottom: 0.3em;
+    margin-bottom: 0.1em;
   }
 
   figure.meta {
@@ -47,7 +51,11 @@
   }
 
   .projects {
-    margin-top: 0.5em;
+    margin-top: 0.1em;
+
+    &:first-child {
+      margin-top: 0;
+    }
 
     &.smaller {
       font-size: 0.8em;
@@ -57,13 +65,26 @@
 
   @media (max-width: @threshold) {
     figure.meta {
-      margin-top: 1em;
+      margin-top: 0.2em;
       margin-bottom: 1em;
     }
   }
 
   @media (min-width: @threshold), print {
+    h1 {
+      text-align: center;
+    }
+
+    h2, .timespan {
+      display: inline;
+    }
+
+    .timespan {
+      padding-left: 0.4em;
+    }
+
     .flex {
+      margin-top: 0.1em;
       display: flex;
       display: -webkit-flex;
     }
@@ -71,11 +92,11 @@
     .left {
       flex-grow: 1;
       -webkit-flex-grow: 1;
-      padding-bottom: 2em;
+      padding-bottom: 1.3em;
     }
 
-    h1 {
-      text-align: center;
+    figcaption {
+      display: none;
     }
 
     figure.meta {

@@ -11,7 +11,7 @@
     <p class="summary">
       Programmer living in London, enjoying low-level and functional
       programming, helping building useful stuff on the Web. In spare
-      time bass in a choir and photographer. Fluent in Polish and
+      time a bass in a choir and a photographer. Fluent in Polish and
       English.
     </p>
   </div>
@@ -25,67 +25,69 @@
 
 {{~it.include("cv_data").history :story}}
 
-<h2>
-  {{= story.title }} {{? story.city }}({{= story.city }}){{?}}
-</h2>
+<div class="story">
+  <h2>
+    {{= story.title }}
+  </h2>
 
-<div class="flex">
-  <div class="left">
-    {{? story.from && story.to }}
-    <p class="meta timespan">
-      {{= it.include("cv_date", { date: story.from }) }}
-      &dash;
-      {{= it.include("cv_date", { date: story.to }) }}</p>
+  <p class="meta timespan">
+    {{= story.city }}{{? story.from && story.to }},
+    {{= it.include("cv_date", { date: story.from }) }}
+    &dash;
+    {{= it.include("cv_date", { date: story.to }) }}
     {{?}}
+  </p>
 
-    {{? story.desc }}
-    <p class="description">{{= story.desc }}</p>
-    {{?}}
+  <div class="flex">
+    <div class="left">
+      {{? story.desc }}
+      <p class="description">{{= story.desc }}</p>
+      {{?}}
 
-    {{? story.projects }}
-    <ul class="projects {{? !story.big_projects }}{{?}}">
-      {{~story.projects :project}}
-      <li>
-        <a href="{{= project.href}}">{{= project.name }}</a>{{? project.desc }},
-        {{= project.desc }}{{?}}
-<span class="in_print">{{? story.big_projects }}<br>{{??}},{{?}}
-          <a class="meta" href="{{= project.href }}">
-            {{= project.href.replace(/https?:\/\//, "") }}
+      {{? story.projects }}
+      <ul class="projects {{? !story.big_projects }}{{?}}">
+        {{~story.projects :project}}
+        <li>
+          <a href="{{= project.href}}">{{= project.name }}</a>{{? project.desc }}
+          {{= project.desc }}{{?}}{{? !story.big_projects }}<span class="in_print">,
+            <a class="meta" href="{{= project.href }}">
+              {{= project.href.replace(/https?:\/\//, "") }}
+            </a>
+          </span>
+          {{?}}
+        </li>
+        {{~}}
+      </ul>
+      {{?}}
+    </div>
+
+    {{? false && story.projects && story.projects.length }}
+    <figure class="meta">
+      <figcaption>projects</figcaption>
+      <ul>
+        {{~story.projects :project }}
+        <li>
+          <a href="{{= project.href }}">
+            {{= project.name }}
+            <span class="in_print"><br>{{= project.href.replace(/https?:\/\//, "") }}</span>
           </a>
-        </span>
-      </li>
-      {{~}}
-    </ul>
+        </li>
+        {{~}}
+      </ul>
+    </figure>
+    {{?}}
+
+    {{? story.tools && story.tools.length }}
+    <figure class="meta">
+      <figcaption>tools</figcaption>
+      <ul>
+        {{~story.tools :tool }}
+        <li>{{= tool }}</li>
+        {{~}}
+      </ul>
+    </figure>
     {{?}}
   </div>
-
-  {{? false && story.projects && story.projects.length }}
-  <figure class="meta">
-    <figcaption>projects</figcaption>
-    <ul>
-      {{~story.projects :project }}
-      <li>
-        <a href="{{= project.href }}">
-          {{= project.name }}
-          <span class="in_print"><br>{{= project.href.replace(/https?:\/\//, "") }}</span>
-        </a>
-      </li>
-      {{~}}
-    </ul>
-  </figure>
-  {{?}}
-
-  {{? story.tools && story.tools.length }}
-  <figure class="meta">
-    <figcaption>tools</figcaption>
-    <ul>
-      {{~story.tools :tool }}
-      <li>{{= tool }}</li>
-      {{~}}
-    </ul>
-  </figure>
-  {{?}}
-
 </div>
 
 {{~}}
