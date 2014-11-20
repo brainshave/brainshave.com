@@ -4,8 +4,8 @@ var mds_w_headers = require("./lib/mds_w_headers");
 var indexes = require("./lib/indexes");
 var beauty = require("./lib/beauty");
 var atom = require("./lib/atom");
-var merge = require("./lib/copy");
 
+var merge = require("broccoli-copy");
 var zetzer = require("broccoli-zetzer");
 var less = require("broccoli-more");
 var concat = require("broccoli-concat");
