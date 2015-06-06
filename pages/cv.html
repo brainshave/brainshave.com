@@ -10,9 +10,8 @@
   <div class="left">
     <p class="summary">
       Programmer living in London, enjoying low-level and functional
-      programming, helping building useful stuff on the Web. In spare
-      time a bass in a choir and a photographer. Fluent in Polish and
-      English.
+      programming, helping building useful stuff on the Web. Fluent
+      in Polish and English.
     </p>
   </div>
 
@@ -48,7 +47,7 @@
       <ul class="projects {{? !story.big_projects }}{{?}}">
         {{~story.projects :project}}
         <li>
-          <a href="{{= project.href}}">{{= project.name }}</a>{{? project.desc }}
+          <a href="{{= project.href}}">{{= project.name }}</a>{{? project.desc }}:
           {{= project.desc }}{{?}}{{? !story.big_projects }}<span class="in_print">,
             <a class="meta" href="{{= project.href }}">
               {{= project.href.replace(/https?:\/\//, "") }}

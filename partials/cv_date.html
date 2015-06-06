@@ -1,3 +1,7 @@
 {{ var date = it.moment(it.date); }}
 
+{{? date.isValid() }}
 <time datetime="{{= it.date}}">{{= date.format("MMMM YYYY") }}</time>
+{{??}}
+{{= it.date }}
+{{?}}

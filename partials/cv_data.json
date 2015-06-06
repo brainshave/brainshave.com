@@ -24,42 +24,28 @@
       "NodeJS", "SVG", "Broccoli", "Grunt", "TDD"
     ]
   }, {
+    "title": "TalkTalk",
+    "city": "London UK",
+    "from": "2014-12-08",
+    "to": "now",
+    "desc": "Senior Front-End Developer, helping to guide the team of on-site and off-shore developers through code reviews and mentoring, managing deployment of applications to app stores, writing tools to automate workflows",
+    "tools": [
+      "JavaScript", "Cordova", "Ionic", "AngularJS", "MongoDB", "NodeJS",
+      "Sass", "SVG"
+    ]
+  }, {
     "title": "Cambridge Healthcare",
     "city": "London UK",
     "from": "2013-01-17",
     "to": "2014-09-13",
-    "desc": "Front-End development for all devices with responsive design and resolution-independent vector graphics, testing and debugging Back-End services, aiding graphical and UX design, writing NodeJS &amp; Grunt-based tools",
+    "desc": "Front-End development for all devices with responsive design and resolution-independent vector graphics, testing and debugging Back-End services, aiding graphical and UX design, writing NodeJS &amp; Grunt-based automation tools",
     "projects": [{
-      "name": "Personal Health Record",
-      "href": "https://demo.howareyou.com"
-    }, {
-      "name": "Developer's API",
-      "href": "https://api.howareyou.com"
-    }, {
-      "name": "Home Page",
-      "href": "https://www.howareyou.com"
+      "name": "Health Analytics Demo",
+      "href": "http://analytics.howareyou.com"
     }],
     "tools": [
       "JavaScript", "AngularJS", "NodeJS", "Grunt", "Ruby", "SVG",
       "Photoshop", "Illustrator", "Scrum/Kanban", "BDD+TDD"
-    ]
-  }, {
-    "title": "DDKF",
-    "city": "Lublin PL",
-    "from": "2011-12-01",
-    "to": "2012-03-31",
-    "desc": "Front-End and Back-End development of client web sites, extending Drupal's native capabilities",
-    "tools": [
-      "PHP", "Drupal", "JavaScript", "GIMP", "MySQL", "jQuery"
-    ]
-  }, {
-    "title": "eLeader",
-    "city": "Lublin PL",
-    "from": "2011-09-01",
-    "to": "2011-11-30",
-    "desc": "Android and JEE development of a merchant platform",
-    "tools": [
-      "JSF", "Android", "Glassfish", "Scrum"
     ]
   }, {
     "title": "Master's degree",
@@ -75,6 +61,28 @@
       "desc": "OpenCL for V8 JavaScript engine",
       "href": "https://github.com/brainshave/v8cl"
     }]
+  }, {
+    "title": "DDKF",
+    "city": "Lublin PL",
+    "from": "2011-12-01",
+    "to": "2012-03-31",
+    "desc": "Front-End and Back-End development of client web sites, extending Drupal's native capabilities",
+    "projects": [{
+      "name": "SoundBay",
+      "href": "http://soundbay.pl"
+    }],
+    "tools": [
+      "PHP", "Drupal", "JavaScript", "GIMP", "MySQL", "jQuery"
+    ]
+  }, {
+    "title": "eLeader",
+    "city": "Lublin PL",
+    "from": "2011-09-01",
+    "to": "2011-11-30",
+    "desc": "Android and JEE development of a merchant platform",
+    "tools": [
+      "JSF", "Android", "Glassfish", "Scrum"
+    ]
   }, {
     "title": "Bachelor's degree",
     "city": "UMCS, Lublin PL",
