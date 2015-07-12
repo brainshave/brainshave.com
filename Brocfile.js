@@ -30,8 +30,7 @@ var partials = merge([
 var pages = beauty([zetzer({
   pages:     input_pages,
   partials:  partials,
-  templates: "templates"
-}, {
+  templates: "templates",
   env: {
     moment: require("moment")
   }
