@@ -1,76 +1,61 @@
 @import "defs";
 
 #top {
-  position: relative;
-  line-height: 30px;
-  white-space: nowrap;
+  display: block;
+  font-size: 0.78em;
 
-  .icon {
-    display: block;
+  ul, li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
   }
 
-  .ie78 & {
-    height: 90px;
+  li {
+    display: inline-block;
+    min-width: 33%;
+    text-align: center;
+  }
 
-    .group {
-      position: absolute;
-      top: 0;
+  @media (min-width: 400px) {
+    ul {
+      display: -webkit-flex;
+      display: flex;
     }
 
-    .left {
-      left: 16px;
-      right: 50%;
-      margin-right: 4px;
-    }
+    li {
+      -webkit-flex-grow: 0.5;
+      flex-grow: 0.5;
+      min-width: 0;
+      max-width: 90px;
 
-    .right {
-      left: 50%;
-      margin-left: 4px;
-      right: 16px;
-      text-align: right;
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3) {
+        text-align: left;
+      }
 
-      .icon {
-        background-position: center right;
-        padding: 0 20px 0 0;
+      &:nth-child(4),
+      &:nth-child(5),
+      &:nth-child(6) {
+        text-align: right;
+      }
+
+
+      &:nth-child(3),
+      &:nth-child(4) {
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
+        max-width: 100%;
       }
     }
   }
 
-  @media (min-width: 320px) {
-    font-size: 0;
-    line-height: 0;
-    height: 30px;
-
-    .group {
-      position: absolute;
-      top: 0;
-    }
-
-    .left {
-      left: 16px;
-      right: 50%;
-    }
-
-    .right {
-      right: 16px;
-      left: 50%;
-      text-align: right;
-
-      .icon {
-        background-position: right center;
-      }
-    }
-
-    .icon {
-      padding: 0;
-      display: inline-block;
-      width: 48px;
-      height: 30px;
-    }
-
-    .left .icon:last-child,
-    .right .icon:first-child {
-      width: 40px;
-    }
+  a {
+    display: inline-block;
+    padding: 34px 0 0 0;
+    background-position: top center;
+    min-height: 0;
+    min-width: 42px;
+    text-align: center;
   }
 }

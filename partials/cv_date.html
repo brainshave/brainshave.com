@@ -1,4 +1,4 @@
-{{ var date = it.moment(it.date); }}
+{{ var date = it.moment(new Date(it.date)); }}
 
 {{? date.isValid() }}
 <time datetime="{{= it.date}}">{{= date.format("MMMM YYYY") }}</time>
