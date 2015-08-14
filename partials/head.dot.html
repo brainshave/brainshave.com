@@ -1,12 +1,9 @@
-<head>
+<head data-load-modules="szywon.fonts">
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1.0">
   <title>{{! it.title }}</title>
 
   <link rel="stylesheet" type="text/css" href="/all.css">
-
-  <link href="http://fonts.googleapis.com/css?family=Anonymous+Pro:400,400italic,700,700italic|Libre+Baskerville:400,400italic,700|Abril+Fatface&subset=latin,latin-ext"
-        rel="stylesheet" type="text/css">
 
   <link rel="shortcut icon" type="image/x-icon" href="/icons/favicon.ico">
   <link rel="icon" type="image/x-icon" href="/icons/favicon.ico">
@@ -20,6 +17,10 @@
       <script>document.documentElement.className += " ie78 ie8";</script>
       <![endif]-->
 
+  <!--[if lte IE 9]>
+      <script>document.documentElement.className += " ie789 ie9";</script>
+      <![endif]-->
+
   <script>
     if (!document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Shape", "1.1")) {
     document.documentElement.className += " no_svg";
@@ -29,4 +30,25 @@
     for (var i = 0; i < elements.length; ++i) document.createElement(elements[i]);
     })();
   </script>
+
+  <script>
+    (function () {
+    var source = localStorage && localStorage.getItem("/fonts/fonts_inlined.css");
+
+    if (!source) return;
+    var style;
+
+    if (document.createStyleSheet) {
+      style = document.createStyleSheet();
+      style.cssText = source;
+    } else {
+      style = document.createElement("style");
+      style.innerHTML = source;
+      document.head.appendChild(style);
+    }
+
+    })();
+  </script>
+
+  {{= it.include("scripts") }}
 </head>

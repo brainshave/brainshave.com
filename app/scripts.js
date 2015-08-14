@@ -4,7 +4,7 @@ ns('szywon.scripts', function () {
   this.add = add;
 
   function extra_scripts () {
-    return document.getElementById('extra-scripts');
+    return document.head;
   }
 
   function add (url) {

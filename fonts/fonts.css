@@ -1,0 +1,34 @@
+@font-face {
+  font-family: 'AbrilFF';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/abril400.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'AnonPro';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/anon400.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'LibBask';
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/bask400.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'LibBask';
+  font-style: normal;
+  font-weight: 700;
+  src: url(/fonts/bask700.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'LibBask';
+  font-style: italic;
+  font-weight: 400;
+  src: url(/fonts/bask400i.woff) format('woff');
+}

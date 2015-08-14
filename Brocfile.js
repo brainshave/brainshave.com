@@ -52,6 +52,10 @@ var demos = merge(["demo"], {
   dest_dir: "demo"
 });
 
+var fonts = merge(["fonts"], {
+  dest_dir: "fonts"
+});
+
 var cname = merge(["resources"], {
   filter: /^CNAME$/
 });
@@ -69,5 +73,5 @@ var js = concat("app", {
   outputFile: "/all.js"
 });
 
-module.exports = merge([css, js, pages, atoms,
+module.exports = merge([css, js, pages, atoms, fonts,
                         images, icons, cname, demos]);

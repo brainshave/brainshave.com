@@ -100,6 +100,9 @@ function use (path) {
 }
 
 function main (fn) {
-  // TODO: do the proper DOMContentLoaded here:
-  setTimeout(fn, 0);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", fn);
+  } else {
+    setTimeout(fn, 0);
+  };
 }
