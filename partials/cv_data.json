@@ -24,10 +24,17 @@
       "NodeJS", "SVG", "Broccoli", "Grunt", "TDD"
     ]
   }, {
-    "title": "TalkTalk",
-    "city": "London UK",
-    "from": "2014-12-08",
+    "title": "iKnow",
+    "city": "Tokyo",
+    "from": "2016-06-10",
     "to": "now",
+    "desc": "Developer :D",
+    "tools": [ "React", "Aphrodite" ]
+  }, {
+    "title": "TalkTalk",
+    "city": "London",
+    "from": "2014-12-08",
+    "to": "2016-05-31",
     "desc": "Senior Front-End Developer, helping to guide the team of on-site and off-shore developers through code reviews and mentoring, managing deployment of applications to app stores, writing tools to automate workflows",
     "tools": [
       "JavaScript", "Cordova", "Ionic", "AngularJS", "MongoDB", "NodeJS",
@@ -35,7 +42,7 @@
     ]
   }, {
     "title": "Cambridge Healthcare",
-    "city": "London UK",
+    "city": "London",
     "from": "2013-01-17",
     "to": "2014-09-13",
     "desc": "Front-End development for all devices with responsive design and resolution-independent vector graphics, testing and debugging Back-End services, aiding graphical and UX design, writing NodeJS &amp; Grunt-based automation tools",
