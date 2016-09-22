@@ -29,7 +29,7 @@
     "from": "2016-06-10",
     "to": "now",
     "desc": "Developer :D",
-    "tools": [ "React", "Aphrodite" ]
+    "tools": [ "React", "Redux", "Aphrodite" ]
   }, {
     "title": "TalkTalk",
     "city": "London",
