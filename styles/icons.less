@@ -3,7 +3,14 @@
   background-position: left center;
   padding-left: 20px;
   text-decoration: none;
+
+  &.right {
+    padding-left: 0;
+    padding-right: 20px;
+    background-position: right center;
+  }
 }
+
 
 .icon_size (@n) {
   @w: (@n * 16px);
@@ -13,6 +20,11 @@
     background-size: @w @h;
     padding-left: (@w + 4px);
     min-height: @h;
+
+    &.right {
+      padding-left: 0;
+      padding-right: (@w + 4px);
+    }
 
     .ie78 & {
       min-height: none;

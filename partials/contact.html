@@ -31,12 +31,13 @@
   }, {
     "icon": "linkedin",
     "title": "LinkedIn",
-    "href": "https://linkedin.com/in/szymonwitamborski"
+    "href": "https://linkedin.com/in/szymonwitamborski",
+    "hide": true
   }]
 }
 
 
-<ul class="flat">
+<ul class="flat pre">
   {{~it.items :item}}
   {{? it.verbose || !item.hide }}
   <li>
