@@ -1,4 +1,4 @@
-<head data-load-modules="szywon.fonts">
+<head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1.0">
   <title>{{! it.title }}</title>
@@ -30,25 +30,5 @@
     for (var i = 0; i < elements.length; ++i) document.createElement(elements[i]);
     })();
   </script>
-
-  <script>
-    (function () {
-    var source = localStorage && localStorage.getItem("/fonts/fonts_inlined.css");
-
-    if (!source) return;
-    var style;
-
-    if (document.createStyleSheet) {
-      style = document.createStyleSheet();
-      style.cssText = source;
-    } else {
-      style = document.createElement("style");
-      style.innerHTML = source;
-      document.head.appendChild(style);
-    }
-
-    })();
-  </script>
-
   <script src="/all.js" async defer></script>
 </head>
