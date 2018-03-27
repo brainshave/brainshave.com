@@ -15,7 +15,7 @@ var indexes = indexes(input_pages_w_headers, { template: "list" });
 
 var root_pages = merge(["pages"], {
   filter: function (path) {
-    return /^[^\/]+$/.test(path);
+    return /^[^\/]+(\/index\.(md|html))?$/.test(path);
   }
 });
 
